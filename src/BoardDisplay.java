@@ -22,9 +22,18 @@ public class BoardDisplay
 	
 	public String toString(int i)
 	{
+		String index = "";
+		if(i <= 9)
+		{
+			index = "0" + i;
+		}
+		else
+		{
+			index = ""+ i;
+		}
 		return ("+-----------------------+\n"
-				+ "|"+ i +"\t\t\t|\n"
-				+ "|"+ tiles[i] + "\t\t\t|\n"
+				+ "| "+ index + ": "+ tiles[i] +" \t\t|\n"
+				+ "|\t\t\t|\n"
 				+ "|\t\t\t|\n"
 				+ "|\t\t\t|\n"
 				+ "+-----------------------+");
