@@ -11,12 +11,23 @@ public class BoardDisplay
 		new BoardDisplay();
 	}
 	
+	
 	public BoardDisplay()
 	{
 		for(int i = 0 ; i < tiles.length ; i++)
 		{
-			System.out.println("" + i + ": " + tiles[i]);
+			System.out.println(toString(i));
 		}
+	}
+	
+	public String toString(int i)
+	{
+		return ("+-----------------------+\n"
+				+ "|"+ i +"\t\t\t|\n"
+				+ "|"+ tiles[i] + "\t\t\t|\n"
+				+ "|\t\t\t|\n"
+				+ "|\t\t\t|\n"
+				+ "+-----------------------+");
 	}
 	
 	public String getTile(int i)
