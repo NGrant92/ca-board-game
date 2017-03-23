@@ -79,7 +79,6 @@ public class Player
 		System.out.println(player1.getSkipTurn()); // Print out new flag state - test getSkipTurn
 
 		System.out.println(player1.toString()); // Final Test using toString method
-	}
 
 	//================================
 	// Getters for the Player Class
@@ -202,5 +201,34 @@ public class Player
 		return "Player: " + playerName + "\tPosition: " + getPosition() + "\tNo of Carrots: " + getNoOfCarrots()
 				+ "\tNo of Lettuce: " + getNoOfLettuce() + "\tSkip Turn: " + getSkipTurn();
 
+	}
+
+	/**
+	 * Method to add carrots. Used for when carrots are obtained from say number square or carrot patch
+	 *
+	 * @param amount Amount of carrots to add
+	 */
+	public void addCarrots(int amount)
+	{
+		noOfCarrots += amount;
+	}
+
+
+	/**
+	 * Method to remove carrots. Used for when carrots are removed for say when player moves
+	 *
+	 * @param amount Amount of carrots to remove
+	 */
+	public void removeCarrots(int amount)
+	{
+		noOfCarrots -= amount;
+	}
+
+	/**
+	 * Method to remove lettuce. Lettuce is only decremented by 1. Used for when player lands on lettuce square
+	 */
+	public void removeLettuce()
+	{
+		noOfLettuce--;
 	}
 }
