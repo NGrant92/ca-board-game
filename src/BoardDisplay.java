@@ -41,15 +41,16 @@ public class BoardDisplay
 	}
 	/*
 	 * Requires an integer argument for the method to be called
-	 * @param if this adds a 0 to the number if i is less than 10
-	 * @param return returns the 'box' style with text inside the box
-	 * 		  this text is called from the tiles array
+	 * which is used to select the index of the array
 	 */
 	public String toString(int i)
 	{
+		/*
+		 * if statement checks if "i" is below 10 if i < 10
+		 * it will add a 0 to the number,
+		 * eg: 1 will become 01.
+		 */
 		String index = "";
-		String spaces = "";
-		String textLine = "| "+ index + ": "+ tiles[i] +"|\n";
 		
 		if(i <= 9)
 		{
@@ -59,12 +60,27 @@ public class BoardDisplay
 		{
 			index = ""+ i;
 		}
-		return ("+-----------------------+\n"
-				+ "| "+ index + ": "+ tiles[i] +" \t\t|\n"
-				+ "|\t\t\t|\n"
-				+ "|\t\t\t|\n"
-				+ "|\t\t\t|\n"
-				+ "+-----------------------+");
+		
+		/*
+		 * The left and right sides of the box are separated by a number of spaces.
+		 * The length of the line that has the tile number and type will vary 
+		 * due to different words having different lengths.
+		 * 
+		 * I have coded it so the length of the text is measured against a specific number(13)
+		 * and that difference will truncate a string full of 13 spaces down to the
+		 * required length
+		 */
+		String spaces = "              "; //a string containing 13 spaces which will be truncated later
+		String textLine = index + ": "+ tiles[i];//the total length of this string will help
+												 //decide the required spaces to be added
+
+		//the text line and the required spaces are added to the return statement
+		return ("+--------------+\n"
+				//spaces.substring(0, length difference)
+				+ "| "+ textLine + spaces.substring(0, ((spaces.length() - textLine.length()) - 1)) + "|\n"  
+				+ "|" + spaces + "|\n" 			  
+				+ "|" + spaces + "|\n"
+				+ "+--------------+");
 	}
 	
 	/*
