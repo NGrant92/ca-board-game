@@ -13,6 +13,9 @@ import java.util.Scanner; // Only used to test are setter methods working - remo
  * @author Keelan Murphy
  * @version 2017.03.22
  *
+ * TODO Add a addCarrots and removeCarrots method
+ * TODO Remove main method
+ * TODO Add a remove lettuce method
  */
 public class Player 
 {
