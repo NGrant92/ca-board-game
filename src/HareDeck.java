@@ -39,15 +39,9 @@ public class HareDeck {
    * TODO For testing purposes, remove when tested
    */
   public void printDeck() {
-    System.out.println(dealCard().getTitle());
-    System.out.println(dealCard().getTitle());
-    System.out.println(dealCard().getTitle());
-    System.out.println(dealCard().getTitle());
-    System.out.println(dealCard().getTitle());
-    System.out.println(dealCard().getTitle());
-    System.out.println(dealCard().getTitle());
-    System.out.println(dealCard().getTitle());
-    System.out.println(dealCard().getTitle());
+    for (int i = 0; i < deck.size(); i++) {
+      System.out.println(deck.get(i).getTitle());
+    }
   }
   
   /**
