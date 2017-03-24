@@ -30,7 +30,7 @@ public class MenuController
   }
   
   public MenuController(){
-    input = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);
     runMenu();
   }
   

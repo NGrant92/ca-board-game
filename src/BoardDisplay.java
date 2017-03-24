@@ -48,6 +48,9 @@ public class BoardDisplay
 	public String toString(int i)
 	{
 		String index = "";
+		String spaces = "";
+		String textLine = "| "+ index + ": "+ tiles[i] +"|\n";
+		
 		if(i <= 9)
 		{
 			index = "0" + i;
