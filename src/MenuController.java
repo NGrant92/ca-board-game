@@ -22,29 +22,18 @@ import java.util.Scanner;
  * @author Keelan Murphy
  * @version 2017.03.21
  */
-import java.util.Scanner;
+
 public class MenuController
 {
-<<<<<<< HEAD
+
+	
   public static void main(String[] args)
   {
     new MenuController();
   }
   
   public MenuController(){
-  }
-}
-  
-
-=======
-
-  public static void main(String[] args)
-  {
-    new MenuController();
-  }
-  
-  public MenuController(){
-    input = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);
     runMenu();
   }
   

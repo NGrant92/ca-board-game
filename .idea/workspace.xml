@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0825276a-4363-4aff-ae51-966f62757f47" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ca-board-game/MenuController.class" afterPath="$PROJECT_DIR$/out/production/ca-board-game/MenuController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ca-board-game/Player.class" afterPath="$PROJECT_DIR$/out/production/ca-board-game/Player.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Card.java" afterPath="$PROJECT_DIR$/src/Card.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HareDeck.java" afterPath="$PROJECT_DIR$/src/HareDeck.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MenuController.java" afterPath="$PROJECT_DIR$/src/MenuController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Player.java" afterPath="$PROJECT_DIR$/src/Player.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,11 +18,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="MenuController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MenuController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MenuController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="577">
-              <caret line="32" column="3" lean-forward="false" selection-start-line="32" selection-start-column="3" selection-end-line="32" selection-end-column="3" />
+            <state relative-caret-position="175">
+              <caret line="34" column="3" lean-forward="false" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -37,7 +41,7 @@
       <file leaf-file-name="HareDeck.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/HareDeck.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
+            <state relative-caret-position="550">
               <caret line="24" column="70" lean-forward="false" selection-start-line="24" selection-start-column="70" selection-end-line="24" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -72,6 +76,7 @@
         <option value="$PROJECT_DIR$/src/HareDeck.java" />
         <option value="$PROJECT_DIR$/src/Card.java" />
         <option value="$PROJECT_DIR$/src/MenuController.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -102,8 +107,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -132,7 +138,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -562,12 +567,13 @@
       <workItem from="1490112983502" duration="6238000" />
       <workItem from="1490196035608" duration="2627000" />
       <workItem from="1490288058969" duration="2019000" />
-      <workItem from="1490355565086" duration="492000" />
+      <workItem from="1490355565086" duration="973000" />
+      <workItem from="1490356565720" duration="349000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11376000" />
+    <option name="totallyTimeSpent" value="12206000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1102" extended-state="6" />
@@ -581,13 +587,13 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.527192" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32852387" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32743362" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41405407" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42162162" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -619,6 +625,40 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/MenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="34" column="3" lean-forward="false" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HareDeck.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="24" column="70" lean-forward="false" selection-start-line="24" selection-start-column="70" selection-end-line="24" selection-end-column="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Card.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="9" column="46" lean-forward="false" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/MenuController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1600">
@@ -657,13 +697,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-258">
           <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/HareDeck.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
+        <state relative-caret-position="550">
           <caret line="24" column="70" lean-forward="false" selection-start-line="24" selection-start-column="70" selection-end-line="24" selection-end-column="70" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -681,8 +720,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MenuController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="32" column="3" lean-forward="false" selection-start-line="32" selection-start-column="3" selection-end-line="32" selection-end-column="3" />
+        <state relative-caret-position="175">
+          <caret line="34" column="3" lean-forward="false" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
