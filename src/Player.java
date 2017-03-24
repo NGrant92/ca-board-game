@@ -35,45 +35,6 @@ public class Player
 		noOfLettuce = 3; // All players begin with 3 carrots
 	}
 
-	/**
-	 * Main Method just to test that all setters and getters work correctly.
-	 * Comment out/Remove this method when integrating to other classes
-	 * Note: remember to remove import statement of Scanner class also
-	 *
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		Player player1 = new Player("test"); // Create new Player object with stored player name
-		System.out.println(player1.toString()); // Call toString method
-
-		player1.setPlayerName("testSetName"); // Set player1 name to newName
-		System.out.println("Player newName is: " + player1.getPlayerName()); // Print out player1's new name - test getPlayerName
-
-		player1.setNoOfCarrots(100); // Set new carrot amount
-		System.out.println("New carrot amount is: " + player1.getNoOfCarrots()); // print out new carrot amount - test getNoOfCarrots
-
-		player1.setNoOfLettuce(2); // Set new lettuce amount
-		System.out.println("New lettuce amount is: " + player1.getNoOfLettuce()); // print out new lettuce amount - test getNoOfLettuce
-
-		player1.setPosition(10); // Set new position
-		System.out.println("New player position is : " + player1.getPosition()); // print out new position - test getPosition
-
-		player1.setSkipTurn(true); // Set new flag state
-		System.out.println("New Skipturn state: " + player1.getSkipTurn()); // Print out new flag state - test getSkipTurn
-
-		player1.addCarrots(20); // add 20 carrots using addCarrots Method
-		System.out.println("Test addcarrot(20) - count:" + player1.getNoOfCarrots());
-
-		player1.removeCarrots(50); // remove 50 carrots using removeCarrots Method
-		System.out.println("Test removecarrot(50) - count: " + player1.getNoOfCarrots());
-
-		player1.removeLettuce(); // Decrements lettuce count by 1
-		System.out.println("Test removelettuce - count: " + player1.getNoOfLettuce());
-
-		System.out.println(player1.toString()); // Final Test using toString method
-	}
-
 	//================================
 	// Getters for the Player Class
 	//=================================
