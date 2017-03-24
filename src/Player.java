@@ -1,12 +1,10 @@
-import java.util.Scanner; // Only used to test are setter methods working - remove when integrating to Menu controller
-
 /**
  * This class will be used to hold and process Player information
  * It will hold the player's Name, Carrots, Lettuce and Token
- * 
+ *
  * It will also have accessors and mutators for all 4 variables
  * which will be accessible to other classes
- * 
+ *
  * @author Kevin Fan
  * @author Niall Grant
  * @author Bernadette Murphy
@@ -14,7 +12,7 @@ import java.util.Scanner; // Only used to test are setter methods working - remo
  * @version 2017.03.22
  *
  */
-public class Player 
+public class Player
 {
 	private String playerName;
 	private int position;
@@ -46,39 +44,35 @@ public class Player
 	 */
 	public static void main(String[] args)
 	{
-		Scanner input = new Scanner(System.in); // Create new Scanner object
-
-		System.out.println("Enter the name of the player:");
-		String name = input.nextLine(); // Store entered player name
-		Player player1 = new Player(name); // Create new Player object with stored player name
+		Player player1 = new Player("test"); // Create new Player object with stored player name
 		System.out.println(player1.toString()); // Call toString method
 
-		System.out.println("Test setPlayerName - enter new name: ");
-		String newName = input.nextLine(); // Store new player name
-		player1.setPlayerName(newName); // Set player1 name to newName
-		System.out.println(player1.getPlayerName()); // Print out player1's new name - test getPlayerName
+		player1.setPlayerName("testSetName"); // Set player1 name to newName
+		System.out.println("Player newName is: " + player1.getPlayerName()); // Print out player1's new name - test getPlayerName
 
-		System.out.println("Test setNoOfCarrots - enter carrot amount: ");
-		int carrots = input.nextInt(); // Store new carrot amount
-		player1.setNoOfCarrots(carrots); // Set new carrot amount
-		System.out.println(player1.getNoOfCarrots()); // print out new carrot amount - test getNoOfCarrots
+		player1.setNoOfCarrots(100); // Set new carrot amount
+		System.out.println("New carrot amount is: " + player1.getNoOfCarrots()); // print out new carrot amount - test getNoOfCarrots
 
-		System.out.println("Test setNoOfLettuce - enter lettuce amount: ");
-		int lettuce = input.nextInt(); // Store new lettuce amount
-		player1.setNoOfLettuce(lettuce); // Set new lettuce amount
-		System.out.println(player1.getNoOfLettuce()); // print out new lettuce amount - test getNoOfLettuce
+		player1.setNoOfLettuce(2); // Set new lettuce amount
+		System.out.println("New lettuce amount is: " + player1.getNoOfLettuce()); // print out new lettuce amount - test getNoOfLettuce
 
-		System.out.println("Test setPlayerPosition - enter new position: ");
-		int position = input.nextInt(); // Store new position
-		player1.setPosition(position); // Set new position
-		System.out.println(player1.getPosition()); // print out new position - test getPosition
+		player1.setPosition(10); // Set new position
+		System.out.println("New player position is : " + player1.getPosition()); // print out new position - test getPosition
 
-		System.out.println("Test setSkipTurn flag - new flag state(false/true): ");
-		boolean newState = input.nextBoolean(); // Store new flag state
-		player1.setSkipTurn(newState); // Set new flag state
-		System.out.println(player1.getSkipTurn()); // Print out new flag state - test getSkipTurn
+		player1.setSkipTurn(true); // Set new flag state
+		System.out.println("New Skipturn state: " + player1.getSkipTurn()); // Print out new flag state - test getSkipTurn
+
+		player1.addCarrots(20); // add 20 carrots using addCarrots Method
+		System.out.println("Test addcarrot(20) - count:" + player1.getNoOfCarrots());
+
+		player1.removeCarrots(50); // remove 50 carrots using removeCarrots Method
+		System.out.println("Test removecarrot(50) - count: " + player1.getNoOfCarrots());
+
+		player1.removeLettuce(); // Decrements lettuce count by 1
+		System.out.println("Test removelettuce - count: " + player1.getNoOfLettuce());
 
 		System.out.println(player1.toString()); // Final Test using toString method
+	}
 
 	//================================
 	// Getters for the Player Class
