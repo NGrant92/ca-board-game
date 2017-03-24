@@ -22,13 +22,32 @@ public class HareDeck {
   /**
    * Initializes and populates the hare deck. Calls the shuffle method to
    * randomize deck order
-   * TODO Populate the cards
+   * TODO Populate the cards correctly only testing them at this stage
    */
   public HareDeck()
   {
     deck = new ArrayList<>();
+    deck.add(new Card("First Test1", "Test1 Introduction"));
+    deck.add(new Card("Second Test2", "Test2 Introduction"));
+    deck.add(new Card("Third Test3", "Test3 Introduction"));
+    deck.add(new Card("Fourth Test3", "Test3 Introduction"));
     
     shuffle();
+  }
+  
+  /**
+   * TODO For testing purposes, remove when tested
+   */
+  public void printDeck() {
+    System.out.println(dealCard().getTitle());
+    System.out.println(dealCard().getTitle());
+    System.out.println(dealCard().getTitle());
+    System.out.println(dealCard().getTitle());
+    System.out.println(dealCard().getTitle());
+    System.out.println(dealCard().getTitle());
+    System.out.println(dealCard().getTitle());
+    System.out.println(dealCard().getTitle());
+    System.out.println(dealCard().getTitle());
   }
   
   /**

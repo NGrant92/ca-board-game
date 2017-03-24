@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * This class is the initial menu the user sees. The menu is displayed as below:
  *
@@ -22,12 +24,13 @@
  */
 public class MenuController
 {
-  
-  /**
-   * The default constructor.
-   */
-  public MenuController()
+  public static void main(String[] args)
   {
+    new MenuController();
   }
   
+  public MenuController(){
+  }
 }
+  
+
