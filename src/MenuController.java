@@ -25,7 +25,10 @@ import java.util.Scanner;
 
 public class MenuController
 {
-
+  Scanner input;
+  
+  //TODO Remove - for testing purposes only
+  HareDeck hareDeck = new HareDeck();
 	
   public static void main(String[] args)
   {
@@ -33,7 +36,7 @@ public class MenuController
   }
   
   public MenuController(){
-    Scanner input = new Scanner(System.in);
+    input = new Scanner(System.in);
     runMenu();
   }
   
@@ -44,26 +47,31 @@ public class MenuController
     * @return     the users menu choice
     */
   private int mainMenu() {
+  
+    System.out.println("");
     System.out.println("       _  .----.            //");
     System.out.println("      (_|/______|_,        (_)___ ");
     System.out.println("       'uu----uu~'          _/--_)o");
     System.out.println("          THE HARE AND TORTOISE");
+    System.out.println("");
  
-    System.out.println("/fGame Instructions");
+    System.out.println("Game Instructions");
     System.out.println("---------");
     System.out.println(" 1) Play the Game");
     System.out.println(" 2) Show Rules");
     System.out.println(" 3) Load Game" );
-    System.out.println(" 4) ");
     System.out.println("---------");
-    System.out.println(" 5) View Game details");
-    System.out.println(" 6) View Hare card");
+    System.out.println("Testing Functions");
+    System.out.println("---------");
+    System.out.println(" 4) Print Deck");
+    System.out.println(" 5) Shuffle Deck");
+    System.out.println(" 6) Draw a single card and print");
     System.out.println(" 0) Exit ");
     System.out.print("==>>");
     int option = input.nextInt();
     return option;
   }
-
+  
 //This is the method that controls the loop
   private void runMenu(){
     int option=mainMenu();
@@ -76,9 +84,15 @@ public class MenuController
           break;
         case 3:    System.out.println();
           break;
-        case 4:    System.out.println();
+          //TODO Remove cases 4 upwards, used for testing
+        case 4:
+          hareDeck.printDeck();
           break;
-        case 5:    System.out.println();
+        case 5:
+          hareDeck.shuffle();
+          break;
+        case 6:
+          System.out.println(hareDeck.dealCard().getTitle());
           break;
         default:    System.out.println("Invalid option entered: " + option);
           break;
@@ -94,4 +108,4 @@ public class MenuController
     System.out.println("Exiting... bye");
     System.exit(0);
   }
-  }
+}
