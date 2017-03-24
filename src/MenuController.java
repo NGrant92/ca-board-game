@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * This class is the initial menu the user sees. The menu is displayed as below:
  *
@@ -20,10 +22,11 @@
  * @author Keelan Murphy
  * @version 2017.03.21
  */
-import java.util.Scanner;
+
 public class MenuController
 {
 
+	
   public static void main(String[] args)
   {
     new MenuController();
@@ -92,4 +95,3 @@ public class MenuController
     System.exit(0);
   }
   }
-  
