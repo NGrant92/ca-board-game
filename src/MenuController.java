@@ -95,5 +95,3 @@ public class MenuController
     System.exit(0);
   }
   }
-  
->>>>>>> 80ee1fa6cb3ae24ddded8e4994bbb322eb333bfb
