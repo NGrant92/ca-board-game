@@ -26,24 +26,71 @@ public class BoardDisplay
 	/*
 	 * Prints the board to be displayed to the user.
 	 * 
-	 * A 'box' is printed with the tile name
-	 * A loop is used to run through the array
-	 * Using the toString method and the for loop avoids verbose coding
-	 * and avoids me having to write out 65 boxes
+	 * For the board to be printed in rows of 10 I used a nested loop.
+	 * There are 28 rows total, 10 tiles per row & every 4th row it is repeated.
+	 * Because of this I used 3 counters(i, rowIndex & row)
+	 * 
+	 * @param row This runs through each row.
+	 * @param rowLoop Each time 'row' loops, a nested loop adds a specific element 10 times.
+	 * @param rowIndex Decides what specific element is added. Each time rowIndex hits 4, it resets.
+	 * @param printRow The nested loop adds the specific element 10 times into one long string which is printed outside of the loop
+	 * 					The printRow string is reset after it prints out the information.
 	 */
 	public BoardDisplay()
 	{
-		for(int i = 0 ; i < tiles.length ; i++) //loop stops when i reaches the length of the array
-		{
-			System.out.println(toString(i));//this prints out the 'box' in the toString method and uses i
-											//as to number each tile and pull the string from the array list
+		int tileIndex = 0;
+		int rowIndex = 0;
+		int rowRepeat = 10;
+		String printRow = "";
+		
+		//First loop which runs through the 28 Rows
+		for(int row = 0 ; row < 28 ; row++){
+			
+			//rowRepeat is set to 10, meaning the loop will repeat 10 times.
+			//The final set of tiles they only need to be repeated 5 times.
+			//The final tiles begin on row 24
+			if(row == 24){
+				rowRepeat = 5;
+			}
+			
+			for(int rowLoop = 0 ; rowLoop < rowRepeat ; rowLoop++){
+				
+				//If rowIndex = (0, 2 or 3) it will add the toString method together
+				if(rowIndex < 4 && rowIndex != 1){
+					printRow += toString(tileIndex, rowIndex);
+				}
+				//If rowIndex = 1 it will increment tileIndex.
+				//This is so tileIndex increments ONLY when it is printed
+				else if(rowIndex == 1){
+					printRow += toString(tileIndex, rowIndex);
+					
+					if (tileIndex < 64){
+						tileIndex++;
+					}
+					else{
+						tileIndex = 64;
+					}
+				}
+				//If rowIndex = 4 it will reset rowIndex to 0
+				else{
+					rowIndex = 0;
+					printRow += toString(tileIndex, rowIndex);
+				}
+			}
+			//the printRow from the loop is printed out
+			System.out.println(printRow);
+			//printRow is reset
+			printRow = "";
+			//rowIndex is incremented, letting the next loop know to print out the next line 10 times
+			rowIndex++;
 		}
 	}
+		
 	/*
-	 * Requires an integer argument for the method to be called
-	 * which is used to select the index of the array
+	 * Requires two integer arguments for the method to be called
+	 * which is used for the tiles array and the tilesRow array
 	 */
-	public String toString(int i)
+	public String toString(int i, int rowIndex)
 	{
 		/*
 		 * if statement checks if "i" is below 10 if i < 10
@@ -70,17 +117,20 @@ public class BoardDisplay
 		 * and that difference will truncate a string full of 13 spaces down to the
 		 * required length
 		 */
-		String spaces = "              "; //a string containing 13 spaces which will be truncated later
-		String textLine = index + ": "+ tiles[i];//the total length of this string will help
+		String[] tileRows = new String[4];
+		String spaces = "              "; 		 //a string containing 13 spaces which will be truncated later
+		String tileType = index + ": "+ tiles[i];//the total length of this string will help
 												 //decide the required spaces to be added
-
-		//the text line and the required spaces are added to the return statement
-		return ("+--------------+\n"
-				//spaces.substring(0, length difference)
-				+ "| "+ textLine + spaces.substring(0, ((spaces.length() - textLine.length()) - 1)) + "|\n"  
-				+ "|" + spaces + "|\n" 			  
-				+ "|" + spaces + "|\n"
-				+ "+--------------+");
+		
+		//the rows of the tile is stored in an array making it easier to call by the BoardDisplay()
+		//because it uses incremented integers in it's loops 
+		tileRows[0] = "+--------------+";
+		tileRows[1] = "| "+ tileType + spaces.substring(0, ((spaces.length() - tileType.length()) - 1)) + "|";
+		tileRows[2] = "|" + spaces + "|";
+		tileRows[3] = "+--------------+";
+		
+		//returns the specific rowIndex requested
+		return tileRows[rowIndex];
 	}
 	
 	/*
