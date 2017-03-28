@@ -46,15 +46,6 @@ public class GameController {
     }
     
     private void runMenu(){
-        System.out.println("Enter the number of players you want to play");
-        int j = input.nextInt();
-        input.next();
-        for (int i = 0; i < j; i++) {
-            System.out.println("Enter player " + (i + 1) + " name");
-            String str = input.next();
-            addPlayer(str);
-        }
-        listPlayers();
         for (int i = 0 ; i < 3 ; i++) {
             for (int k = 0 ; k < players.size() ; k++) {
                 System.out.println("Enter the number of tiles you wish to move " + players.get(k).getPlayerName());
