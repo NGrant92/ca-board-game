@@ -22,7 +22,12 @@ import java.util.Scanner;
  * @author Keelan Murphy
  * @version 2017.03.21
  */
+<<<<<<< HEAD
 
+=======
+import java.util.Scanner;
+import static utils.ScannerInput*;
+>>>>>>> 28fc32acfd40c52a338c7ab2fd6c6cde1df18dd1
 public class MenuController
 {
   Scanner input;
