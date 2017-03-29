@@ -21,7 +21,7 @@
  * @version 2017.03.21
  */
 import java.util.Scanner;
-import static utils.ScannerInput*;
+import static utils.ScannerInput.*;
 public class MenuController
 {
 
