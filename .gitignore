@@ -1,3 +1,6 @@
 .settings
 .git
 .idea
+.metadata
+out
+*.iml
