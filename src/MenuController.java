@@ -1,5 +1,11 @@
 import java.util.Scanner;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 /**
  * This class is the initial menu the user sees. The menu is displayed as below:
  *
@@ -22,12 +28,11 @@ import java.util.Scanner;
  * @author Keelan Murphy
  * @version 2017.03.21
  */
-<<<<<<< HEAD
+
 import java.util.Scanner;
 import static utils.ScannerInput.*;
-=======
 
->>>>>>> af0b246f2baeeb0ae24d9f2757650eca3758d921
+
 public class MenuController
 {
   Scanner input;
@@ -113,4 +118,24 @@ public class MenuController
     System.out.println("Exiting... bye");
     System.exit(0);
   }
+
+  
+public void save ()  throws Exception{
+	  Xstream xstream=new XStream(new DomDriver());
+	  ObjectOutputStream out=xstream.createObjectOutputStream
+			  (new FileWriter("players.xml"));
+	  out.writeObject(players);
+	  out.close();
 }
+
+@SupressWarnings ("unchecked")
+public void load () throws Exception{
+	  XStream xstream = new XStream(new DomDriver()));
+	  ObjectInputStream is = xstream.createObjectInputStream
+	  (new FileReader ("players.xml")); 
+	  players = (ArrayList<Player>is.readObject();
+	  is.close();
+}
+}
+		
+  
