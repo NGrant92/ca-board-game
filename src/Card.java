@@ -11,15 +11,15 @@
  */
 public class Card {
   
-  public String title;
-  public String instruction;
+    public String title;
+    public String instruction;
   
-  public Card(String title, String instruction) {
-    this.title = title;
-    this.instruction = instruction;
-  }
+    public Card(String title, String instruction) {
+        this.title = title;
+        this.instruction = instruction;
+    }
   
-  public String getTitle() {
-    return title;
-  }
+    public String getTitle() {
+        return title;
+    }
 }
