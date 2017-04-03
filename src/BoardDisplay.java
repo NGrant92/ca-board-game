@@ -122,8 +122,10 @@ public class BoardDisplay
 		 * required length
 		 */
 		String[] tileRows = new String[5];
+
 		//a string containing 13 spaces which will be truncated later
 		String spaces = "              ";
+
 		//the total length of this string will help decide the required spaces to be added
 		String tileType = index + ": "+ tiles[i];
 		
