@@ -13,12 +13,16 @@ import java.util.Scanner;
 public class GameController {
     Scanner input;
     ArrayList<Player> players;
+    HareDeck hareDeck = new HareDeck();
+    Board board = new Board();
+    
+    int currentTurn = 0;
     
     public GameController(){
         players = new ArrayList<>();
         input = new Scanner(System.in);
-        new BoardDisplay();
         startGame();
+        System.out.print("" + board.print());
         runMenu();
     }
     
@@ -31,10 +35,14 @@ public class GameController {
         System.out.println("Enter the number of players you want to play:");
         int j = input.nextInt();
         input.next();
+        
         for (int i = 0; i < j; i++) {
             System.out.println("Enter player " + (i + 1) + " name");
             String str = input.next();
             addPlayer(str);
+        }
+        for (int i = 0 ; i < players.size(); i++) {
+            board.setPlayerPosition(0, players.get(i));
         }
         runMenu();
     }
@@ -46,31 +54,34 @@ public class GameController {
     }
     
     private void runMenu(){
-        System.out.println("Enter the number of players you want to play");
-        int j = input.nextInt();
-        input.next();
-        for (int i = 0; i < j; i++) {
-            System.out.println("Enter player " + (i + 1) + " name");
-            String str = input.next();
-            addPlayer(str);
-        }
-        listPlayers();
-        for (int i = 0 ; i < 3 ; i++) {
-            for (int k = 0 ; k < players.size() ; k++) {
-                System.out.println("Enter the number of tiles you wish to move " + players.get(k).getPlayerName());
-                movePlayer(players.get(k), input.nextInt());
+        while (!isFinished()) {
+            System.out.println("Enter the number of squares you wish to move " + players.get(currentTurn).getPlayerName());
+    
+            int distance = input.nextInt();
+            int newSquareIndex = players.get(currentTurn).getPosition() + distance;
+            
+            while (!board.squares.get(newSquareIndex).isAvailable() || calculateMaxDistance(players.get(currentTurn).getNoOfCarrots()) < distance ) {
+                System.out.println("Invalid option entered " + players.get(currentTurn).getPlayerName());
+                distance = input.nextInt();
+                newSquareIndex = players.get(currentTurn).getPosition() + distance;
             }
+            
+            movePlayer(players.get(currentTurn), newSquareIndex);
+            players.get(currentTurn).removeCarrots(carrotsRequired(distance));
+            
+            System.out.print(board.print());
+            
             listPlayers();
+            nextTurn();
         }
         input.next();
     }
     
-    public void movePlayer (Player player, int moves) {
-        player.setPosition(player.getPosition() + moves);
-        player.removeCarrots(carrotsRequired(moves));
+    public void movePlayer (Player player, int position) {
+        board.setPlayerPosition(position, player);
     }
     
-    /*
+    /**
 	 * Calculates the carrots required to move a distance
 	 *
 	 * The number of carrots required is calculated using a triangular number sequence
@@ -99,11 +110,30 @@ public class GameController {
      * @param carrots The players balance of carrots
      * @return the maximum number of moves a player can make
      */
-    public double calculateMaxMoves(int carrots) {
+    private double calculateMaxDistance(int carrots) {
         //Find the natural number (input)
-        double test = (Math.sqrt((8 * carrots) + 1) - 1)/2;
+        double distance = (Math.sqrt((8 * carrots) + 1) - 1)/2;
         //Round down to the whole number
-        int i = (int) Math.floor(test);
-        return i;
+        int roundedDown = (int) Math.floor(distance);
+        return roundedDown;
+    }
+    
+    
+    public void nextTurn() {
+        currentTurn++;
+    
+        if(currentTurn >= players.size()){
+            currentTurn = 0;
+        }
+        
+        //Skip if players flag is set to skip turn
+        if (players.get(currentTurn).getSkipTurn()) {
+            players.get(currentTurn).setSkipTurn(false);
+            nextTurn();
+        }
+    }
+    
+    private boolean isFinished () {
+        return false;
     }
 }
