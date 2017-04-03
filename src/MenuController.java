@@ -119,16 +119,16 @@ public class MenuController
     System.exit(0);
   }
 
-  
+/*  
 public void save ()  throws Exception{
-	  Xstream xstream=new XStream(new DomDriver());
+	  XStream xstream=new XStream(new DomDriver());
 	  ObjectOutputStream out=xstream.createObjectOutputStream
 			  (new FileWriter("players.xml"));
 	  out.writeObject(players);
 	  out.close();
 }
 
-@SupressWarnings ("unchecked")
+@SuppressWarnings ("unchecked")
 public void load () throws Exception{
 	  XStream xstream = new XStream(new DomDriver()));
 	  ObjectInputStream is = xstream.createObjectInputStream
@@ -136,6 +136,7 @@ public void load () throws Exception{
 	  players = (ArrayList<Player>is.readObject();
 	  is.close();
 }
+*/
 }
 		
   
