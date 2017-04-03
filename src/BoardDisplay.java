@@ -40,37 +40,41 @@ public class BoardDisplay
 	{
 		int tileIndex = 0;
 		int rowIndex = 0;
-		int rowRepeat = 10;
+		int rowRepeat = 11;
 		String printRow = "";
-		
+
 		//First loop which runs through the 28 Rows
-		for(int row = 0 ; row < 28 ; row++){
-			
+		for(int row = 0 ; row < 30 ; row++){
+
 			//rowRepeat is set to 10, meaning the loop will repeat 10 times.
 			//The final set of tiles they only need to be repeated 5 times.
 			//The final tiles begin on row 24
-			if(row == 24){
-				rowRepeat = 5;
+			if(row == 25){
+				rowRepeat = 10;
 			}
-			
+
 			for(int rowLoop = 0 ; rowLoop < rowRepeat ; rowLoop++){
-				
+
 				//If rowIndex = (0, 2 or 3) it will add the toString method together
-				if(rowIndex < 4 && rowIndex != 1){
+				if(rowIndex == 0 || rowIndex == 2 || rowIndex == 4){
 					printRow += toString(tileIndex, rowIndex);
 				}
 				//If rowIndex = 1 it will increment tileIndex.
 				//This is so tileIndex increments ONLY when it is printed
 				else if(rowIndex == 1){
 					printRow += toString(tileIndex, rowIndex);
-					
+
 					if (tileIndex < 64){
 						tileIndex++;
 					}
-					else{
-						tileIndex = 64;
-					}
 				}
+
+				//If rowIndex = 3 it will check if player position = true
+				//if true it will print out the player name
+				else if(rowIndex == 3){
+					printRow += toString(tileIndex, rowIndex);
+				}
+
 				//If rowIndex = 4 it will reset rowIndex to 0
 				else{
 					rowIndex = 0;
@@ -117,17 +121,19 @@ public class BoardDisplay
 		 * and that difference will truncate a string full of 13 spaces down to the
 		 * required length
 		 */
-		String[] tileRows = new String[4];
-		String spaces = "              "; 		 //a string containing 13 spaces which will be truncated later
-		String tileType = index + ": "+ tiles[i];//the total length of this string will help
-												 //decide the required spaces to be added
+		String[] tileRows = new String[5];
+		//a string containing 13 spaces which will be truncated later
+		String spaces = "              ";
+		//the total length of this string will help decide the required spaces to be added
+		String tileType = index + ": "+ tiles[i];
 		
 		//the rows of the tile is stored in an array making it easier to call by the BoardDisplay()
 		//because it uses incremented integers in it's loops 
 		tileRows[0] = "+--------------+";
 		tileRows[1] = "| "+ tileType + spaces.substring(0, ((spaces.length() - tileType.length()) - 1)) + "|";
 		tileRows[2] = "|" + spaces + "|";
-		tileRows[3] = "+--------------+";
+		tileRows[3] = "|" + spaces + "|";
+		tileRows[4] = "+--------------+";
 		
 		//returns the specific rowIndex requested
 		return tileRows[rowIndex];
