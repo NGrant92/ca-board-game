@@ -27,10 +27,21 @@ public class HareDeck {
   public HareDeck()
   {
     deck = new ArrayList<>();
-    deck.add(new Card("First Test1", "Test1 Introduction"));
-    deck.add(new Card("Second Test2", "Test2 Introduction"));
-    deck.add(new Card("Third Test3", "Test3 Introduction"));
-    deck.add(new Card("Fourth Test3", "Test3 Introduction"));
+    deck.add(new Card("LOSE HALF YOUR CARROTS!", "If an odd number, keep the odd one."));
+    deck.add(new Card("LOSE HALF YOUR CARROTS!", "If an odd number, keep the odd one."));
+    deck.add(new Card("GIVE 10 CARROTS TO EACH PLAYER LYING BEHIND YOU IN THE RACE (IF ANY).", "If you haven't enough carrots give them five each; if still not possible, one each. A player who doesn't want extra carrots may discard them to the 'carrot patch'."));
+    deck.add(new Card("GIVE 10 CARROTS TO EACH PLAYER LYING BEHIND YOU IN THE RACE (IF ANY).", "If you haven't enough carrots give them five each; if still not possible, one each. A player who doesn't want extra carrots may discard them to the 'carrot patch'."));
+    deck.add(new Card("SHOW US YOUR CARROTS!", "Count your carrot cards face up to the table so that everyone will know how many you have left."));
+    deck.add(new Card("SHOW US YOUR CARROTS!", "Count your carrot cards face up to the table so that everyone will know how many you have left."));
+    deck.add(new Card("DRAW 10 CARROTS FOR EACH LETTUCE YOU STILL HOLD.", "If you have none left, miss a turn."));
+    deck.add(new Card("DRAW 10 CARROTS FOR EACH LETTUCE YOU STILL HOLD.", "If you have none left, miss a turn."));
+    deck.add(new Card("FREE RIDE!", "Your last turn costs nothing; retrieve the carrots you paid to reach this square."));
+    deck.add(new Card("FREE RIDE!", "Your last turn costs nothing; retrieve the carrots you paid to reach this square."));
+    deck.add(new Card("RESTORE YOUR CARROT HOLDING TO EXACTLY 65.", "If you have more than 65, pay extras to the carrot patch; if fewer, draw extras from the carrot patch."));
+    deck.add(new Card("RESTORE YOUR CARROT HOLDING TO EXACTLY 65.", "If you have more than 65, pay extras to the carrot patch; if fewer, draw extras from the carrot patch."));
+    deck.add(new Card("IF THERE ARE MORE PLAYERS BEHIND YOU THAN IN FRONT OF YOU, MISS A TURN. IF NOT, PLAY AGAIN.", "If equal, of course play again."));
+    deck.add(new Card("IF THERE ARE MORE PLAYERS BEHIND YOU THAN IN FRONT OF YOU, MISS A TURN. IF NOT, PLAY AGAIN.", "If equal, of course play again."));
+    deck.add(new Card("SHUFFLE THE HARE CARDS AND RECEIVE FROM EACH PLAYER 1 CARROT FOR DOING SO.", "Do not replace this card at the bottom of the pack but include it in the shuffle."));
     
     shuffle();
   }
@@ -68,11 +79,9 @@ public class HareDeck {
   
   /**
    * Shuffles the deck and then sets the top card to the first in the arraylist
-   * TODO Check with Siobhan that it is ok to use a collection shuffle
    */
   public void shuffle() {
-    long seed = System.nanoTime();
-    Collections.shuffle(deck, new Random(seed));
+    Collections.shuffle(deck, new Random());
     currentCard = 0;
   }
 }
