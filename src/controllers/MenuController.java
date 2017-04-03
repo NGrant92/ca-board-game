@@ -1,4 +1,10 @@
+package controllers;
+
 import java.util.Scanner;
+
+// import com.thoughtworks.xstream.XStream;
+// import com.thoughtworks.xstream.io.xml.DomDriver;
+import models.HareDeck;
 
 /**
  * This class is the initial menu the user sees. The menu is displayed as below:
@@ -22,9 +28,6 @@ import java.util.Scanner;
  * @author Keelan Murphy
  * @version 2017.03.21
  */
-
-import java.util.Scanner;
-import static utils.ScannerInput.*;
 
 public class MenuController
 {
@@ -81,7 +84,7 @@ public class MenuController
     while(option!=0){
       switch(option){
         case 1:
-          new BoardDisplay();
+          new GameController();
         break;
         case 2:    System.out.println();
           break;
@@ -111,4 +114,25 @@ public class MenuController
     System.out.println("Exiting... bye");
     System.exit(0);
   }
+
+/*  
+public void save ()  throws Exception{
+	  XStream xstream=new XStream(new DomDriver());
+	  ObjectOutputStream out=xstream.createObjectOutputStream
+			  (new FileWriter("players.xml"));
+	  out.writeObject(players);
+	  out.close();
 }
+
+@SuppressWarnings ("unchecked")
+public void load () throws Exception{
+	  XStream xstream = new XStream(new DomDriver()));
+	  ObjectInputStream is = xstream.createObjectInputStream
+	  (new FileReader ("players.xml")); 
+	  players = (ArrayList<models.Player>is.readObject();
+	  is.close();
+}
+*/
+}
+		
+  
