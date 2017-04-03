@@ -33,8 +33,8 @@ public class Player
 	public Player(String playerName)
 	{
 		this.playerName = playerName;
-		position = 1; // Assuming start is at position 1
-		noOfCarrots = 65; // All players begin with 65 carrots
+		position = 0; // Assuming start is at position 0
+		noOfCarrots = 65; // All players begin with 64 carrots
 		noOfLettuce = 3; // All players begin with 3 carrots
 	}
 

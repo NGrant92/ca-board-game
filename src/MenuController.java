@@ -32,7 +32,6 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.util.Scanner;
 import static utils.ScannerInput.*;
 
-
 public class MenuController
 {
   Scanner input;
@@ -88,7 +87,7 @@ public class MenuController
     while(option!=0){
       switch(option){
         case 1:
-          new BoardDisplay();
+          new GameController();
         break;
         case 2:    System.out.println();
           break;
