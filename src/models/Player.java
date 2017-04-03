@@ -1,5 +1,7 @@
+package models;
+
 /**
- * This class will be used to hold and process Player information
+ * This class will be used to hold and process models.Player information
  * It will hold the player's Name, Carrots, Lettuce and Token
  *
  * It will also have accessors and mutators for all 4 variables
@@ -24,7 +26,7 @@ public class Player
 	private boolean skipTurn;
 
 	/**
-	 * Constructor for objects of class Player. With this constructor the position instance field is set to 1 (Start),
+	 * Constructor for objects of class models.Player. With this constructor the position instance field is set to 1 (Start),
 	 * the noOfCarrots instance field is set to 65, the noOfLettuce instance field is set to 3, and the skipTurn boolean is
 	 * automatically set to false.
 	 *
@@ -39,7 +41,7 @@ public class Player
 	}
 
 	//================================
-	// Getters for the Player Class
+	// Getters for the models.Player Class
 	//=================================
 
 	/**
@@ -93,7 +95,7 @@ public class Player
 	}
 
 	//================================
-	// Setters for the Player Class
+	// Setters for the models.Player Class
 	//=================================
 
 	/**
@@ -149,14 +151,14 @@ public class Player
 	/**#
 	 * Returns a human readable String interpretation of the player object state
 	 *
-	 * @return A string version of the Player object. The string returned is similar to the structure:
+	 * @return A string version of the models.Player object. The string returned is similar to the structure:
 	 *
-	 *			 Player: John 		Position: 1		No of Carrot: 65 		No of Lettuce: 3	Skip Turn: false
+	 *			 models.Player: John 		Position: 1		No of Carrot: 65 		No of Lettuce: 3	Skip Turn: false
 	 *
 	 */
 	public String toString()
 	{
-		return "Player: " + playerName + "\tPosition: " + getPosition() + "\tNo of Carrots: " + getNoOfCarrots()
+		return "models.Player: " + playerName + "\tPosition: " + getPosition() + "\tNo of Carrots: " + getNoOfCarrots()
 				+ "\tNo of Lettuce: " + getNoOfLettuce() + "\tSkip Turn: " + getSkipTurn();
 
 	}

@@ -1,3 +1,5 @@
+package models;
+
 /**
  * This class models a card from the Hare deck.
  *

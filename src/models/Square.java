@@ -1,3 +1,5 @@
+package models;
+
 import java.util.ArrayList;
 
 /**
@@ -10,8 +12,8 @@ import java.util.ArrayList;
  * @version 2017.03.29
  */
 public abstract class Square {
-    ArrayList<Player> players;
-    String name;
+    public ArrayList<Player> players;
+    public String name;
     
     int position;
     

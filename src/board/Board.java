@@ -1,7 +1,14 @@
+package board;
+
+import models.CarrotSquare;
+import models.Player;
+import models.Square;
+import models.StartSquare;
+
 import java.util.ArrayList;
 
 public class Board {
-    ArrayList<Square> squares;
+    public ArrayList<Square> squares;
     
     //Array that holds the name of the tiles and in the correct order
     String tiles[] = {"Start", "Hare", "Carrots", "Hare", "3", "Carrots", "Hare", "156", "2", "4", "Lettuce", "Tortoise", "3",
