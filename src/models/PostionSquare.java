@@ -27,24 +27,34 @@ public class PostionSquare extends Square {
     }
 
     //When they start their turn on a positionTile this method will check if they will recieve the carrots or not
-    //checkPoisiton is called from the Gamecontroller who inputs Player arrayList, currentPlayer & TilesArray Index
+    //checkPoisiton is called from the Gamecontroller who inputs Player arrayList, currentPlayer
     public int checkPosition(ArrayList<Player> players, Player currentPlayer){
         //Square name is converted into an integer
         int tileNum = Integer.parseInt(name);
+        int playerPosition = getPlayerPositionInRace(players, currentPlayer)
 
-        //Testing if the player's position in race matches the required position
-        //returns the appropriate carrots
-        if(tileNum == getPlayerPositionInRace(currentPlayer)) {
-            recievedCarrots = tileNum * 10;
+        if(tileNum == 156){
+            if(playerPosition == 1 || playerPosition == 5 || playerPosition == 6){
+                recievedCarrots = playerPosition * 10;
+            }
+            return recievedCarrots;
         }
-        return recievedCarrots;
+        else {
+            //Testing if the player's position in race matches the required position
+            //returns the appropriate carrots
+            if (tileNum == playerPosition) {
+                recievedCarrots = tileNum * 10;
+            }
+            return recievedCarrots;
+        }
     }
 
     /**
+     * @author Kevin
      * Method to return the player position in race. Possibly can be used in number square or lettuce square
      * calculation.
      */
-    public int getPlayerPositionInRace(Player player) {
+    public int getPlayerPositionInRace(ArrayList<Player> players, Player player) {
 
         // local variable to store the players current position - not really need
         int currentPlayerPositionOnBoard = player.getPosition();
