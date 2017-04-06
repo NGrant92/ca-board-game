@@ -119,7 +119,7 @@ public class MenuController
 public void save ()  throws Exception{
 	  XStream xstream=new XStream(new DomDriver());
 	  ObjectOutputStream out=xstream.createObjectOutputStream
-			  (new FileWriter("players.xml"));
+			  (new FileWriter("game.xml"));
 	  out.writeObject(players);
 	  out.close();
 }
@@ -128,7 +128,7 @@ public void save ()  throws Exception{
 public void load () throws Exception{
 	  XStream xstream = new XStream(new DomDriver()));
 	  ObjectInputStream is = xstream.createObjectInputStream
-	  (new FileReader ("players.xml")); 
+	  (new FileReader ("game.xml"));
 	  players = (ArrayList<models.Player>is.readObject();
 	  is.close();
 }
