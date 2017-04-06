@@ -31,10 +31,13 @@ public class PostionSquare extends Square {
     public int checkPosition(ArrayList<Player> players, Player currentPlayer){
         //Square name is converted into an integer
         int tileNum = Integer.parseInt(name);
-        int playerPosition = getPlayerPositionInRace(players, currentPlayer)
+        int playerPosition = getPlayerPositionInRace(players, currentPlayer);
 
+        //One particular tile allows you be 1st, 5th or 6th
         if(tileNum == 156){
             if(playerPosition == 1 || playerPosition == 5 || playerPosition == 6){
+                //Seeing as the amount of potential carrots depends on the player's position in the race
+                //we use the player's position to calculate the amount of carrots
                 recievedCarrots = playerPosition * 10;
             }
             return recievedCarrots;
