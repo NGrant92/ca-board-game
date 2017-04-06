@@ -89,7 +89,7 @@ public class MenuController
         case 1:
           new GameController();
         break;
-        case 2:    System.out.println();
+        case 2:    System.out.println(Board.listRules());
           break;
         case 3:    System.out.println();
           break;
