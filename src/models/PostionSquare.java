@@ -40,6 +40,7 @@ public class PostionSquare extends Square {
                 //we use the player's position to calculate the amount of carrots
                 recievedCarrots = playerPosition * 10;
             }
+            //If player's race position doesn't match the required number then recievedCarrots will not change from 0
             return recievedCarrots;
         }
         else {
@@ -48,6 +49,7 @@ public class PostionSquare extends Square {
             if (tileNum == playerPosition) {
                 recievedCarrots = tileNum * 10;
             }
+            //If player's race position doesn't match the required number then recievedCarrots will not change from 0
             return recievedCarrots;
         }
     }
