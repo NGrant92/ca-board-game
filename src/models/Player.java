@@ -1,3 +1,5 @@
+package models;
+
 /**
  * This class will be used to hold and process Player information
  * It will hold the player's Name, Carrots, Lettuce and Token
@@ -9,18 +11,17 @@
  * @author Niall Grant
  * @author Bernadette Murphy
  * @author Keelan Murphy
- * @version 2017.03.22
+ * @version 2017.04.03
  *
- * TODO Add a addCarrots and removeCarrots method
- * TODO Remove main method
- * TODO Add a remove lettuce method
  */
 public class Player
 {
 	private String playerName;
 	private int position;
+	private int previousPosition;
 	private int noOfCarrots;
 	private int noOfLettuce;
+	private int pendingBalance;
 	private boolean skipTurn;
 
 	/**
@@ -30,12 +31,14 @@ public class Player
 	 *
 	 * @ param playerName The Name of the player (No validation is done - so can be of any length)
 	 */
-	public Player(String playerName)
-	{
+	public Player(String playerName) {
 		this.playerName = playerName;
-		position = 0; // Assuming start is at position 0
-		noOfCarrots = 65; // All players begin with 64 carrots
-		noOfLettuce = 3; // All players begin with 3 carrots
+		position = 0;
+		previousPosition = 0;
+		noOfCarrots = 65;
+		noOfLettuce = 3;
+		pendingBalance = 0;
+
 	}
 
 	//================================
@@ -47,8 +50,7 @@ public class Player
 	 *
 	 * @return The name of the player
 	 */
-	public String getPlayerName()
-	{
+	public String getPlayerName() {
 		return playerName;
 	}
 
@@ -57,8 +59,7 @@ public class Player
 	 *
 	 * @return The position of the player
 	 */
-	public int getPosition()
-	{
+	public int getPosition() {
 		return position;
 	}
 
@@ -67,8 +68,7 @@ public class Player
 	 *
 	 * @return The number of carrots the player has
 	 */
-	public int getNoOfCarrots()
-	{
+	public int getNoOfCarrots() {
 		return noOfCarrots;
 	}
 
@@ -77,8 +77,7 @@ public class Player
 	 *
 	 * @return The number of Lettuce the player has
 	 */
-	public int getNoOfLettuce()
-	{
+	public int getNoOfLettuce() {
 		return noOfLettuce;
 	}
 
@@ -87,10 +86,27 @@ public class Player
 	 *
 	 * @return The state of the skipTurn flag
 	 */
-	public boolean getSkipTurn()
-	{
+	public boolean getSkipTurn() {
 		return skipTurn;
 	}
+
+    /**
+     * Returns the players previous position on board
+     * @return The player's previous position on board
+     */
+	public int getPreviousPosition() {
+		return previousPosition;
+	}
+
+    /**
+     * Returns the pending balance for the player
+     *
+     * @return The pending balance for the player
+     */
+	public int getPendingBalance() {
+		return pendingBalance;
+	}
+
 
 	//================================
 	// Setters for the Player Class
@@ -101,8 +117,7 @@ public class Player
 	 *
 	 * @param playerName No validation is performed on the playerName field
 	 */
-	public void setPlayerName(String playerName)
-	{
+	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
 
@@ -111,8 +126,7 @@ public class Player
 	 *
 	 * @param position No validation is performed on the position field yet
 	 */
-	public void setPosition(int position)
-	{
+	public void setPosition(int position) {
 		this.position = position;
 	}
 
@@ -121,8 +135,7 @@ public class Player
 	 *
 	 * @param noOfCarrots No validation is performed on the noOfCarrots field
 	 */
-	public void setNoOfCarrots(int noOfCarrots)
-	{
+	public void setNoOfCarrots(int noOfCarrots) {
 		this.noOfCarrots = noOfCarrots;
 	}
 
@@ -131,8 +144,7 @@ public class Player
 	 *
 	 * @param noOfLettuce No validation is performed on the noOfLettuce field
 	 */
-	public void setNoOfLettuce(int noOfLettuce)
-	{
+	public void setNoOfLettuce(int noOfLettuce) {
 		this.noOfLettuce = noOfLettuce;
 	}
 
@@ -141,8 +153,7 @@ public class Player
 	 *
 	 * @param skipTurn No validation is performed on the skipTurn field
 	 */
-	public void setSkipTurn(boolean skipTurn)
-	{
+	public void setSkipTurn(boolean skipTurn) {
 		this.skipTurn = skipTurn;
 	}
 
@@ -154,8 +165,7 @@ public class Player
 	 *			 Player: John 		Position: 1		No of Carrot: 65 		No of Lettuce: 3	Skip Turn: false
 	 *
 	 */
-	public String toString()
-	{
+	public String toString() {
 		return "Player: " + playerName + "\tPosition: " + getPosition() + "\tNo of Carrots: " + getNoOfCarrots()
 				+ "\tNo of Lettuce: " + getNoOfLettuce() + "\tSkip Turn: " + getSkipTurn();
 
@@ -166,8 +176,7 @@ public class Player
 	 *
 	 * @param amount Amount of carrots to add
 	 */
-	public void addCarrots(int amount)
-	{
+	public void addCarrots(int amount) {
 		noOfCarrots += amount;
 	}
 
@@ -177,16 +186,30 @@ public class Player
 	 *
 	 * @param amount Amount of carrots to remove
 	 */
-	public void removeCarrots(int amount)
-	{
+	public void removeCarrots(int amount) {
 		noOfCarrots -= amount;
 	}
 
 	/**
 	 * Method to remove lettuce. Lettuce is only decremented by 1. Used for when player lands on lettuce square
 	 */
-	public void removeLettuce()
-	{
+	public void removeLettuce() {
 		noOfLettuce--;
+	}
+
+    /**
+     * Sets the previous position of the player
+     * @param previousPosition The previous position of the player
+     */
+	public void setPreviousPosition(int previousPosition) {
+		this.previousPosition = previousPosition;
+	}
+
+    /**
+     * Sets the pending balance field for the player
+     * @param pendingBalance The pending balance for the player
+     */
+	public void setPendingBalance(int pendingBalance) {
+		this.pendingBalance = pendingBalance;
 	}
 }

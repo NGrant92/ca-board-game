@@ -1,5 +1,7 @@
+package board;
+
 /*
- * Board Display class used to make a graphical display of the board so the Players can use it as a reference
+ * board.Board Display class used to make a graphical display of the board so the Players can use it as a reference
  * when deciding on their next move.
  * 
  * @author Kevin Fan
@@ -19,7 +21,7 @@ public class BoardDisplay
 	
 	public static void main(String[] args)
 	{
-		//calls the BoardDisplay method when class is run
+		//calls the board.BoardDisplay method when class is run
 		new BoardDisplay();
 	}
 	
@@ -122,12 +124,14 @@ public class BoardDisplay
 		 * required length
 		 */
 		String[] tileRows = new String[5];
+
 		//a string containing 13 spaces which will be truncated later
 		String spaces = "              ";
+
 		//the total length of this string will help decide the required spaces to be added
 		String tileType = index + ": "+ tiles[i];
 		
-		//the rows of the tile is stored in an array making it easier to call by the BoardDisplay()
+		//the rows of the tile is stored in an array making it easier to call by the board.BoardDisplay()
 		//because it uses incremented integers in it's loops 
 		tileRows[0] = "+--------------+";
 		tileRows[1] = "| "+ tileType + spaces.substring(0, ((spaces.length() - tileType.length()) - 1)) + "|";
