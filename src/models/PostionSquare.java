@@ -26,18 +26,32 @@ public class PostionSquare extends Square {
         super(name, position);
     }
 
+    //Method to input Carrots into the current player's pending balance
+    public void giveCarrots(ArrayList<Player> players, Player currentPlayer){
+
+        //If I use a method more than once, it's being given a variable name
+        int checkPosition = checkPosition(players, currentPlayer);
+
+        //This checks if there are any carrots to give to the player
+        //If there are 0 carrots to give then the method will not be called
+        //For a program this small it mightn't matter, but it's good practice
+        if(checkPosition > 0){
+            currentPlayer.setPendingBalance(checkPosition);
+        }
+    }
+
     //When they start their turn on a positionTile this method will check if they will recieve the carrots or not
     //checkPoisiton is called from the Gamecontroller who inputs Player arrayList, currentPlayer
     public int checkPosition(ArrayList<Player> players, Player currentPlayer){
         //Square name is converted into an integer
         int tileNum = Integer.parseInt(name);
-        int playerPosition = getPlayerPositionInRace(players, currentPlayer);
+        int playerPosition = getRacePosition(players, currentPlayer);
 
         //One particular tile allows you be 1st, 5th or 6th
         if(tileNum == 156){
             if(playerPosition == 1 || playerPosition == 5 || playerPosition == 6){
                 //Seeing as the amount of potential carrots depends on the player's position in the race
-                //we use the player's position to calculate the amount of carrots
+                //we use the player's position to calculate the amount of carrots to be received
                 recievedCarrots = playerPosition * 10;
             }
             //If player's race position doesn't match the required number then recievedCarrots will not change from 0
@@ -47,6 +61,8 @@ public class PostionSquare extends Square {
             //Testing if the player's position in race matches the required position
             //returns the appropriate carrots
             if (tileNum == playerPosition) {
+                //Here we use the tileNum to calculate the amount of carrots to be received
+                //No particular reason to use tileNum over playerPosition, just because I can
                 recievedCarrots = tileNum * 10;
             }
             //If player's race position doesn't match the required number then recievedCarrots will not change from 0
@@ -54,26 +70,25 @@ public class PostionSquare extends Square {
         }
     }
 
+
     /**
      * @author Kevin
      * Method to return the player position in race. Possibly can be used in number square or lettuce square
      * calculation.
      */
-    public int getPlayerPositionInRace(ArrayList<Player> players, Player player) {
+    public int getRacePosition(ArrayList<Player> players, Player currentPlayer) {
 
-        // local variable to store the players current position - not really need
-        int currentPlayerPositionOnBoard = player.getPosition();
         // Local temporary store for playerPositionInRace
-        int playerPositionInRace = 1;
+        int racePosition = 1;
 
         // Check each player position in players array, and increment playerPosition by 1 if the player position
         // is less than currentPlayerPositionInRace
         for (int i = 0; i < players.size(); i++) {
-            if (currentPlayerPositionOnBoard < players.get(i).getPosition()) {
-                playerPositionInRace++;
+            if (currentPlayer.getPosition() < players.get(i).getPosition()) {
+                racePosition++;
             }
         }
-        return playerPositionInRace;
+        return racePosition;
     }
 
     //This will print to display how much carrots they have recieved, if any.
