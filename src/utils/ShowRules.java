@@ -68,7 +68,7 @@ public String viewCost ()
   +"37=703         carrots\n"
   +"38=741          carrots\n"
   +"39=780            carrots\n"
-  + "40=820    carrots\n";
+  + "40=820            carrots\n";
 }
 }
   
