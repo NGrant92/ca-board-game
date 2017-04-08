@@ -1,8 +1,6 @@
 package controllers;
 import models.*;
-
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import static utils.ScannerInput.*;
 
@@ -16,7 +14,6 @@ import static utils.ScannerInput.*;
  * @version 2017.03.28
  */
 public class GameController {
-    Scanner input;
     ArrayList<Player> players;
     HareDeck hareDeck = new HareDeck();
     
@@ -26,7 +23,6 @@ public class GameController {
     
     public GameController(){
         players = new ArrayList<>();
-        input = new Scanner(System.in);
         startGame();
         
         runMenu();
@@ -43,9 +39,8 @@ public class GameController {
         
         int j = validNextInt("Enter the number of players you want to play: ");
         for (int i = 0; i < j; i++) {
-            System.out.println("Enter player " + (i + 1) + " name");
-            String str = input.next();
-            addPlayer(str);
+            String name = retrieveText("Enter player " + (i + 1) + " name");
+            addPlayer(name);
         }
         for (int i = 0 ; i < players.size(); i++) {
             board.get(0).setPlayer(players.get(i));
@@ -70,14 +65,11 @@ public class GameController {
     
     private void runMenu(){
         while (!isFinished()) {
-            System.out.println("Enter the number of squares you wish to move " + players.get(currentTurn).getPlayerName());
-    
-            int distance = input.nextInt();
+            int distance = validNextInt("Enter the number of squares you wish to move " + players.get(currentTurn).getPlayerName());
             int newSquareIndex = players.get(currentTurn).getPosition() + distance;
             if (newSquareIndex < board.size()) {
                 while (!board.get(newSquareIndex).isAvailable() || calculateMaxDistance(players.get(currentTurn).getNoOfCarrots()) < distance) {
-                    System.out.println("Invalid option entered " + players.get(currentTurn).getPlayerName());
-                    distance = input.nextInt();
+                    distance = validNextInt("Invalid option entered " + players.get(currentTurn).getPlayerName());
                     newSquareIndex = players.get(currentTurn).getPosition() + distance;
                 }
     
@@ -92,7 +84,6 @@ public class GameController {
                 System.out.println("Square does not exist");
             }
         }
-        input.next();
     }
     
     public void movePlayer (Player player, int position) {
@@ -167,9 +158,14 @@ public class GameController {
         }
     }
     
+    /**
+     * Returns whether the game is finished for the while loop, returns false if any user is on any
+     * square but the last one.
+     * @return a boolean representing whether all players are on the final square
+     */
     private boolean isFinished () {
         for ( int i = 0 ; i < players.size() ; i++ ) {
-            if (players.get(i).getPosition() != board.size()){
+            if (players.get(i).getPosition() != board.size()-1){
                 return false;
             }
         }

@@ -7,8 +7,8 @@ public class ScannerInput{
 	public static int validNextInt(String prompt){
 		Scanner input =new Scanner (System.in);
 		do{
-			try{System.out.print(prompt);
-			return input.nextInt();
+			try{System.out.println(prompt);
+			    return input.nextInt();
 			}
 			catch (Exception e){
 				input.nextLine();//swallows the buffer contents
@@ -20,12 +20,8 @@ public class ScannerInput{
 	public static String retrieveText (String prompt){
 		Scanner input =new Scanner (System.in);
 		do{
-			System.out.print(prompt);
+			System.out.println(prompt);
 			return input.nextLine();
-			
-			
-	
-			
 		}while (true);
 		}
 	
