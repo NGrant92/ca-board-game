@@ -28,10 +28,6 @@ public class GameController {
         runMenu();
     }
     
-    public void addPlayer (String name) {
-        players.add(new Player(name));
-    }
-    
     public void startGame () {
         createBoard();
     
@@ -50,11 +46,24 @@ public class GameController {
     
     public void createBoard() {
         board = new ArrayList<>();
-        
+        //TODO Confirm we need to input a position and name
         board.add(new StartSquare("Start", 0));
         board.add(new CarrotSquare("Carrots", 1));
         board.add(new CarrotSquare("Carrots", 2));
         board.add(new CarrotSquare("Carrots", 3));
+        board.add(new CarrotSquare("Tortoise", 4));
+        board.add(new CarrotSquare("Carrots", 5));
+        board.add(new CarrotSquare("Carrots", 6));
+        board.add(new CarrotSquare("Carrots", 7));
+        board.add(new CarrotSquare("Carrots", 8));
+        board.add(new CarrotSquare("Carrots", 9));
+        board.add(new CarrotSquare("Carrots", 10));
+        board.add(new TortoiseSquare("Tortoise", 11));
+        board.add(new StartSquare("Finish (Temporary)", 12));
+    }
+    
+    public void addPlayer (String name) {
+        players.add(new Player(name));
     }
     
     public void listPlayers () {
@@ -65,25 +74,69 @@ public class GameController {
     
     private void runMenu(){
         while (!isFinished()) {
-            int distance = validNextInt("Enter the number of squares you wish to move " + players.get(currentTurn).getPlayerName());
-            int newSquareIndex = players.get(currentTurn).getPosition() + distance;
-            if (newSquareIndex < board.size()) {
-                while (!board.get(newSquareIndex).isAvailable() || calculateMaxDistance(players.get(currentTurn).getNoOfCarrots()) < distance) {
-                    distance = validNextInt("Invalid option entered " + players.get(currentTurn).getPlayerName());
-                    newSquareIndex = players.get(currentTurn).getPosition() + distance;
-                }
+            takeTurn();
     
-                movePlayer(players.get(currentTurn), newSquareIndex);
-                players.get(currentTurn).removeCarrots(carrotsRequired(distance));
+            printBoard();
     
-                printBoard();
+            listPlayers();
+            nextTurn();
+        }
+        System.out.println("The game is finished, here is the final standings:");
+    }
     
-                listPlayers();
-                nextTurn();
-            } else {
-                System.out.println("Square does not exist");
+    //TODO reset player if they cannot make a turn
+    public void takeTurn() {
+        if (canMoveBackward()) {
+            System.out.println("Player can move backwards");
+        }
+        if (board.get(getCurrentPlayer().getPosition()).canStay()) {
+            System.out.println("Player can stay");
+        }
+        if (canMoveForward()) {
+            System.out.println("Player can move forward");
+        }
+    
+    
+        int distance = validNextInt("Enter the number of squares you wish to move " + players.get(currentTurn).getPlayerName());
+        int newSquareIndex = players.get(currentTurn).getPosition() + distance;
+        if (newSquareIndex < board.size()) {
+            while (!board.get(newSquareIndex).isAvailable() || calculateMaxDistance(players.get(currentTurn).getNoOfCarrots()) < distance) {
+                distance = validNextInt("Invalid option entered " + players.get(currentTurn).getPlayerName());
+                newSquareIndex = players.get(currentTurn).getPosition() + distance;
+            }
+        
+            movePlayer(players.get(currentTurn), newSquareIndex);
+            players.get(currentTurn).removeCarrots(carrotsRequired(distance));
+        
+            
+        } else {
+            System.out.println("Square does not exist");
+            takeTurn();
+        }
+    }
+    
+    public boolean canMoveBackward() {
+        int prevTortoise = findPreviousTortoise();
+        if (prevTortoise == 0 || !board.get(prevTortoise).isAvailable()){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
+    public boolean canMoveForward() {
+        return true;
+    }
+    
+    public int findPreviousTortoise() {
+        int i = getCurrentPlayer().getPosition();
+        if (i != 0) {
+            while (i > 0 && !board.get(i).getName().equals("Tortoise")) {
+                i--;
             }
         }
+        return i;
     }
     
     public void movePlayer (Player player, int position) {
@@ -91,6 +144,7 @@ public class GameController {
         board.get(position).setPlayer(player);
     }
     
+    //TODO Implement Nialls board display instead
     public void printBoard() {
         String str = "";
         String playerName = "";
@@ -117,7 +171,8 @@ public class GameController {
      * @return The number of carrots required to move the inputted distance
      */
     public int carrotsRequired(int distance) {
-		/* int carrots = 0;
+		/* Alternative way to find the carrots required
+		* int carrots = 0;
 		*  for (int index = 1; index <= distance; index++)
 		*  {
 		*   	carrots = carrots + index;
@@ -143,7 +198,6 @@ public class GameController {
         return roundedDown;
     }
     
-    
     public void nextTurn() {
         currentTurn++;
         
@@ -156,6 +210,11 @@ public class GameController {
             players.get(currentTurn).setSkipTurn(false);
             nextTurn();
         }
+    }
+    
+    
+    public Player getCurrentPlayer() {
+        return players.get(currentTurn);
     }
     
     /**
