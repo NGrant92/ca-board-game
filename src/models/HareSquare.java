@@ -11,6 +11,20 @@ public class HareSquare extends Square {
         super(name, position);
     }
 
+    //====================
+    //SHOW US YOUR CARROTS
+    //====================
+    //A simple enough method to return the players number of carrots
+    //TODO how will they be printed to screen?
+    public int showCarrots(Player player){
+
+        return player.getNoOfCarrots();
+    }
+
+
+    //=================
+    //HALF YOUR CARROTS
+    //=================
     //This will be the method called by the Execute Rule class. Which will pass in the required player class
     public void halfCarrots(Player player){
 
@@ -20,6 +34,7 @@ public class HareSquare extends Square {
         //TODO Check if a minus number needs to be input
         player.setPendingBalance(setHalfCarrots(player.getNoOfCarrots()));
     }
+
     public int setHalfCarrots(int carrots){
 
         //simple arguement to have the inputted carrots
