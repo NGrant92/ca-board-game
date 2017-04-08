@@ -4,6 +4,8 @@ import models.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static utils.ScannerInput.*;
+
 /**
  * This class c
  *
@@ -35,12 +37,11 @@ public class GameController {
     }
     
     public void startGame () {
-        System.out.println("Welcome to The Hare and Tortoise");
-        System.out.println("Enter the number of players you want to play:");
-        int j = input.nextInt();
-        input.next();
         createBoard();
+    
+        System.out.println("Welcome to The Hare and Tortoise");
         
+        int j = validNextInt("Enter the number of players you want to play: ");
         for (int i = 0; i < j; i++) {
             System.out.println("Enter player " + (i + 1) + " name");
             String str = input.next();
