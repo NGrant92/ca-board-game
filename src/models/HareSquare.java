@@ -21,6 +21,15 @@ public class HareSquare extends Square {
         return player.getNoOfCarrots();
     }
 
+    //==================
+    //BACK TO 65 CARROTS
+    //==================
+    //A simple enough method to return the player to 65 carrots
+    //TODO display to screen that their carrots were reset
+    public void resetCarrots(Player player){
+
+        player.setNoOfCarrots(65);
+    }
 
     //=================
     //HALF YOUR CARROTS
