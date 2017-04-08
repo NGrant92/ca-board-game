@@ -32,6 +32,7 @@ public class HareSquare extends Square {
             //the rules specify if halving an odd number you should round up
             return (halfCarrots + 1);
         }
+        //returns halfCarrots() without any changes
         else{
             return halfCarrots;
         }
