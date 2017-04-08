@@ -71,23 +71,26 @@ public class GameController {
     private void runMenu(){
         while (!isFinished()) {
             System.out.println("Enter the number of squares you wish to move " + players.get(currentTurn).getPlayerName());
-            
+    
             int distance = input.nextInt();
             int newSquareIndex = players.get(currentTurn).getPosition() + distance;
-            
-            while (!board.get(newSquareIndex).isAvailable() || calculateMaxDistance(players.get(currentTurn).getNoOfCarrots()) < distance ) {
-                System.out.println("Invalid option entered " + players.get(currentTurn).getPlayerName());
-                distance = input.nextInt();
-                newSquareIndex = players.get(currentTurn).getPosition() + distance;
+            if (newSquareIndex < board.size()) {
+                while (!board.get(newSquareIndex).isAvailable() || calculateMaxDistance(players.get(currentTurn).getNoOfCarrots()) < distance) {
+                    System.out.println("Invalid option entered " + players.get(currentTurn).getPlayerName());
+                    distance = input.nextInt();
+                    newSquareIndex = players.get(currentTurn).getPosition() + distance;
+                }
+    
+                movePlayer(players.get(currentTurn), newSquareIndex);
+                players.get(currentTurn).removeCarrots(carrotsRequired(distance));
+    
+                printBoard();
+    
+                listPlayers();
+                nextTurn();
+            } else {
+                System.out.println("Square does not exist");
             }
-            
-            movePlayer(players.get(currentTurn), newSquareIndex);
-            players.get(currentTurn).removeCarrots(carrotsRequired(distance));
-            
-            printBoard();
-            
-            listPlayers();
-            nextTurn();
         }
         input.next();
     }
@@ -165,7 +168,12 @@ public class GameController {
     }
     
     private boolean isFinished () {
-        return false;
+        for ( int i = 0 ; i < players.size() ; i++ ) {
+            if (players.get(i).getPosition() != board.size()){
+                return false;
+            }
+        }
+        return true;
     }
 
     //===================
