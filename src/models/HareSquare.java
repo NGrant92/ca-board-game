@@ -21,6 +21,28 @@ public class HareSquare extends Square {
         return player.getNoOfCarrots();
     }
 
+    //======================
+    //10 CARROTS PER LETTUCE
+    //======================
+    //If this card it pulled the player recieves 10 Carrots per Lettuce. If player has no lettuce they skip a turn.
+    public void tenCarrotsPerLettuce(Player player){
+
+        //player.getNoOfLettuce() is used twice to it's given a variable name
+        int lettuceNum = player.getNoOfLettuce();
+
+        //Checks if player has at least 1 lettuce
+        if(lettuceNum > 0){
+            //inputs addCarrots into the player pendingBlance
+            player.setPendingBalance(lettuceNum * 10);
+        }
+        //if the player has 0 lettuce it will raise the flag for setSkipTurn()
+        else{
+            player.setSkipTurn(true);
+        }
+    }
+
+
+
     //==================
     //BACK TO 65 CARROTS
     //==================
