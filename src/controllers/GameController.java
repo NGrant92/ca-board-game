@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import static utils.ScannerInput.*;
 
 /**
- * This class c
+ * This class
  *
  * @author Kevin Fan
  * @author Niall Grant
@@ -23,12 +23,12 @@ public class GameController {
     
     public GameController(){
         players = new ArrayList<>();
-        startGame();
+        startNewGame();
         
         runMenu();
     }
     
-    public void startGame () {
+    public void startNewGame () {
         createBoard();
     
         System.out.println("Welcome to The Hare and Tortoise");
@@ -84,35 +84,46 @@ public class GameController {
         System.out.println("The game is finished, here is the final standings:");
     }
     
-    //TODO reset player if they cannot make a turn
     public void takeTurn() {
+        if (!canMoveBackward() && !canStay() && !canMoveForward()) {
+            System.out.println("Sorry, there were no available moves, you have been reset to the beginning");
+            movePlayer(getCurrentPlayer(),0);
+            getCurrentPlayer().setNoOfCarrots(65);
+        }
         if (canMoveBackward()) {
             System.out.println("Player can move backwards");
         }
-        if (board.get(getCurrentPlayer().getPosition()).canStay()) {
+        if (canStay()) {
             System.out.println("Player can stay");
         }
         if (canMoveForward()) {
             System.out.println("Player can move forward");
         }
+        
     
-    
-        int distance = validNextInt("Enter the number of squares you wish to move " + players.get(currentTurn).getPlayerName());
-        int newSquareIndex = players.get(currentTurn).getPosition() + distance;
+        int distance = validNextInt("Enter the number of squares you wish to move " + getCurrentPlayer().getPlayerName());
+        int newSquareIndex = getCurrentPlayer().getPosition() + distance;
         if (newSquareIndex < board.size()) {
-            while (!board.get(newSquareIndex).isAvailable() || calculateMaxDistance(players.get(currentTurn).getNoOfCarrots()) < distance) {
-                distance = validNextInt("Invalid option entered " + players.get(currentTurn).getPlayerName());
-                newSquareIndex = players.get(currentTurn).getPosition() + distance;
+            while (!board.get(newSquareIndex).isAvailable() || calculateMaxDistance(getCurrentPlayer().getNoOfCarrots()) < distance) {
+                distance = validNextInt("Invalid option entered " + getCurrentPlayer().getPlayerName());
+                newSquareIndex = getCurrentPlayer().getPosition() + distance;
             }
-        
-            movePlayer(players.get(currentTurn), newSquareIndex);
-            players.get(currentTurn).removeCarrots(carrotsRequired(distance));
-        
-            
+            movePlayer(getCurrentPlayer(), newSquareIndex);
+            getCurrentPlayer().removeCarrots(carrotsRequired(distance));
         } else {
             System.out.println("Square does not exist");
-            takeTurn();
         }
+    }
+    
+    
+    public int findPreviousTortoise() {
+        int i = getCurrentPlayer().getPosition();
+        if (i != 0) {
+            while (i > 0 && !board.get(i).getName().equals("Tortoise")) {
+                i--;
+            }
+        }
+        return i;
     }
     
     public boolean canMoveBackward() {
@@ -125,18 +136,17 @@ public class GameController {
         }
     }
     
-    public boolean canMoveForward() {
-        return true;
+    public boolean canStay() {
+        return board.get(getCurrentPlayer().getPosition()).canStay();
     }
     
-    public int findPreviousTortoise() {
-        int i = getCurrentPlayer().getPosition();
-        if (i != 0) {
-            while (i > 0 && !board.get(i).getName().equals("Tortoise")) {
-                i--;
+    public boolean canMoveForward() {
+        for (int i = getCurrentPlayer().getPosition() ; i < board.size() ; i++) {
+            if (board.get(i).isAvailable()) {
+                return true;
             }
         }
-        return i;
+        return false;
     }
     
     public void movePlayer (Player player, int position) {
@@ -198,6 +208,7 @@ public class GameController {
         return roundedDown;
     }
     
+    
     public void nextTurn() {
         currentTurn++;
         
@@ -205,9 +216,9 @@ public class GameController {
             currentTurn = 0;
         }
         
-        //Skip if players flag is set to skip turn
-        if (players.get(currentTurn).getSkipTurn()) {
-            players.get(currentTurn).setSkipTurn(false);
+        //Skip if players flag is set to skip turn or if player is finished
+        if (getCurrentPlayer().getSkipTurn() || isPlayerFinished(getCurrentPlayer())) {
+            getCurrentPlayer().setSkipTurn(false);
             nextTurn();
         }
     }
@@ -218,13 +229,27 @@ public class GameController {
     }
     
     /**
+     * Returns whether the passed player is on the final square
+     * @param player the player that is checked to see if they are finished
+     * @return a boolean representing if the player is on the final square
+     */
+    public boolean isPlayerFinished (Player player) {
+        if (player.getPosition() != board.size()) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
+    /**
      * Returns whether the game is finished for the while loop, returns false if any user is on any
      * square but the last one.
      * @return a boolean representing whether all players are on the final square
      */
     private boolean isFinished () {
         for ( int i = 0 ; i < players.size() ; i++ ) {
-            if (players.get(i).getPosition() != board.size()-1){
+            if (!isPlayerFinished(players.get(i))){
                 return false;
             }
         }
