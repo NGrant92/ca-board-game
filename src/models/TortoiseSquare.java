@@ -1,8 +1,27 @@
 package models;
 
 /**
- * Created by keela on 06/04/2017.
+ *
+ *
+ * @author Kevin Fan
+ * @author Niall Grant
+ * @author Bernadette Murphy
+ * @author Keelan Murphy
+ * @version 2017.04.08
  */
-public class TortoiseSquare {
-
+public class TortoiseSquare extends Square {
+    
+    public TortoiseSquare(String name, int position) {
+        super(name, position);
+    }
+    
+    
+    @Override
+    public boolean isAvailable() {
+        if (players.size() == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
