@@ -10,7 +10,7 @@ public class StartSquare extends Square {
     }
     
     @Override
-    public boolean isAvailable() {
+    public boolean canMoveHere(Player player) {
         return true;
     }
 }
