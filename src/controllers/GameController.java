@@ -24,8 +24,6 @@ public class GameController {
     public GameController(){
         players = new ArrayList<>();
         startNewGame();
-        
-        runMenu();
     }
     
     public void startNewGame () {
@@ -74,12 +72,13 @@ public class GameController {
     
     private void runMenu(){
         while (!isFinished()) {
+            nextTurn();
             takeTurn();
     
             printBoard();
     
             listPlayers();
-            nextTurn();
+           
         }
         System.out.println("The game is finished, here is the final standings:");
     }
@@ -99,22 +98,19 @@ public class GameController {
         // Boolean value to loop until the current player has taken a valid turn
         boolean turnTaken = false;
         while(!turnTaken) {
-            String moveType = retrieveText("What do you want to do " + getCurrentPlayer().getPlayerName() + " (back / stay / move):");
+            String moveType = retrieveText("What do you want to do " + getCurrentPlayer().getPlayerName() + " (back / stay / move)");
             // If player chooses to move back and the canMoveBackward condition is true
             if (moveType.equalsIgnoreCase("back") && canMoveBackward()) {
-                System.out.println("Player can move backwards");
                 // Moves player to the nearest previous tortoise
                 movePlayer(getCurrentPlayer(), findPreviousTortoise());
                 turnTaken = true;
             }
             // If player chooses to stay and the canStay condition is true
             else if (moveType.equalsIgnoreCase("stay") && canStay()) {
-                System.out.println("Player can stay");
                 turnTaken = true;
             }
             // If player chooses to move and the canMoveForward condition is true
             else if (moveType.equalsIgnoreCase("move") && canMoveForward()) {
-                System.out.println("Player can move forward");
                 int distance = validNextInt("Enter the number of squares you wish to move " + getCurrentPlayer().getPlayerName());
                 int newSquareIndex = getCurrentPlayer().getPosition() + distance;
                 // Checks if the newSquareIndex the player wants to move to is on the board
@@ -139,10 +135,10 @@ public class GameController {
         }
     }
     
-    
     public int findPreviousTortoise() {
         int i = getCurrentPlayer().getPosition();
         if (i != 0) {
+            i -= 1;
             while (i > 0 && !board.get(i).getName().equals("Tortoise")) {
                 i--;
             }
@@ -258,7 +254,7 @@ public class GameController {
      * @return a boolean representing if the player is on the final square
      */
     public boolean isPlayerFinished (Player player) {
-        if (player.getPosition() != board.size()) {
+        if (player.getPosition() != board.size() - 1) {
             return false;
         }
         else {
