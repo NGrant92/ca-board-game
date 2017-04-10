@@ -1,11 +1,13 @@
 package models;
 
+import java.lang.Math;
 import controllers.GameController;
 
 import java.util.ArrayList;
 
 /**
  * Created by kevin on 06/04/2017.
+ * Edited by Niall on 08/04/2017
  * A class used to store the methods that represent the cards from the hare deck
  */
 public class HareSquare extends Square {
@@ -22,6 +24,46 @@ public class HareSquare extends Square {
     public int showCarrots(Player player){
 
         return player.getNoOfCarrots();
+    }
+
+    //=========================
+    //10 CARROTS TO EACH PLAYER
+    //=========================
+    //A method used to give each player 10 carrots
+    //If the currentPlayer can't afford it then 5 carrots each
+    //If they can't afford that then 1 carrot each
+    //The players also have to option of discarding the carrots
+    public void tenCarrotsPerPlayer(ArrayList<Player> players, Player currentPlayer){
+        //players.size() - 1 gets used multiple times so i put it into a variable
+        //-1 to exclude the currentPlayer
+        int playersSize = players.size() - 1;
+        //currentPlayer.getNoOfCarrots() is tested multiple times so it's added into a variable
+        int currentPlayerCarrots = currentPlayer.getNoOfCarrots();
+        //this will hold the amount of carrots required to be given to each player
+        int carrotsToGive = 0;
+
+        //testing to see if currentPlayer has enough carrots to give 10 to each player
+        if(currentPlayerCarrots >= playersSize*10){
+            carrotsToGive = 10;
+        }
+        //if they dont have enough for 10 carrots per player then it checks
+        //if they have enough for 5 carrots per player
+        else if(currentPlayerCarrots >= playersSize*5){
+            carrotsToGive = 5;
+        }
+        //if both fail then they must give 1 carrot to each player
+        else{
+            carrotsToGive = 1;
+        }
+
+        //a for loop to add the carrotsToGive to each players pending balance
+        for(int i = 0 ; i < players.size() ; i++){
+            //Check to make sure the player doesn't give themself carrots. Only one player can be on one square
+            //at a time so if currentPlayer position == players(i) position then it skips that player
+            if(players.get(i).getPosition() != currentPlayer.getPosition()){
+                players.get(i).addPendingBalance(carrotsToGive);
+            }
+        }
     }
 
     //======================
@@ -65,11 +107,13 @@ public class HareSquare extends Square {
     //SHUFFLE CARD DECK
     //=================
     //The player must shuffle the card deck and recieve 1 carrot from each player
-    //TODO find a way to call HareDeck.shuffle()
-    public void shuffleCards(ArrayList<Player> players, Player currentPlayer){
+    public void shuffleCards(ArrayList<Player> players, Player currentPlayer, HareDeck hareDeck){
 
-        HareDeck.shuffle();
+        //hareDeck is passed in and shuffled
+        hareDeck.shuffle();
 
+        //players Array is passed in and used to determine how many carrots they are given. The -1  is there
+        //because the currentPlayer is also in the players array and you only receive carrots from other players
         currentPlayer.setPendingBalance(players.size() - 1);
     }
 
@@ -94,6 +138,7 @@ public class HareSquare extends Square {
         //it calls setHalfCarrots() and passing in the players current number of carrots
         //before the sucker loses half his supply
         //TODO Check if a minus number needs to be input
+        //change to setNoofcarrots
         player.setPendingBalance(setHalfCarrots(player.getNoOfCarrots()));
     }
 
