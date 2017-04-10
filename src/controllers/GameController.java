@@ -83,35 +83,59 @@ public class GameController {
         }
         System.out.println("The game is finished, here is the final standings:");
     }
-    
+
+    /**
+     * Method to give players option to move backwards, stay on current tile, or move forward, with checks for these option.
+     * Also contains the condition of where the player must move back to start square when there is no available moves for the player
+     */
     public void takeTurn() {
+        // If player can't move backwards, stay, and forward, set player position to start and no of carrots to 65
         if (!canMoveBackward() && !canStay() && !canMoveForward()) {
             System.out.println("Sorry, there were no available moves, you have been reset to the beginning");
             movePlayer(getCurrentPlayer(),0);
             getCurrentPlayer().setNoOfCarrots(65);
         }
-        if (canMoveBackward()) {
-            System.out.println("Player can move backwards");
-        }
-        if (canStay()) {
-            System.out.println("Player can stay");
-        }
-        if (canMoveForward()) {
-            System.out.println("Player can move forward");
-        }
-        
-    
-        int distance = validNextInt("Enter the number of squares you wish to move " + getCurrentPlayer().getPlayerName());
-        int newSquareIndex = getCurrentPlayer().getPosition() + distance;
-        if (newSquareIndex < board.size()) {
-            while (!board.get(newSquareIndex).isAvailable() || calculateMaxDistance(getCurrentPlayer().getNoOfCarrots()) < distance) {
-                distance = validNextInt("Invalid option entered " + getCurrentPlayer().getPlayerName());
-                newSquareIndex = getCurrentPlayer().getPosition() + distance;
+
+        // Boolean value to loop until the current player has taken a valid turn
+        boolean turnTaken = false;
+        while(!turnTaken) {
+            String moveType = retrieveText("What do you want to do " + getCurrentPlayer().getPlayerName() + " (back / stay / move):");
+            // If player chooses to move back and the canMoveBackward condition is true
+            if (moveType.equalsIgnoreCase("back") && canMoveBackward()) {
+                System.out.println("Player can move backwards");
+                // Moves player to the nearest previous tortoise
+                movePlayer(getCurrentPlayer(), findPreviousTortoise());
+                turnTaken = true;
             }
-            movePlayer(getCurrentPlayer(), newSquareIndex);
-            getCurrentPlayer().removeCarrots(carrotsRequired(distance));
-        } else {
-            System.out.println("Square does not exist");
+            // If player chooses to stay and the canStay condition is true
+            else if (moveType.equalsIgnoreCase("stay") && canStay()) {
+                System.out.println("Player can stay");
+                turnTaken = true;
+            }
+            // If player chooses to move and the canMoveForward condition is true
+            else if (moveType.equalsIgnoreCase("move") && canMoveForward()) {
+                System.out.println("Player can move forward");
+                int distance = validNextInt("Enter the number of squares you wish to move " + getCurrentPlayer().getPlayerName());
+                int newSquareIndex = getCurrentPlayer().getPosition() + distance;
+                // Checks if the newSquareIndex the player wants to move to is on the board
+                if (newSquareIndex < board.size()) {
+                    // Loop for if the newSquarePosition is already occupied or if player doesn't have enough carrots to pay for move
+                    while (!board.get(newSquareIndex).isAvailable() || calculateMaxDistance(getCurrentPlayer().getNoOfCarrots()) < distance) {
+                        distance = validNextInt("Invalid option entered " + getCurrentPlayer().getPlayerName());
+                        // Update distance to new option entered
+                        newSquareIndex = getCurrentPlayer().getPosition() + distance;
+                    }
+                    // Move player to new position and remove carrots for the move
+                    movePlayer(getCurrentPlayer(), newSquareIndex);
+                    getCurrentPlayer().removeCarrots(carrotsRequired(distance));
+                    turnTaken = true;
+                } else {
+                    System.out.println("Square does not exist");
+                }
+            }
+            else {
+                System.out.println("This option is not available");
+            }
         }
     }
     
