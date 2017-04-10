@@ -212,4 +212,19 @@ public class Player
 	public void setPendingBalance(int pendingBalance) {
 		this.pendingBalance = pendingBalance;
 	}
+
+	/**
+	 * Method to add to pendingBalance field
+	 * @param amount Amount to add to pendingBalance field
+	 */
+	public void addPendingBalance (int amount) {
+		pendingBalance += amount;
+	}
+
+	/**
+	 * Method to reset pendingBalance field to 0;
+	 */
+	public void resetPendingBalance() {
+		pendingBalance = 0;
+	}
 }
