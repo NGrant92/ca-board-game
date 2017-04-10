@@ -27,6 +27,13 @@ public abstract class Square {
         players.add(player);
         player.setPosition(position);
     }
+    public String getName() {
+        return name;
+    }
+    
+    public boolean canStay() {
+        return false;
+    }
     
     public void removePlayer(Player player) {
         players.remove(player);

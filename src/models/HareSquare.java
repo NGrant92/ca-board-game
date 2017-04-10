@@ -7,7 +7,6 @@ import java.util.ArrayList;
 /**
  * Created by kevin on 06/04/2017.
  * A class used to store the methods that represent the cards from the hare deck
- *
  */
 public class HareSquare extends Square {
 
