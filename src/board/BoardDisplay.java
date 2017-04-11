@@ -77,9 +77,6 @@ public class BoardDisplay
 						if(player.getPosition() == playerIndex){
 							playerName = player.getPlayerName();
 						}
-						else{
-							playerName = "";
-						}
 					}
 					printRow += toString(tileIndex, rowIndex, playerName);
 					if (playerIndex < 64){
