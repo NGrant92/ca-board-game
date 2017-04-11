@@ -19,36 +19,78 @@ public class HareSquare extends Square {
     //====================
     //SHOW US YOUR CARROTS
     //====================
-    //A simple enough method to return the players number of carrots
-    //TODO how will they be printed to screen?
-    public int showCarrots(Player player){
+    /**
+     * A simple enough method to return the players number of carrots
+     * TODO how will they be printed to screen?
+     */
+    public int showCarrots(Player currentPlayer){
 
-        return player.getNoOfCarrots();
+        return currentPlayer.getNoOfCarrots();
+    }
+
+    //=========================================================
+    //MORE PEOPLE BEHIND YOU: SKIP TURN. MORE AHEAD: EXTRA TURN
+    //=========================================================
+    /**
+     * If the player has more people behind than ahead of them then you skip a turn
+     * If there's more ahead of you, you gain an extra turn
+     * If there's an equal amount behind and ahead of you then you gain an extra turn
+     */
+    //TODO make it able to give player and extra turn
+    public void showCarrots(ArrayList<Player> players, Player currentPlayer){
+        int playersBehind = 0;
+        int playersAhead = 0;
+
+        for(Player player : players){
+            if(player.getPosition() < currentPlayer.getPosition()){
+                playersBehind++;
+            }
+            else if(player.getPosition() > currentPlayer.getPosition()){
+                playersAhead++;
+            }
+        }
+        if(playersBehind > playersAhead){
+            currentPlayer.setSkipTurn(true);
+        }
+        else{
+
+        }
+
     }
 
     //=========================
     //10 CARROTS TO EACH PLAYER
     //=========================
-    //A method used to give each player 10 carrots
-    //If the currentPlayer can't afford it then 5 carrots each
-    //If they can't afford that then 1 carrot each
-    //The players also have to option of discarding the carrots
+    /**
+     * A method used to give each player behind currentPlayer 10 carrots
+     * If the currentPlayer can't afford it then 5 carrots each
+     * If they can't afford that then 1 carrot each
+     * The players also have to option of discarding the carrots
+     */
+    //TODO remove players carrots when given away
     public void tenCarrotsPerPlayer(ArrayList<Player> players, Player currentPlayer){
-        //players.size() - 1 gets used multiple times so i put it into a variable
-        //-1 to exclude the currentPlayer
-        int playersSize = players.size() - 1;
         //currentPlayer.getNoOfCarrots() is tested multiple times so it's added into a variable
         int currentPlayerCarrots = currentPlayer.getNoOfCarrots();
         //this will hold the amount of carrots required to be given to each player
         int carrotsToGive = 0;
+        //this will hold the number of players who have to be given carrots
+        int playersBehind = 0;
+
+        //a for each loop to run through the players detect how many people are behind currentPlayer
+        //this is to help determine how many carrots currentPlayer will have to give away
+        for(Player player : players){
+            if(player.getPosition() < currentPlayer.getPosition()){
+                playersBehind ++;
+            }
+        }
 
         //testing to see if currentPlayer has enough carrots to give 10 to each player
-        if(currentPlayerCarrots >= playersSize*10){
+        if(currentPlayerCarrots >= playersBehind*10){
             carrotsToGive = 10;
         }
         //if they dont have enough for 10 carrots per player then it checks
         //if they have enough for 5 carrots per player
-        else if(currentPlayerCarrots >= playersSize*5){
+        else if(currentPlayerCarrots >= playersBehind*5){
             carrotsToGive = 5;
         }
         //if both fail then they must give 1 carrot to each player
@@ -56,12 +98,12 @@ public class HareSquare extends Square {
             carrotsToGive = 1;
         }
 
-        //a for loop to add the carrotsToGive to each players pending balance
-        for(int i = 0 ; i < players.size() ; i++){
+        //a for each loop to add the carrotsToGive to each players pending balance
+        for(Player player : players){
             //Check to make sure the player doesn't give themself carrots. Only one player can be on one square
             //at a time so if currentPlayer position == players(i) position then it skips that player
-            if(players.get(i).getPosition() != currentPlayer.getPosition()){
-                players.get(i).addPendingBalance(carrotsToGive);
+            if(player.getPosition() < currentPlayer.getPosition()){
+                player.addPendingBalance(carrotsToGive);
             }
         }
     }
@@ -69,7 +111,9 @@ public class HareSquare extends Square {
     //======================
     //10 CARROTS PER LETTUCE
     //======================
-    //If this card it pulled the player recieves 10 Carrots per Lettuce. If player has no lettuce they skip a turn.
+    /**
+     * If this card it pulled the player recieves 10 Carrots per Lettuce. If player has no lettuce they skip a turn.
+     */
     public void tenCarrotsPerLettuce(Player player){
 
         //player.getNoOfLettuce() is used twice to it's given a variable name
@@ -89,10 +133,15 @@ public class HareSquare extends Square {
     //=================
     //LAST TURN COSTS 0
     //=================
-    //A method to return the players previously expended amount of carrots
-    //To do this the player's previous position is deducted from their current position
-    //That result is put into a formula that calculates the required carrots for moving that distance
-    // which will add the amount to the player's pendingBalance
+
+    /**
+     *A method to return the players previously expended amount of carrots
+     *To do this the player's previous position is deducted from their current position
+     * That result is put into a formula that calculates the required carrots for moving that distance
+     *which will add the amount to the player's pendingBalance
+     * @param player
+     *
+     */
     public void lastTurnFree(Player player){
 
         //this subtracts player's previous position from their current position and feeds it into a variable name
@@ -106,7 +155,12 @@ public class HareSquare extends Square {
     //=================
     //SHUFFLE CARD DECK
     //=================
-    //The player must shuffle the card deck and recieve 1 carrot from each player
+    /**
+     * The player must shuffle the card deck and recieve 1 carrot from each player
+     * @param players
+     * @param currentPlayer
+     * @param hareDeck
+     */
     public void shuffleCards(ArrayList<Player> players, Player currentPlayer, HareDeck hareDeck){
 
         //hareDeck is passed in and shuffled
@@ -120,7 +174,10 @@ public class HareSquare extends Square {
     //==================
     //BACK TO 65 CARROTS
     //==================
-    //A simple enough method to return the player to 65 carrots
+    /**
+     * A simple enough method to return the player to 65 carrots
+     * @param player
+     */
     //TODO display to screen that their carrots were reset
     public void resetCarrots(Player player){
 
@@ -130,8 +187,10 @@ public class HareSquare extends Square {
     //=================
     //HALF YOUR CARROTS
     //=================
-    //This method is for halving the players stash of carrots. setHalfCarrots() returns the required int
-    //and halfCarrots() inputs it into the player's setPendingBalance()
+    /**
+     * This method is for halving the players stash of carrots. setHalfCarrots() returns the required int
+     * and halfCarrots() inputs it into the player's setPendingBalance()
+     */
     public void halfCarrots(Player player){
 
         //this method sets the pending balance to the amount of carrots
