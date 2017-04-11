@@ -12,7 +12,7 @@ public class ShowRules {
     
     
 
-public String viewRules()
+public static String viewRules()
 {
 return "Rules Display: +Rules Display "
 		+ ".\nList of Rules in the Game:\n"
@@ -26,7 +26,7 @@ return "Rules Display: +Rules Display "
 		
 
 }
-public String viewCost ()
+public static String viewCost ()
 {return "Cost of Moving +Cost of Moving"
 		+ ".nList of Cost in Carrots:\n "
 	+"1=1     carrot \n"
