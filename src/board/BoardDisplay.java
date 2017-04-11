@@ -1,5 +1,6 @@
 package board;
-
+import models.*;
+import java.util.ArrayList;
 /*
  * board.Board Display class used to make a graphical display of the board so the Players can use it as a reference
  * when deciding on their next move.
@@ -18,12 +19,13 @@ public class BoardDisplay
 			"Carrots", "4", "3", "2", "Tortoise", "Hare", "156", "Carrots", "Hare", "2", "3", "Tortoise", "Carrots", "Hare", 
 			"Carrots", "2", "Lettuce", "Tortoise", "3", "4", "Hare", "2", "156", "Carrots", "Tortoise", "Hare", "3", "2", "4", 
 			"Carrots", "Tortoise", "Lettuce", "Hare", "Carrots", "156", "Carrots", "Hare", "Carrots", "Finish"};
-	
+	/**
 	public static void main(String[] args)
 	{
 		//calls the board.BoardDisplay method when class is run
 		new BoardDisplay();
 	}
+	 */
 	
 	/*
 	 * Prints the board to be displayed to the user.
@@ -38,12 +40,14 @@ public class BoardDisplay
 	 * @param printRow The nested loop adds the specific element 10 times into one long string which is printed outside of the loop
 	 * 					The printRow string is reset after it prints out the information.
 	 */
-	public BoardDisplay()
+	public BoardDisplay(ArrayList<Player> players)
 	{
+		int playerIndex = 0;
 		int tileIndex = 0;
 		int rowIndex = 0;
 		int rowRepeat = 13;
 		String printRow = "";
+		String playerName = "";
 
 		//First loop which runs through the 25 Rows
 		for(int row = 0 ; row < 25 ; row++){
@@ -51,14 +55,14 @@ public class BoardDisplay
 			//Second loop will add the necessary information to a string which will be printed on that row
 			for(int rowLoop = 0 ; rowLoop < rowRepeat ; rowLoop++){
 
-				//If rowIndex = (0, 2 or 3) it will add the toString method together
+				//If rowIndex = (0, 2 or 4) it will add the toString method together
 				if(rowIndex == 0 || rowIndex == 2 || rowIndex == 4){
-					printRow += toString(tileIndex, rowIndex);
+					printRow += toString(tileIndex, rowIndex, playerName);
 				}
 				//If rowIndex = 1 it will increment tileIndex.
 				//This is so tileIndex increments ONLY when it is printed
 				else if(rowIndex == 1){
-					printRow += toString(tileIndex, rowIndex);
+					printRow += toString(tileIndex, rowIndex, playerName);
 
 					if (tileIndex < 64){
 						tileIndex++;
@@ -68,19 +72,33 @@ public class BoardDisplay
 				//If rowIndex = 3 it will check if player position = true
 				//if true it will print out the player name
 				else if(rowIndex == 3){
-					printRow += toString(tileIndex, rowIndex);
+
+					for(Player player : players){
+						if(player.getPosition() == playerIndex){
+							playerName = player.getPlayerName();
+						}
+						else{
+							playerName = "";
+						}
+					}
+					printRow += toString(tileIndex, rowIndex, playerName);
+					if (playerIndex < 64){
+						playerIndex++;
+					}
+					playerName = "";
 				}
 
 				//If rowIndex = 4 it will reset rowIndex to 0
 				else{
 					rowIndex = 0;
-					printRow += toString(tileIndex, rowIndex);
+					printRow += toString(tileIndex, rowIndex, playerName);
 				}
 			}
 			//the printRow from the loop is printed out
 			System.out.println(printRow);
 			//printRow is reset
 			printRow = "";
+
 			//rowIndex is incremented, letting the next loop know to print out the next line 10 times
 			rowIndex++;
 		}
@@ -90,7 +108,7 @@ public class BoardDisplay
 	 * Requires two integer arguments for the method to be called
 	 * which is used for the tiles array and the tilesRow array
 	 */
-	public String toString(int i, int rowIndex)
+	public String toString(int i, int rowIndex, String playerName)
 	{
 		/*
 		 * if statement checks if "i" is below 10 if i < 10
@@ -124,13 +142,15 @@ public class BoardDisplay
 
 		//the total length of this string will help decide the required spaces to be added
 		String tileType = index + ": "+ tiles[i];
+
+		//String player = index + ": "+ playerName;
 		
 		//the rows of the tile is stored in an array making it easier to call by the board.BoardDisplay()
 		//because it uses incremented integers in it's loops 
 		tileRows[0] = "+--------------+";
 		tileRows[1] = "| "+ tileType + spaces.substring(0, ((spaces.length() - tileType.length()) - 1)) + "|";
 		tileRows[2] = "|" + spaces + "|";
-		tileRows[3] = "|" + spaces + "|";
+		tileRows[3] = "| "+ playerName + spaces.substring(0, ((spaces.length() - playerName.length()) - 1)) + "|";
 		tileRows[4] = "+--------------+";
 		
 		//returns the specific rowIndex requested
