@@ -13,9 +13,10 @@ public class FinishSquare extends Square {
 		// TODO Auto-generated constructor stub
 	}
 
-	/*   This method will allow the players to see who finished first second and so on depending 
+	/*   This method will allow the players to see who finished first second and so on depending
 	 * on how many players are playing .
-	 * It will pass the ArrayList and who ever is first in the Player ArrayList will be first and so on 
+	 * It will pass the ArrayList and who ever is first in the Player ArrayList will be first and so on
+	 * Test
 	 */
 	public void printStandings(){
 		for (int i=0; i<players.size();i++){
