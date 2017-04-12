@@ -100,8 +100,7 @@ public class GameController {
                 board.add(new TortoiseSquare("Tortoise", i));
             }
             if (i == 64) {
-                //TODO Incorporate Bernadettes Square
-                board.add(new StartSquare("Finish", i));
+                board.add(new FinishSquare("Finish", i));
             }
         }
     }
