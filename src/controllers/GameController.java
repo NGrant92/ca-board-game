@@ -1,6 +1,7 @@
 package controllers;
 import models.*;
 import java.util.ArrayList;
+import board.*;
 
 import static utils.ScannerInput.*;
 
@@ -27,6 +28,7 @@ public class GameController {
     }
     
     public void startNewGame () {
+        new BoardDisplay(players);
         createBoard();
     
         System.out.println("Welcome to The Hare and Tortoise");
@@ -79,7 +81,13 @@ public class GameController {
     private void runMenu(){
         while (!isFinished()) {
             takeTurn();
+<<<<<<< HEAD
             printBoard();
+=======
+
+            new BoardDisplay(players);
+    
+>>>>>>> 87f28cb3e86a35e59529dd2af46281ca143c4918
             listPlayers();
             //TODO crashes when all players are finished
             nextTurn();
