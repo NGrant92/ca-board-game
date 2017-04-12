@@ -34,6 +34,8 @@ public class GameController {
     public void startNewGame () {
         createBoard();
     
+        insertLines();
+        
         System.out.println("Welcome to The Hare and Tortoise");
         
         int numPlayers = validNextInt("Enter the number of players you want to play:");
@@ -120,11 +122,12 @@ public class GameController {
     
     private void runMenu(){
         while (!isFinished()) {
-            takeTurn();
-
-
+            insertLines();
+    
             new BoardDisplay(board);
     
+            takeTurn();
+            
             listPlayers();
             //TODO crashes when all players are finished
             nextTurn();
@@ -160,7 +163,17 @@ public class GameController {
         // Boolean value to loop until the current player has taken a valid turn
         boolean turnTaken = false;
         while(!turnTaken) {
-            String moveType = retrieveText("What do you want to do " + getCurrentPlayer().getPlayerName() + " (back / stay / move)");
+            String options = "";
+            if (canMoveBackward()) {
+                options += "(back) ";
+            }
+            if (canStay()) {
+                options += "(stay) ";
+            }
+            if (canMoveForward()) {
+                options += "(move) ";
+            }
+            String moveType = retrieveText("What do you want to do " + getCurrentPlayer().getPlayerName() + "\tAvailable options: " + options);
             // If player chooses to move back and the canMoveBackward condition is true
             if (moveType.equalsIgnoreCase("back") && canMoveBackward()) {
                 // Moves player to the nearest previous tortoise
@@ -289,7 +302,10 @@ public class GameController {
         }
     }
     
-    
+    /**
+     * Finds the current player
+     * @return the current player
+     */
     public Player getCurrentPlayer() {
         return players.get(currentTurn);
     }
@@ -393,5 +409,13 @@ public class GameController {
             }
         }
         return false;
+    }
+    
+    public void insertLines()
+    {
+        for(int clear = 0; clear < 50; clear++)
+        {
+            System.out.println("\n") ;
+        }
     }
 }
