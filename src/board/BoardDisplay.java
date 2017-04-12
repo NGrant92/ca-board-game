@@ -40,7 +40,7 @@ public class BoardDisplay
 		String printRow = "";
 		//If player position == playerIndex then it will pass in the player's name for it to be printed
 		String playerName = "";
-
+		
 		//First loop which runs through the 25 Rows
 		for(int row = 0 ; row < 25 ; row++){
 
@@ -67,9 +67,12 @@ public class BoardDisplay
 				else if(rowIndex == 3){
 
 					ArrayList<Player> players = new ArrayList<>(board.get(playerIndex).getPlayers());
-					if (players.size() > 0 ){
-					    playerName = board.get(playerIndex).players.get(0).getPlayerName();
-                    }
+
+					if (players.size() == 1 ) {
+					    playerName = players.get(0).getPlayerName();
+                    } else if (players.size() > 1) {
+						playerName = players.size() + " players";
+					}
      
 					//Adds the string to printRow variable
 					printRow += toString(tileName, tileIndex, rowIndex, playerName);
@@ -149,6 +152,4 @@ public class BoardDisplay
 		//returns the specific rowIndex requested
 		return tileRows[rowIndex];
 	}
-	
-	
 }
