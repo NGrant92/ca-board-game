@@ -34,6 +34,8 @@ public class BoardDisplay
 		int tileIndex = 0;
 		//A counter that will decide what will be printed on each row
 		int rowIndex = 0;
+
+		String tileName = "";
 		//The loop will pass the content into this string and will be printed at the end of the nested loop
 		String printRow = "";
 		//If player position == playerIndex then it will pass in the player's name for it to be printed
@@ -47,12 +49,13 @@ public class BoardDisplay
 
 				//If rowIndex = (0, 2 or 4) it will add the toString method together
 				if(rowIndex == 0 || rowIndex == 2 || rowIndex == 4){
-					printRow += toString(board, tileIndex, rowIndex, playerName);
+					printRow += toString(tileName, tileIndex, rowIndex, playerName);
 				}
 				//If rowIndex = 1 it will increment tileIndex.
 				//This is so tileIndex increments ONLY when it is printed
 				else if(rowIndex == 1){
-					printRow += toString(board, tileIndex, rowIndex, playerName);
+					tileName = board.get(tileIndex).getName();
+					printRow += toString(tileName, tileIndex, rowIndex, playerName);
 
 					if (tileIndex < 64){
 						tileIndex++;
@@ -65,11 +68,11 @@ public class BoardDisplay
 
 					ArrayList<Player> players = new ArrayList<>(board.get(playerIndex).getPlayers());
 					if (players.size() > 0 ) {
-					    playerName = "player here";
+					    playerName = board.get(playerIndex).players.get(0).getPlayerName();
                     }
      
 					//Adds the string to printRow variable
-					printRow += toString(board, tileIndex, rowIndex, playerName);
+					printRow += toString(tileName, tileIndex, rowIndex, playerName);
 					//increments player index so it matches the respective tile number
 					if (playerIndex < 64){
 						playerIndex++;
@@ -81,7 +84,7 @@ public class BoardDisplay
 				//If rowIndex = 4 it will reset rowIndex to 0
 				else{
 					rowIndex = 0;
-					printRow += toString(board, tileIndex, rowIndex, playerName);
+					printRow += toString(tileName, tileIndex, rowIndex, playerName);
 				}
 			}
 			//the printRow from the loop is printed out
@@ -98,7 +101,7 @@ public class BoardDisplay
 	 * Requires two integer arguments for the method to be called
 	 * which is used for the tiles array and the tilesRow array
 	 */
-	public String toString(ArrayList<Square> board, int i, int rowIndex, String playerName)
+	public String toString(String tileName, int i, int rowIndex, String playerName)
 	{
 		/*
 		 * if statement checks if "i" is below 10 if i < 10
@@ -131,7 +134,7 @@ public class BoardDisplay
 		String spaces = "              ";
 
 		//the total length of this string will help decide the required spaces to be added
-		String tileType = index + ": "+ board.get(i).getName();
+		String tileType = index + ": "+ tileName;
 
 		//String player = index + ": "+ playerName;
 		
