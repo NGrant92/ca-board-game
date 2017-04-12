@@ -15,16 +15,17 @@ public class TortoiseSquare extends Square {
         super(name, position);
     }
     
-    
     @Override
     public boolean canMoveHere(Player player) {
-        if (player.getPosition() < position) {
+        if (player.getPosition() > position) {
             if (players.size() == 0) {
                 return true;
             } else {
                 return false;
             }
         }
-        return false;
+        else {
+            return false;
+        }
     }
 }

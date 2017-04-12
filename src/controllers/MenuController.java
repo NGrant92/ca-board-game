@@ -6,6 +6,8 @@ import java.util.Scanner;
 // import com.thoughtworks.xstream.io.xml.DomDriver;
 import models.HareDeck;
 
+import static utils.ScannerInput.validNextInt;
+
 /**
  * This class is the initial menu the user sees. The menu is displayed as below:
  *
@@ -73,8 +75,7 @@ public class MenuController
     System.out.println(" 5) Shuffle Deck");
     System.out.println(" 6) Draw a single card and print");
     System.out.println(" 0) Exit ");
-    System.out.print("==>>");
-    int option = input.nextInt();
+    int option = validNextInt("==>>");
     return option;
   }
   

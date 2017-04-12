@@ -38,20 +38,28 @@ public class HareSquare extends Square {
      */
     //TODO make it able to give player and extra turn
     public void showCarrots(ArrayList<Player> players, Player currentPlayer){
+        //Variable that will count how many people are behind currentPlayer
         int playersBehind = 0;
+        //Variable that will count how many people are ahead of currentPlayer
         int playersAhead = 0;
 
+        //For each loop that will run through the players array and
+        //compare currentPlayer's position against the other players
         for(Player player : players){
+            //if a player's position is less than currentPlayer's then it will increment playersBehind variable
             if(player.getPosition() < currentPlayer.getPosition()){
                 playersBehind++;
             }
+            //Same as right above only that if player is ahead of currentPlayer then playersAhead increments
             else if(player.getPosition() > currentPlayer.getPosition()){
                 playersAhead++;
             }
         }
+        //If more players are behind then they will skip a turn
         if(playersBehind > playersAhead){
             currentPlayer.setSkipTurn(true);
         }
+        //if more are ahead or equal amounts ahead and behind then they get an extra turn
         else{
 
         }

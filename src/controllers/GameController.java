@@ -25,21 +25,24 @@ public class GameController {
     public GameController(){
         players = new ArrayList<>();
         startNewGame();
-        
-        runMenu();
     }
     
     public void startNewGame () {
-        new BoardDisplay(players);
         createBoard();
     
         System.out.println("Welcome to The Hare and Tortoise");
         
-        int j = validNextInt("Enter the number of players you want to play: ");
-        for (int i = 0; i < j; i++) {
+        int numPlayers = validNextInt("Enter the number of players you want to play:");
+        
+        while (numPlayers < 2 || numPlayers > 6) {
+            numPlayers = validNextInt("Please choose a number between 2 and 6:");
+        }
+        
+        for (int i = 0; i < numPlayers; i++) {
             String name = retrieveText("Enter player " + (i + 1) + " name");
             addPlayer(name);
         }
+        
         for (int i = 0 ; i < players.size(); i++) {
             board.get(0).setPlayer(players.get(i));
         }
@@ -53,7 +56,7 @@ public class GameController {
         board.add(new CarrotSquare("Carrots", 1));
         board.add(new CarrotSquare("Carrots", 2));
         board.add(new CarrotSquare("Carrots", 3));
-        board.add(new CarrotSquare("Tortoise", 4));
+        board.add(new TortoiseSquare("Tortoise", 4));
         board.add(new CarrotSquare("Carrots", 5));
         board.add(new CarrotSquare("Carrots", 6));
         board.add(new CarrotSquare("Carrots", 7));
@@ -61,7 +64,59 @@ public class GameController {
         board.add(new CarrotSquare("Carrots", 9));
         board.add(new CarrotSquare("Carrots", 10));
         board.add(new TortoiseSquare("Tortoise", 11));
-        board.add(new StartSquare("Finish (Temporary)", 12));
+        board.add(new CarrotSquare("Carrots", 12));
+        board.add(new CarrotSquare("Carrots", 13));
+        board.add(new CarrotSquare("Carrots", 14));
+        board.add(new CarrotSquare("Carrots", 15));
+        board.add(new CarrotSquare("Carrots", 16));
+        board.add(new TortoiseSquare("Tortoise", 17));
+        board.add(new CarrotSquare("Carrots", 18));
+        board.add(new CarrotSquare("Carrots", 19));
+        board.add(new CarrotSquare("Carrots", 20));
+        board.add(new CarrotSquare("Carrots", 21));
+        board.add(new CarrotSquare("Carrots", 22));
+        board.add(new CarrotSquare("Carrots", 23));
+        board.add(new TortoiseSquare("Tortoise", 24));
+        board.add(new CarrotSquare("Carrots", 25));
+        board.add(new CarrotSquare("Carrots", 26));
+        board.add(new CarrotSquare("Carrots", 27));
+        board.add(new CarrotSquare("Carrots", 28));
+        board.add(new TortoiseSquare("Tortoise", 29));
+        board.add(new CarrotSquare("Carrots", 30));
+        board.add(new CarrotSquare("Carrots", 31));
+        board.add(new CarrotSquare("Carrots", 32));
+        board.add(new CarrotSquare("Carrots", 33));
+        board.add(new CarrotSquare("Carrots", 34));
+        board.add(new CarrotSquare("Carrots", 35));
+        board.add(new TortoiseSquare("Tortoise", 36));
+        board.add(new CarrotSquare("Carrots", 37));
+        board.add(new CarrotSquare("Carrots", 38));
+        board.add(new CarrotSquare("Carrots", 39));
+        board.add(new CarrotSquare("Carrots", 40));
+        board.add(new TortoiseSquare("Tortoise", 41));
+        board.add(new CarrotSquare("Carrots", 42));
+        board.add(new CarrotSquare("Carrots", 43));
+        board.add(new CarrotSquare("Carrots", 44));
+        board.add(new CarrotSquare("Carrots", 45));
+        board.add(new CarrotSquare("Carrots", 46));
+        board.add(new CarrotSquare("Carrots", 47));
+        board.add(new TortoiseSquare("Tortoise", 48));
+        board.add(new CarrotSquare("Carrots", 49));
+        board.add(new CarrotSquare("Carrots", 50));
+        board.add(new CarrotSquare("Carrots", 51));
+        board.add(new CarrotSquare("Carrots", 52));
+        board.add(new TortoiseSquare("Tortoise", 53));
+        board.add(new CarrotSquare("Carrots", 54));
+        board.add(new CarrotSquare("Carrots", 55));
+        board.add(new CarrotSquare("Carrots", 56));
+        board.add(new CarrotSquare("Carrots", 57));
+        board.add(new TortoiseSquare("Tortoise", 58));
+        board.add(new CarrotSquare("Carrots", 59));
+        board.add(new CarrotSquare("Carrots", 60));
+        board.add(new CarrotSquare("Carrots", 61));
+        board.add(new CarrotSquare("Carrots", 62));
+        board.add(new TortoiseSquare("Tortoise", 63));
+        board.add(new CarrotSquare("Carrots", 64));
     }
     
     public void addPlayer (String name) {
@@ -78,9 +133,11 @@ public class GameController {
         while (!isFinished()) {
             takeTurn();
 
-            new BoardDisplay(players);
+
+            new BoardDisplay(board);
     
             listPlayers();
+            //TODO crashes when all players are finished
             nextTurn();
         }
         System.out.println("The game is finished, here is the final standings:");
@@ -91,6 +148,18 @@ public class GameController {
      * Also contains the condition of where the player must move back to start square when there is no available moves for the player
      */
     public void takeTurn() {
+        
+        if (getCurrentPlayer().getPendingBalance() > 0) {
+            String option = retrieveText("You have a pending balance, what do you want to do? (accept/reject)").toLowerCase();
+            while (option.equals("accept") || option.equals("reject")) {
+                if (option.equals("accept")) {
+                    getCurrentPlayer().addCarrots(getCurrentPlayer().getPendingBalance());
+                    System.out.println(getCurrentPlayer().getPendingBalance() + " carrots added");
+                    getCurrentPlayer().setPendingBalance(0);
+                }
+            }
+        
+        }
         // If player can't move backwards, stay, and forward, set player position to start and no of carrots to 65
         if (!canMoveBackward() && !canStay() && !canMoveForward()) {
             System.out.println("Sorry, there were no available moves, you have been reset to the beginning");
@@ -101,22 +170,19 @@ public class GameController {
         // Boolean value to loop until the current player has taken a valid turn
         boolean turnTaken = false;
         while(!turnTaken) {
-            String moveType = retrieveText("What do you want to do " + getCurrentPlayer().getPlayerName() + " (back / stay / move):");
+            String moveType = retrieveText("What do you want to do " + getCurrentPlayer().getPlayerName() + " (back / stay / move)");
             // If player chooses to move back and the canMoveBackward condition is true
             if (moveType.equalsIgnoreCase("back") && canMoveBackward()) {
-                System.out.println("Player can move backwards");
                 // Moves player to the nearest previous tortoise
                 movePlayer(getCurrentPlayer(), findPreviousTortoise());
                 turnTaken = true;
             }
             // If player chooses to stay and the canStay condition is true
             else if (moveType.equalsIgnoreCase("stay") && canStay()) {
-                System.out.println("Player can stay");
                 turnTaken = true;
             }
             // If player chooses to move and the canMoveForward condition is true
             else if (moveType.equalsIgnoreCase("move") && canMoveForward()) {
-                System.out.println("Player can move forward");
                 int distance = validNextInt("Enter the number of squares you wish to move " + getCurrentPlayer().getPlayerName());
                 int newSquareIndex = getCurrentPlayer().getPosition() + distance;
                 // Checks if the newSquareIndex the player wants to move to is on the board
@@ -141,10 +207,10 @@ public class GameController {
         }
     }
     
-    
     public int findPreviousTortoise() {
         int i = getCurrentPlayer().getPosition();
         if (i != 0) {
+            i -= 1;
             while (i > 0 && !board.get(i).getName().equals("Tortoise")) {
                 i--;
             }
@@ -260,7 +326,7 @@ public class GameController {
      * @return a boolean representing if the player is on the final square
      */
     public boolean isPlayerFinished (Player player) {
-        if (player.getPosition() != board.size()) {
+        if (player.getPosition() != board.size() - 1) {
             return false;
         }
         else {
