@@ -9,7 +9,7 @@ public class FinishSquare extends Square {
 
 
 	public FinishSquare(String name, int position) {
-		super(name, position, canMoveHere);
+		super(name, position);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -17,14 +17,17 @@ public class FinishSquare extends Square {
 	 * on how many players are playing .
 	 * It will pass the ArrayList and who ever is first in the Player ArrayList will be first and so on 
 	 */
-	public void printStandings()
-	{   for (int i=0; i<players.size();i++){}
+	public void printStandings(){
+		for (int i=0; i<players.size();i++){
+		}
+	}
 	
 /*
  * For a player to  be able to finish the game they need to have gotten rid off all 
  * their lettuce cards and  They can only have a certain amount of carrots depending on what place they are in the game.
  * 
  */
+	@Override
 	public boolean canMoveHere(Player player){	
 		int maxCarrots = players.size() * 10 + (10);
 		if(player.getNoOfLettuce() == 0 && player.getNoOfCarrots() <= maxCarrots){   
