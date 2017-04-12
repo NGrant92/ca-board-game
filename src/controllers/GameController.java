@@ -1,6 +1,10 @@
 package controllers;
+import com.sun.deploy.util.ArrayUtil;
 import models.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import board.*;
 
 import static utils.ScannerInput.*;
@@ -51,73 +55,54 @@ public class GameController {
     
     public void createBoard() {
         board = new ArrayList<>();
-        //TODO Confirm we need to input a position and name
-        board.add(new StartSquare("Start", 0));
-        board.add(new CarrotSquare("Carrots", 1));
-        board.add(new CarrotSquare("Carrots", 2));
-        board.add(new CarrotSquare("Carrots", 3));
-        board.add(new TortoiseSquare("Tortoise", 4));
-        board.add(new CarrotSquare("Carrots", 5));
-        board.add(new CarrotSquare("Carrots", 6));
-        board.add(new CarrotSquare("Carrots", 7));
-        board.add(new CarrotSquare("Carrots", 8));
-        board.add(new CarrotSquare("Carrots", 9));
-        board.add(new CarrotSquare("Carrots", 10));
-        board.add(new TortoiseSquare("Tortoise", 11));
-        board.add(new CarrotSquare("Carrots", 12));
-        board.add(new CarrotSquare("Carrots", 13));
-        board.add(new CarrotSquare("Carrots", 14));
-        board.add(new CarrotSquare("Carrots", 15));
-        board.add(new CarrotSquare("Carrots", 16));
-        board.add(new TortoiseSquare("Tortoise", 17));
-        board.add(new CarrotSquare("Carrots", 18));
-        board.add(new CarrotSquare("Carrots", 19));
-        board.add(new CarrotSquare("Carrots", 20));
-        board.add(new CarrotSquare("Carrots", 21));
-        board.add(new CarrotSquare("Carrots", 22));
-        board.add(new CarrotSquare("Carrots", 23));
-        board.add(new TortoiseSquare("Tortoise", 24));
-        board.add(new CarrotSquare("Carrots", 25));
-        board.add(new CarrotSquare("Carrots", 26));
-        board.add(new CarrotSquare("Carrots", 27));
-        board.add(new CarrotSquare("Carrots", 28));
-        board.add(new TortoiseSquare("Tortoise", 29));
-        board.add(new CarrotSquare("Carrots", 30));
-        board.add(new CarrotSquare("Carrots", 31));
-        board.add(new CarrotSquare("Carrots", 32));
-        board.add(new CarrotSquare("Carrots", 33));
-        board.add(new CarrotSquare("Carrots", 34));
-        board.add(new CarrotSquare("Carrots", 35));
-        board.add(new TortoiseSquare("Tortoise", 36));
-        board.add(new CarrotSquare("Carrots", 37));
-        board.add(new CarrotSquare("Carrots", 38));
-        board.add(new CarrotSquare("Carrots", 39));
-        board.add(new CarrotSquare("Carrots", 40));
-        board.add(new TortoiseSquare("Tortoise", 41));
-        board.add(new CarrotSquare("Carrots", 42));
-        board.add(new CarrotSquare("Carrots", 43));
-        board.add(new CarrotSquare("Carrots", 44));
-        board.add(new CarrotSquare("Carrots", 45));
-        board.add(new CarrotSquare("Carrots", 46));
-        board.add(new CarrotSquare("Carrots", 47));
-        board.add(new TortoiseSquare("Tortoise", 48));
-        board.add(new CarrotSquare("Carrots", 49));
-        board.add(new CarrotSquare("Carrots", 50));
-        board.add(new CarrotSquare("Carrots", 51));
-        board.add(new CarrotSquare("Carrots", 52));
-        board.add(new TortoiseSquare("Tortoise", 53));
-        board.add(new CarrotSquare("Carrots", 54));
-        board.add(new CarrotSquare("Carrots", 55));
-        board.add(new CarrotSquare("Carrots", 56));
-        board.add(new CarrotSquare("Carrots", 57));
-        board.add(new TortoiseSquare("Tortoise", 58));
-        board.add(new CarrotSquare("Carrots", 59));
-        board.add(new CarrotSquare("Carrots", 60));
-        board.add(new CarrotSquare("Carrots", 61));
-        board.add(new CarrotSquare("Carrots", 62));
-        board.add(new TortoiseSquare("Tortoise", 63));
-        board.add(new CarrotSquare("Carrots", 64));
+    
+        List<Integer> hareSquares = Arrays.asList(1, 3, 6, 14, 25, 31, 34, 39, 46, 51, 58, 62);
+        List<Integer> carrotSquares = Arrays.asList(2, 5, 13, 21, 26, 33, 38, 40, 49, 55, 59, 61, 63);
+        List<Integer> threeSquares = Arrays.asList(4, 12, 20, 28, 36, 44, 52);
+        List<Integer> oneFiveSixSquares = Arrays.asList(7, 16, 32, 49, 60);
+        List<Integer> twoSquares = Arrays.asList(8, 17, 23, 29, 35, 41, 47, 53);
+        List<Integer> fourSquares = Arrays.asList(9, 18, 27, 45, 54);
+        List<Integer> lettuceSquares = Arrays.asList(10, 22, 42, 57);
+        List<Integer> tortoiseSquares = Arrays.asList(11, 15, 19, 24, 30, 37, 43, 50, 56);
+    
+        for (int i = 0 ; i < 65 ; i++) {
+            if (i == 0) {
+                board.add(new StartSquare("Start", i));
+            }
+            if (hareSquares.contains(i)) {
+                board.add(new HareSquare("Hare", i));
+            }
+            if (carrotSquares.contains(i)) {
+                board.add(new CarrotSquare("Carrots", i));
+            }
+            if (threeSquares.contains(i)) {
+                board.add(new PostionSquare("3", i));
+            }
+            if (oneFiveSixSquares.contains(i)) {
+                board.add(new PostionSquare("156", i));
+            }
+            if (twoSquares.contains(i)) {
+                board.add(new PostionSquare("2", i));
+            }
+            if (fourSquares.contains(i)) {
+                board.add(new PostionSquare("4", i));
+            }
+            if (lettuceSquares.contains(i)) {
+                board.add(new LettuceSquare("Lettuce", i));
+            }
+            if (tortoiseSquares.contains(i)) {
+                board.add(new TortoiseSquare("Tortoise", i));
+            }
+            if (i == 64) {
+                //TODO Incorporate Bernadettes Square
+                board.add(new StartSquare("Finish", i));
+            }
+    
+        }
+        
+      
     }
+   
     
     public void addPlayer (String name) {
         players.add(new Player(name));
