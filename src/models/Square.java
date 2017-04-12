@@ -47,4 +47,8 @@ public abstract class Square {
             return false;
         }
     }
+    
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
 }

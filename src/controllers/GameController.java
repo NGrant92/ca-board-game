@@ -1,6 +1,10 @@
 package controllers;
+import com.sun.deploy.util.ArrayUtil;
 import models.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import board.*;
 
 import static utils.ScannerInput.*;
@@ -25,45 +29,87 @@ public class GameController {
     public GameController(){
         players = new ArrayList<>();
         startNewGame();
-        
-        runMenu();
     }
     
     public void startNewGame () {
-        new BoardDisplay(players);
         createBoard();
     
+        insertLines();
+        
         System.out.println("Welcome to The Hare and Tortoise");
         
-        int j = validNextInt("Enter the number of players you want to play: ");
-        for (int i = 0; i < j; i++) {
+        int numPlayers = validNextInt("Enter the number of players you want to play:");
+        
+        while (numPlayers < 2 || numPlayers > 6) {
+            numPlayers = validNextInt("Please choose a number between 2 and 6:");
+        }
+        
+        for (int i = 0; i < numPlayers; i++) {
             String name = retrieveText("Enter player " + (i + 1) + " name");
             addPlayer(name);
         }
+        
         for (int i = 0 ; i < players.size(); i++) {
             board.get(0).setPlayer(players.get(i));
         }
+        
         runMenu();
     }
     
+    /**
+     * Populates the board array
+     */
     public void createBoard() {
         board = new ArrayList<>();
-        //TODO Confirm we need to input a position and name
-        board.add(new StartSquare("Start", 0));
-        board.add(new CarrotSquare("Carrots", 1));
-        board.add(new CarrotSquare("Carrots", 2));
-        board.add(new CarrotSquare("Carrots", 3));
-        board.add(new CarrotSquare("Tortoise", 4));
-        board.add(new CarrotSquare("Carrots", 5));
-        board.add(new CarrotSquare("Carrots", 6));
-        board.add(new CarrotSquare("Carrots", 7));
-        board.add(new CarrotSquare("Carrots", 8));
-        board.add(new CarrotSquare("Carrots", 9));
-        board.add(new CarrotSquare("Carrots", 10));
-        board.add(new TortoiseSquare("Tortoise", 11));
-        board.add(new StartSquare("Finish (Temporary)", 12));
+    
+        List<Integer> hareSquares = Arrays.asList(1, 3, 6, 14, 25, 31, 34, 39, 46, 51, 58, 62);
+        List<Integer> carrotSquares = Arrays.asList(2, 5, 13, 21, 26, 33, 38, 40, 49, 55, 59, 61, 63);
+        List<Integer> threeSquares = Arrays.asList(4, 12, 20, 28, 36, 44, 52);
+        List<Integer> oneFiveSixSquares = Arrays.asList(7, 16, 32, 49, 60);
+        List<Integer> twoSquares = Arrays.asList(8, 17, 23, 29, 35, 41, 47, 53);
+        List<Integer> fourSquares = Arrays.asList(9, 18, 27, 45, 54);
+        List<Integer> lettuceSquares = Arrays.asList(10, 22, 42, 57);
+        List<Integer> tortoiseSquares = Arrays.asList(11, 15, 19, 24, 30, 37, 43, 50, 56);
+    
+        for (int i = 0 ; i < 65 ; i++) {
+            if (i == 0) {
+                board.add(new StartSquare("Start", i));
+            }
+            if (hareSquares.contains(i)) {
+                board.add(new HareSquare("Hare", i));
+            }
+            if (carrotSquares.contains(i)) {
+                board.add(new CarrotSquare("Carrots", i));
+            }
+            if (threeSquares.contains(i)) {
+                board.add(new PostionSquare("3", i));
+            }
+            if (oneFiveSixSquares.contains(i)) {
+                board.add(new PostionSquare("156", i));
+            }
+            if (twoSquares.contains(i)) {
+                board.add(new PostionSquare("2", i));
+            }
+            if (fourSquares.contains(i)) {
+                board.add(new PostionSquare("4", i));
+            }
+            if (lettuceSquares.contains(i)) {
+                board.add(new LettuceSquare("Lettuce", i));
+            }
+            if (tortoiseSquares.contains(i)) {
+                board.add(new TortoiseSquare("Tortoise", i));
+            }
+            if (i == 64) {
+                //TODO Incorporate Bernadettes Square
+                board.add(new StartSquare("Finish", i));
+            }
+        }
     }
     
+    /**
+     * Adds a player to the game
+     * @param name the players name
+     */
     public void addPlayer (String name) {
         players.add(new Player(name));
     }
@@ -76,14 +122,18 @@ public class GameController {
     
     private void runMenu(){
         while (!isFinished()) {
-            takeTurn();
-
-            new BoardDisplay(players);
+            insertLines();
     
+            new BoardDisplay(board);
+    
+            takeTurn();
+            
             listPlayers();
+            //TODO crashes when all players are finished
             nextTurn();
         }
         System.out.println("The game is finished, here is the final standings:");
+        
     }
 
     /**
@@ -91,6 +141,18 @@ public class GameController {
      * Also contains the condition of where the player must move back to start square when there is no available moves for the player
      */
     public void takeTurn() {
+        
+        if (getCurrentPlayer().getPendingBalance() > 0) {
+            String option = retrieveText("You have a pending balance, what do you want to do? (accept/reject)").toLowerCase();
+            while (option.equals("accept") || option.equals("reject")) {
+                if (option.equals("accept")) {
+                    getCurrentPlayer().addCarrots(getCurrentPlayer().getPendingBalance());
+                    System.out.println(getCurrentPlayer().getPendingBalance() + " carrots added");
+                    getCurrentPlayer().setPendingBalance(0);
+                }
+            }
+        
+        }
         // If player can't move backwards, stay, and forward, set player position to start and no of carrots to 65
         if (!canMoveBackward() && !canStay() && !canMoveForward()) {
             System.out.println("Sorry, there were no available moves, you have been reset to the beginning");
@@ -101,22 +163,29 @@ public class GameController {
         // Boolean value to loop until the current player has taken a valid turn
         boolean turnTaken = false;
         while(!turnTaken) {
-            String moveType = retrieveText("What do you want to do " + getCurrentPlayer().getPlayerName() + " (back / stay / move):");
+            String options = "";
+            if (canMoveBackward()) {
+                options += "(back) ";
+            }
+            if (canStay()) {
+                options += "(stay) ";
+            }
+            if (canMoveForward()) {
+                options += "(move) ";
+            }
+            String moveType = retrieveText("What do you want to do " + getCurrentPlayer().getPlayerName() + "\tAvailable options: " + options);
             // If player chooses to move back and the canMoveBackward condition is true
             if (moveType.equalsIgnoreCase("back") && canMoveBackward()) {
-                System.out.println("Player can move backwards");
                 // Moves player to the nearest previous tortoise
                 movePlayer(getCurrentPlayer(), findPreviousTortoise());
                 turnTaken = true;
             }
             // If player chooses to stay and the canStay condition is true
             else if (moveType.equalsIgnoreCase("stay") && canStay()) {
-                System.out.println("Player can stay");
                 turnTaken = true;
             }
             // If player chooses to move and the canMoveForward condition is true
             else if (moveType.equalsIgnoreCase("move") && canMoveForward()) {
-                System.out.println("Player can move forward");
                 int distance = validNextInt("Enter the number of squares you wish to move " + getCurrentPlayer().getPlayerName());
                 int newSquareIndex = getCurrentPlayer().getPosition() + distance;
                 // Checks if the newSquareIndex the player wants to move to is on the board
@@ -141,10 +210,10 @@ public class GameController {
         }
     }
     
-    
     public int findPreviousTortoise() {
         int i = getCurrentPlayer().getPosition();
         if (i != 0) {
+            i -= 1;
             while (i > 0 && !board.get(i).getName().equals("Tortoise")) {
                 i--;
             }
@@ -178,22 +247,6 @@ public class GameController {
     public void movePlayer (Player player, int position) {
         board.get(player.getPosition()).removePlayer(player);
         board.get(position).setPlayer(player);
-    }
-    
-    //TODO Implement Nialls board display instead
-    public void printBoard() {
-        String str = "";
-        String playerName = "";
-        for (int i = 0 ; i < board.size(); i++) {
-        
-            for (int j = 0 ; j < board.get(i).players.size() ; j++) {
-                playerName += board.get(i).players.get(j).getPlayerName() + ", ";
-            }
-           
-            str = str + i + ": " + board.get(i).name + " " + playerName + ": "+ "\n";
-            playerName = "";
-        }
-        System.out.print(str);
     }
     
     /**
@@ -249,7 +302,10 @@ public class GameController {
         }
     }
     
-    
+    /**
+     * Finds the current player
+     * @return the current player
+     */
     public Player getCurrentPlayer() {
         return players.get(currentTurn);
     }
@@ -260,7 +316,7 @@ public class GameController {
      * @return a boolean representing if the player is on the final square
      */
     public boolean isPlayerFinished (Player player) {
-        if (player.getPosition() != board.size()) {
+        if (player.getPosition() != board.size() - 1) {
             return false;
         }
         else {
@@ -320,7 +376,7 @@ public class GameController {
     /**
      * Move back tortoise square calculation
      * No check is done to check for is square a tortoise square or is the tortoise square the nearest one
-     * @param player
+     * @param player The player that wishes to move
      * @param move
      */
     public void moveBackToTortoise(Player player, int move) {
@@ -334,12 +390,12 @@ public class GameController {
     /**
      * Check is a move for a player is invalid. Checks if player have enough carrots for move and is the position
      * already occupied another player
-     * @param player
-     * @param move
-     * @return
+     * @param player the player that wishes to move
+     * @param move the number of squares the player wishes to move
+     * @return a boolean representing if the move is possible
      */
     public boolean notValidMove(Player player, int move) {
-        // If statement to check is player has enough carrots for move
+        // If statement to check if player has enough carrots for move
         if (carrotsRequired(move) > player.getNoOfCarrots()) {
             return true;
         }
@@ -353,5 +409,13 @@ public class GameController {
             }
         }
         return false;
+    }
+    
+    public void insertLines()
+    {
+        for(int clear = 0; clear < 50; clear++)
+        {
+            System.out.println("\n") ;
+        }
     }
 }

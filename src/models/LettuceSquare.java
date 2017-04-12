@@ -43,8 +43,7 @@ public class LettuceSquare extends Square{
      */
     @Override
     public boolean canMoveHere(Player player) {
-        // Player can only move here if there are no players on the square, if the player has at least one lettuce, and if
-        // the players previous position and current position are different
+        // Player can only move here is there are no players on the square and
         if(players.size() == 0 && player.getNoOfLettuce() > 0 && player.getPreviousPosition() != player.getPosition()) {
             return true;
         } else {

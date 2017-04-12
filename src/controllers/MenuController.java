@@ -6,6 +6,8 @@ import java.util.Scanner;
 // import com.thoughtworks.xstream.io.xml.DomDriver;
 import models.HareDeck;
 
+import static utils.ScannerInput.validNextInt;
+
 /**
  * This class is the initial menu the user sees. The menu is displayed as below:
  *
@@ -31,18 +33,13 @@ import models.HareDeck;
 
 public class MenuController
 {
-  Scanner input;
   
-  //TODO Remove - for testing purposes only
-  HareDeck hareDeck = new HareDeck();
-	
   public static void main(String[] args)
   {
     new MenuController();
   }
   
   public MenuController(){
-    input = new Scanner(System.in);
     runMenu();
   }
   
@@ -66,15 +63,8 @@ public class MenuController
     System.out.println(" 1) Play the Game");
     System.out.println(" 2) Show Rules");
     System.out.println(" 3) Load Game" );
-    System.out.println("---------");
-    System.out.println("Testing Functions");
-    System.out.println("---------");
-    System.out.println(" 4) Print Deck");
-    System.out.println(" 5) Shuffle Deck");
-    System.out.println(" 6) Draw a single card and print");
     System.out.println(" 0) Exit ");
-    System.out.print("==>>");
-    int option = input.nextInt();
+    int option = validNextInt("==>>");
     return option;
   }
   
@@ -90,24 +80,10 @@ public class MenuController
           break;
         case 3:    System.out.println();
           break;
-          //TODO Remove cases 4 upwards, used for testing
-        case 4:
-          hareDeck.printDeck();
-          break;
-        case 5:
-          hareDeck.shuffle();
-          break;
-        case 6:
-          System.out.println(hareDeck.dealCard().getTitle());
-          break;
         default:    System.out.println("Invalid option entered: " + option);
           break;
       }
-      //pause the program so that the user can read what we just printed to the terminal window
-      System.out.println("\nPress any key to continue...");
-      input.nextLine();
-      input.nextLine(); //2nd read for bug in Scanner; String read is ignored after reading int.
-      //display the main menu again
+      
       option = mainMenu();
     }
     //the user chose option 0, so exit the program
