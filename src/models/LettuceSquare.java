@@ -34,9 +34,8 @@ public class LettuceSquare extends Square{
      * @param player Player object to be passed in to check is square available for player
      * @return Boolean value of the availability of the square
      */
-    //@Override
-    // TODO: Doesn't override the superclass method, because this method takes in a player object for checks
-    public boolean isAvailable(Player player) {
+    @Override
+    public boolean canMoveHere(Player player) {
         if(players.size() == 0 && player.getNoOfLettuce() > 0 && player.getPreviousPosition() != player.getPosition()) {
             return true;
         } else {
