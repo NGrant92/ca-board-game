@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 /**
  * Created by Kevin on 06/04/2017.
  * @author Kevin Fan
@@ -21,22 +23,28 @@ public class LettuceSquare extends Square{
 
     /**
      *
-     * @param player Player object that is passed in to get play information
+     * @param currentPlayer Player object that is passed in to get play information
      */
-    public void applyRule(Player player) {
-        player.removeLettuce();
-        player.addCarrots(getPlayerPositionInRace(player) * 10);
+    public void applyRule(ArrayList<Player> players, Player currentPlayer) {
+        // Removes a lettuce from the currentPlayer on the lettuce square
+        // No check is done here because player should not be able to move to lettuce square unless they at least 1 lettuce,
+        // which is done by the canMoveHere() method
+        currentPlayer.removeLettuce();
+
+        // Adds 10 * racePosition to the currentPlayer
+        currentPlayer.addCarrots(getRacePosition(players) * 10);
     }
 
     /**
-     * Overrider the superclass isAvailable method with inclusion of check for more than one lettuce and previous player
+     * Overrides the superclass CanMoveHere method with inclusion of check for more than one lettuce and previous player
      * position
      * @param player Player object to be passed in to check is square available for player
      * @return Boolean value of the availability of the square
      */
-    //@Override
-    // TODO: Doesn't override the superclass method, because this method takes in a player object for checks
-    public boolean isAvailable(Player player) {
+    @Override
+    public boolean canMoveHere(Player player) {
+        // Player can only move here if there are no players on the square, if the player has at least one lettuce, and if
+        // the players previous position and current position are different
         if(players.size() == 0 && player.getNoOfLettuce() > 0 && player.getPreviousPosition() != player.getPosition()) {
             return true;
         } else {
@@ -46,11 +54,13 @@ public class LettuceSquare extends Square{
 
     /**
      * Method that returns whether the player can stay on the current square
-     * @param player Player object that is passed in to get player information
      * @return Boolean value for whether the player can stay
      */
-    public boolean canStay(Player player) {
-        if (player.getPreviousPosition() != player.getPosition()) {
+    @Override
+    public boolean canStay() {
+        // Player can stay only if his previous position is not the same as the current position
+        // This wouldn't allow the player to stay on the lettuce square for more than one turn
+        if (players.get(0).getPreviousPosition() != players.get(0).getPosition()) {
             return true;
         } else {
             return false;
@@ -61,20 +71,26 @@ public class LettuceSquare extends Square{
      * Method to return the player position in race. Possibly can be used in number square or lettuce square
      * calculation.
      */
-    private int getPlayerPositionInRace(Player player) {
+    private int getRacePosition(ArrayList<Player> p) {
         // local variable to store the players current position - not really need
-        int currentPlayerPositionOnBoard = player.getPosition();
+        int currentPlayerPositionOnBoard = players.get(0).getPosition();
         // Local temporary store for playerPositionInRace - Player begins as in 1st position
-        int playerPositionInRace = 1;
+        int racePosition = 1;
 
         // Compares the currentPlayerPositionOnBoard to each playerPosition in the players array. If currentPlayerPositionOnBoard
         // is less than playerPosition, the playerPositionInRace is incremented by 1
-        // TODO: Method is checking the players array on the square, not the tile, so shouldn't work correctly
-        for (int i = 0; i < players.size(); i++) {
-            if (currentPlayerPositionOnBoard < players.get(i).getPosition()) {
-                playerPositionInRace++;
+        for (int i = 0; i < p.size(); i++) {
+            if (currentPlayerPositionOnBoard < p.get(i).getPosition()) {
+                racePosition++;
             }
         }
-        return playerPositionInRace;
+        return racePosition;
+    }
+
+    /**
+     * Returns a string of the number of lettuce the player has left and the number of carrots the player has
+     */
+    public String toString() {
+        return "You now have " + players.get(0).getNoOfLettuce() + "Lettuce and " + players.get(0).getNoOfCarrots() + " carrots";
     }
 }
