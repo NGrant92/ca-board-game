@@ -63,11 +63,10 @@ public class BoardDisplay
 				//if true it will print out the player name
 				else if(rowIndex == 3){
 
-					ArrayList<Player> players = new ArrayList<>(board.get(tileIndex).getPlayers());
+					ArrayList<Player> players = new ArrayList<>(board.get(playerIndex).getPlayers());
 					if (players.size() > 0 ) {
 					    playerName = "player here";
                     }
-					playerName += tileIndex;
      
 					//Adds the string to printRow variable
 					printRow += toString(board, tileIndex, rowIndex, playerName);
