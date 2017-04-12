@@ -9,7 +9,7 @@ public class FinishSquare extends Square {
 
 
 	public FinishSquare(String name, int position) {
-		super(name, position canMoveHere );
+		super(name, position, canMoveHere);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -25,22 +25,16 @@ public class FinishSquare extends Square {
  * their lettuce cards and  They can only have a certain amount of carrots depending on what place they are in the game.
  * 
  */
-	public boolean canMoveHere(){
-		if ()
+	public boolean canMoveHere(Player player){	
+		int maxCarrots = players.size() * 10 + (10);
+		if(player.getNoOfLettuce() == 0 && player.getNoOfCarrots() <= maxCarrots){   
+			  return true;
+		}
+		else{				
+			return false;
+		}
 	}
-	
-	
-			 
-			if(players.getNoOfLettuce() == 0 && player.getNoOfCarrots() <= maxCarrots){   
-			  canMoveHere(true, currentPlayer);
-			}
-			else{
-				canMoveHere(false, currentPlayer);
-			}
-			public boolean canMoveHere(boolean canMove, Player currentPlayer)
-				if(canMove == true){
-					players.add(currentPlayer);
-				}
+}
 	
 
 	//dependant on their place in the game they are only allowed have a certain number of carrots to finish 
