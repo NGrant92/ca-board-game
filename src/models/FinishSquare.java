@@ -26,7 +26,7 @@ public class FinishSquare extends Square {
  * 
  */
 	public boolean canMoveHere(){
-		if (canMove==true){
+		if ()
 	}
 	
 	
