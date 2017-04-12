@@ -34,7 +34,7 @@ public class BoardDisplay
 		int tileIndex = 0;
 		//A counter that will decide what will be printed on each row
 		int rowIndex = 0;
-
+		//The variable that will hold the name of the square and will be used to pass that into toString()
 		String tileName = "";
 		//The loop will pass the content into this string and will be printed at the end of the nested loop
 		String printRow = "";
@@ -67,7 +67,7 @@ public class BoardDisplay
 				else if(rowIndex == 3){
 
 					ArrayList<Player> players = new ArrayList<>(board.get(playerIndex).getPlayers());
-					if (players.size() > 0 ) {
+					if (players.size() > 0 ){
 					    playerName = board.get(playerIndex).players.get(0).getPlayerName();
                     }
      
