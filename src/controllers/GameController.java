@@ -28,9 +28,9 @@ public class GameController {
     }
     
     public void startNewGame () {
-        new BoardDisplay(players);
         createBoard();
     
+        new BoardDisplay(board);
         System.out.println("Welcome to The Hare and Tortoise");
         
         int numPlayers = validNextInt("Enter the number of players you want to play:");
@@ -65,7 +65,59 @@ public class GameController {
         board.add(new CarrotSquare("Carrots", 9));
         board.add(new CarrotSquare("Carrots", 10));
         board.add(new TortoiseSquare("Tortoise", 11));
-        board.add(new StartSquare("Finish (Temporary)", 12));
+        board.add(new CarrotSquare("Carrots", 12));
+        board.add(new CarrotSquare("Carrots", 13));
+        board.add(new CarrotSquare("Carrots", 14));
+        board.add(new CarrotSquare("Carrots", 15));
+        board.add(new CarrotSquare("Carrots", 16));
+        board.add(new TortoiseSquare("Tortoise", 17));
+        board.add(new CarrotSquare("Carrots", 18));
+        board.add(new CarrotSquare("Carrots", 19));
+        board.add(new CarrotSquare("Carrots", 20));
+        board.add(new CarrotSquare("Carrots", 21));
+        board.add(new CarrotSquare("Carrots", 22));
+        board.add(new CarrotSquare("Carrots", 23));
+        board.add(new TortoiseSquare("Tortoise", 24));
+        board.add(new CarrotSquare("Carrots", 25));
+        board.add(new CarrotSquare("Carrots", 26));
+        board.add(new CarrotSquare("Carrots", 27));
+        board.add(new CarrotSquare("Carrots", 28));
+        board.add(new TortoiseSquare("Tortoise", 29));
+        board.add(new CarrotSquare("Carrots", 30));
+        board.add(new CarrotSquare("Carrots", 31));
+        board.add(new CarrotSquare("Carrots", 32));
+        board.add(new CarrotSquare("Carrots", 33));
+        board.add(new CarrotSquare("Carrots", 34));
+        board.add(new CarrotSquare("Carrots", 35));
+        board.add(new TortoiseSquare("Tortoise", 36));
+        board.add(new CarrotSquare("Carrots", 37));
+        board.add(new CarrotSquare("Carrots", 38));
+        board.add(new CarrotSquare("Carrots", 39));
+        board.add(new CarrotSquare("Carrots", 40));
+        board.add(new TortoiseSquare("Tortoise", 41));
+        board.add(new CarrotSquare("Carrots", 42));
+        board.add(new CarrotSquare("Carrots", 43));
+        board.add(new CarrotSquare("Carrots", 44));
+        board.add(new CarrotSquare("Carrots", 45));
+        board.add(new CarrotSquare("Carrots", 46));
+        board.add(new CarrotSquare("Carrots", 47));
+        board.add(new TortoiseSquare("Tortoise", 48));
+        board.add(new CarrotSquare("Carrots", 49));
+        board.add(new CarrotSquare("Carrots", 50));
+        board.add(new CarrotSquare("Carrots", 51));
+        board.add(new CarrotSquare("Carrots", 52));
+        board.add(new TortoiseSquare("Tortoise", 53));
+        board.add(new CarrotSquare("Carrots", 54));
+        board.add(new CarrotSquare("Carrots", 55));
+        board.add(new CarrotSquare("Carrots", 56));
+        board.add(new CarrotSquare("Carrots", 57));
+        board.add(new TortoiseSquare("Tortoise", 58));
+        board.add(new CarrotSquare("Carrots", 59));
+        board.add(new CarrotSquare("Carrots", 60));
+        board.add(new CarrotSquare("Carrots", 61));
+        board.add(new CarrotSquare("Carrots", 62));
+        board.add(new TortoiseSquare("Tortoise", 63));
+        board.add(new CarrotSquare("Carrots", 64));
     }
     
     public void addPlayer (String name) {
@@ -81,13 +133,10 @@ public class GameController {
     private void runMenu(){
         while (!isFinished()) {
             takeTurn();
-<<<<<<< HEAD
-            printBoard();
-=======
 
-            new BoardDisplay(players);
+
+            new BoardDisplay(board);
     
->>>>>>> 87f28cb3e86a35e59529dd2af46281ca143c4918
             listPlayers();
             //TODO crashes when all players are finished
             nextTurn();
