@@ -70,12 +70,17 @@ public class BoardDisplay
 				//if true it will print out the player name
 				else if(rowIndex == 3){
 
+					//For each loop that runs through the players array
 					for(Player player : players){
+						//This compares the player's current position to a square
+						//If playerPosition == tile number then it will print out the player's name
 						if(player.getPosition() == playerIndex){
 							playerName = player.getPlayerName();
 						}
 					}
+					//Adds the string to printRow variable
 					printRow += toString(tileIndex, rowIndex, playerName);
+					//increments player index so it matches the respective tile number
 					if (playerIndex < 64){
 						playerIndex++;
 					}
