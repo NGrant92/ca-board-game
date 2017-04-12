@@ -1,6 +1,7 @@
 package controllers;
 import models.*;
 import java.util.ArrayList;
+import board.*;
 
 import static utils.ScannerInput.*;
 
@@ -29,6 +30,7 @@ public class GameController {
     }
     
     public void startNewGame () {
+        new BoardDisplay(players);
         createBoard();
     
         System.out.println("Welcome to The Hare and Tortoise");
@@ -75,8 +77,8 @@ public class GameController {
     private void runMenu(){
         while (!isFinished()) {
             takeTurn();
-    
-            printBoard();
+
+            new BoardDisplay(players);
     
             listPlayers();
             nextTurn();
