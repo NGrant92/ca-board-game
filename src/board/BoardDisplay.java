@@ -1,15 +1,15 @@
 package board;
 import models.*;
 import java.util.ArrayList;
-/*
- * board.Board Display class used to make a graphical display of the board so the Players can use it as a reference
+/**
+ * Board Display class used to make a graphical display of the board so the Players can use it as a reference
  * when deciding on their next move.
  * 
  * @author Kevin Fan
  * @author Niall Grant
  * @author Bernadette Murphy
  * @author Keelan Murphy
- * @version 2017.03.22
+ * @version 12/04/2017
  */
 public class BoardDisplay 
 {
@@ -19,13 +19,6 @@ public class BoardDisplay
 			"Carrots", "4", "3", "2", "Tortoise", "Hare", "156", "Carrots", "Hare", "2", "3", "Tortoise", "Carrots", "Hare", 
 			"Carrots", "2", "Lettuce", "Tortoise", "3", "4", "Hare", "2", "156", "Carrots", "Tortoise", "Hare", "3", "2", "4", 
 			"Carrots", "Tortoise", "Lettuce", "Hare", "Carrots", "156", "Carrots", "Hare", "Carrots", "Finish"};
-	/**
-	public static void main(String[] args)
-	{
-		//calls the board.BoardDisplay method when class is run
-		new BoardDisplay();
-	}
-	 */
 	
 	/*
 	 * Prints the board to be displayed to the user.
@@ -42,18 +35,22 @@ public class BoardDisplay
 	 */
 	public BoardDisplay(ArrayList<Player> players)
 	{
+		//A counter that increments and will be used to check if any players are in a Tile
 		int playerIndex = 0;
+		//A counter that increments and will be used to pull from the above array list and as a number for the tile
 		int tileIndex = 0;
+		//A counter that will decide what will be printed on each row
 		int rowIndex = 0;
-		int rowRepeat = 13;
+		//The loop will pass the content into this string and will be printed at the end of the nested loop
 		String printRow = "";
+		//If player position == playerIndex then it will pass in the player's name for it to be printed
 		String playerName = "";
 
 		//First loop which runs through the 25 Rows
 		for(int row = 0 ; row < 25 ; row++){
 
 			//Second loop will add the necessary information to a string which will be printed on that row
-			for(int rowLoop = 0 ; rowLoop < rowRepeat ; rowLoop++){
+			for(int rowLoop = 0 ; rowLoop < 13 ; rowLoop++){
 
 				//If rowIndex = (0, 2 or 4) it will add the toString method together
 				if(rowIndex == 0 || rowIndex == 2 || rowIndex == 4){
