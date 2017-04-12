@@ -50,9 +50,13 @@ public class GameController {
         for (int i = 0 ; i < players.size(); i++) {
             board.get(0).setPlayer(players.get(i));
         }
+        
         runMenu();
     }
     
+    /**
+     * Populates the board array
+     */
     public void createBoard() {
         board = new ArrayList<>();
     
@@ -97,13 +101,13 @@ public class GameController {
                 //TODO Incorporate Bernadettes Square
                 board.add(new StartSquare("Finish", i));
             }
-    
         }
-        
-      
     }
-   
     
+    /**
+     * Adds a player to the game
+     * @param name the players name
+     */
     public void addPlayer (String name) {
         players.add(new Player(name));
     }
@@ -126,6 +130,7 @@ public class GameController {
             nextTurn();
         }
         System.out.println("The game is finished, here is the final standings:");
+        
     }
 
     /**
@@ -229,22 +234,6 @@ public class GameController {
     public void movePlayer (Player player, int position) {
         board.get(player.getPosition()).removePlayer(player);
         board.get(position).setPlayer(player);
-    }
-    
-    //TODO Implement Nialls board display instead
-    public void printBoard() {
-        String str = "";
-        String playerName = "";
-        for (int i = 0 ; i < board.size(); i++) {
-        
-            for (int j = 0 ; j < board.get(i).players.size() ; j++) {
-                playerName += board.get(i).players.get(j).getPlayerName() + ", ";
-            }
-           
-            str = str + i + ": " + board.get(i).name + " " + playerName + ": "+ "\n";
-            playerName = "";
-        }
-        System.out.print(str);
     }
     
     /**
@@ -371,7 +360,7 @@ public class GameController {
     /**
      * Move back tortoise square calculation
      * No check is done to check for is square a tortoise square or is the tortoise square the nearest one
-     * @param player
+     * @param player The player that wishes to move
      * @param move
      */
     public void moveBackToTortoise(Player player, int move) {
@@ -385,12 +374,12 @@ public class GameController {
     /**
      * Check is a move for a player is invalid. Checks if player have enough carrots for move and is the position
      * already occupied another player
-     * @param player
-     * @param move
-     * @return
+     * @param player the player that wishes to move
+     * @param move the number of squares the player wishes to move
+     * @return a boolean representing if the move is possible
      */
     public boolean notValidMove(Player player, int move) {
-        // If statement to check is player has enough carrots for move
+        // If statement to check if player has enough carrots for move
         if (carrotsRequired(move) > player.getNoOfCarrots()) {
             return true;
         }
