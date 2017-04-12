@@ -127,6 +127,7 @@ public class Player
 	 * @param position No validation is performed on the position field yet
 	 */
 	public void setPosition(int position) {
+		previousPosition = this.position;
 		this.position = position;
 	}
 
@@ -166,7 +167,7 @@ public class Player
 	 *
 	 */
 	public String toString() {
-		return "Player: " + playerName + "\tPosition: " + getPosition() + "\tNo of Carrots: " + getNoOfCarrots()
+		return "Player: " + playerName + "\tPosition: " + getPosition()  + "\tprevPos: " + getPreviousPosition() + "\tNo of Carrots: " + getNoOfCarrots()
 				+ "\tNo of Lettuce: " + getNoOfLettuce() + "\tSkip Turn: " + getSkipTurn();
 
 	}
