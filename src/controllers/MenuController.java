@@ -5,6 +5,7 @@ import java.util.Scanner;
 // import com.thoughtworks.xstream.XStream;
 // import com.thoughtworks.xstream.io.xml.DomDriver;
 import models.HareDeck;
+import utils.ShowRules;
 
 import static utils.ScannerInput.validNextInt;
 
