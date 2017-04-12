@@ -31,11 +31,17 @@ public class GameController {
     
         System.out.println("Welcome to The Hare and Tortoise");
         
-        int j = validNextInt("Enter the number of players you want to play: ");
-        for (int i = 0; i < j; i++) {
+        int numPlayers = validNextInt("Enter the number of players you want to play:");
+        
+        while (numPlayers < 2 || numPlayers > 6) {
+            numPlayers = validNextInt("Please choose a number between 2 and 6:");
+        }
+        
+        for (int i = 0; i < numPlayers; i++) {
             String name = retrieveText("Enter player " + (i + 1) + " name");
             addPlayer(name);
         }
+        
         for (int i = 0 ; i < players.size(); i++) {
             board.get(0).setPlayer(players.get(i));
         }
@@ -49,7 +55,7 @@ public class GameController {
         board.add(new CarrotSquare("Carrots", 1));
         board.add(new CarrotSquare("Carrots", 2));
         board.add(new CarrotSquare("Carrots", 3));
-        board.add(new CarrotSquare("Tortoise", 4));
+        board.add(new TortoiseSquare("Tortoise", 4));
         board.add(new CarrotSquare("Carrots", 5));
         board.add(new CarrotSquare("Carrots", 6));
         board.add(new CarrotSquare("Carrots", 7));
@@ -72,13 +78,11 @@ public class GameController {
     
     private void runMenu(){
         while (!isFinished()) {
-            nextTurn();
             takeTurn();
-    
             printBoard();
-    
             listPlayers();
-           
+            //TODO crashes when all players are finished
+            nextTurn();
         }
         System.out.println("The game is finished, here is the final standings:");
     }
@@ -88,6 +92,18 @@ public class GameController {
      * Also contains the condition of where the player must move back to start square when there is no available moves for the player
      */
     public void takeTurn() {
+        
+        if (getCurrentPlayer().getPendingBalance() > 0) {
+            String option = retrieveText("You have a pending balance, what do you want to do? (accept/reject)").toLowerCase();
+            while (option.equals("accept") || option.equals("reject")) {
+                if (option.equals("accept")) {
+                    getCurrentPlayer().addCarrots(getCurrentPlayer().getPendingBalance());
+                    System.out.println(getCurrentPlayer().getPendingBalance() + " carrots added");
+                    getCurrentPlayer().setPendingBalance(0);
+                }
+            }
+        
+        }
         // If player can't move backwards, stay, and forward, set player position to start and no of carrots to 65
         if (!canMoveBackward() && !canStay() && !canMoveForward()) {
             System.out.println("Sorry, there were no available moves, you have been reset to the beginning");
