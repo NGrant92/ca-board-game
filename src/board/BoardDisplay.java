@@ -62,23 +62,20 @@ public class BoardDisplay
 				//If rowIndex = 3 it will check if player position = true
 				//if true it will print out the player name
 				else if(rowIndex == 3){
-/*
-					//For each loop that runs through the players array
-					for(Player player : players){
-						//This compares the player's current position to a square
-						//If playerPosition == tile number then it will print out the player's name
-						if(player.getPosition() == playerIndex){
-							playerName = player.getPlayerName();
-						}
-					}
 
+					ArrayList<Player> players = new ArrayList<>(board.get(tileIndex).getPlayers());
+					if (players.size() > 0 ) {
+					    playerName = "player here";
+                    }
+					playerName += tileIndex;
+     
 					//Adds the string to printRow variable
-					printRow += toString(tileIndex, rowIndex, playerName);
+					printRow += toString(board, tileIndex, rowIndex, playerName);
 					//increments player index so it matches the respective tile number
 					if (playerIndex < 64){
 						playerIndex++;
 					}
-*/
+
 					playerName = "";
 				}
 
@@ -140,7 +137,7 @@ public class BoardDisplay
 		//String player = index + ": "+ playerName;
 		
 		//the rows of the tile is stored in an array making it easier to call by the board.BoardDisplay()
-		//because it uses incremented integers in it's loops 
+		//because it uses incremented integers in it's loops
 		tileRows[0] = "+--------------+";
 		tileRows[1] = "| "+ tileType + spaces.substring(0, ((spaces.length() - tileType.length()) - 1)) + "|";
 		tileRows[2] = "|" + spaces + "|";

@@ -30,7 +30,6 @@ public class GameController {
     public void startNewGame () {
         createBoard();
     
-        new BoardDisplay(board);
         System.out.println("Welcome to The Hare and Tortoise");
         
         int numPlayers = validNextInt("Enter the number of players you want to play:");
