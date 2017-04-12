@@ -25,7 +25,7 @@ public class FinishSquare extends Square {
 /*
  * For a player to  be able to finish the game they need to have gotten rid off all 
  * their lettuce cards and  They can only have a certain amount of carrots depending on what place they are in the game.
- * 
+ * dependent on their place in the game they are only allowed have a certain number of carrots to finish 
  */
 	@Override
 	public boolean canMoveHere(Player player){	
@@ -40,7 +40,7 @@ public class FinishSquare extends Square {
 }
 	
 
-	//dependant on their place in the game they are only allowed have a certain number of carrots to finish 
+	
 
 
 

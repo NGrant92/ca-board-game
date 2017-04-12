@@ -1,6 +1,9 @@
 package utils;
 import java.util.Scanner;
-
+/*This class will  
+/
+ * 
+ */
 
 public class ScannerInput{
 	
