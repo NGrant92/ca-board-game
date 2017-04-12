@@ -17,11 +17,14 @@ public class TortoiseSquare extends Square {
     
     
     @Override
-    public boolean isAvailable() {
-        if (players.size() == 0) {
-            return true;
-        } else {
-            return false;
+    public boolean canMoveHere(Player player) {
+        if (player.getPosition() < position) {
+            if (players.size() == 0) {
+                return true;
+            } else {
+                return false;
+            }
         }
+        return false;
     }
 }

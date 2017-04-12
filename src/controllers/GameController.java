@@ -120,7 +120,7 @@ public class GameController {
                 // Checks if the newSquareIndex the player wants to move to is on the board
                 if (newSquareIndex < board.size()) {
                     // Loop for if the newSquarePosition is already occupied or if player doesn't have enough carrots to pay for move
-                    while (!board.get(newSquareIndex).isAvailable() || calculateMaxDistance(getCurrentPlayer().getNoOfCarrots()) < distance) {
+                    while (!board.get(newSquareIndex).canMoveHere(getCurrentPlayer()) || calculateMaxDistance(getCurrentPlayer().getNoOfCarrots()) < distance) {
                         distance = validNextInt("Invalid option entered " + getCurrentPlayer().getPlayerName());
                         // Update distance to new option entered
                         newSquareIndex = getCurrentPlayer().getPosition() + distance;
@@ -152,7 +152,7 @@ public class GameController {
     
     public boolean canMoveBackward() {
         int prevTortoise = findPreviousTortoise();
-        if (prevTortoise == 0 || !board.get(prevTortoise).isAvailable()){
+        if (prevTortoise == 0 || !board.get(prevTortoise).canMoveHere(getCurrentPlayer())){
             return false;
         }
         else {
@@ -166,7 +166,7 @@ public class GameController {
     
     public boolean canMoveForward() {
         for (int i = getCurrentPlayer().getPosition() ; i < board.size() ; i++) {
-            if (board.get(i).isAvailable()) {
+            if (board.get(i).canMoveHere(getCurrentPlayer())) {
                 return true;
             }
         }

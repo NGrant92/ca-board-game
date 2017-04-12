@@ -42,19 +42,13 @@ public class BoardDisplay
 	{
 		int tileIndex = 0;
 		int rowIndex = 0;
-		int rowRepeat = 11;
+		int rowRepeat = 13;
 		String printRow = "";
 
-		//First loop which runs through the 28 Rows
-		for(int row = 0 ; row < 30 ; row++){
+		//First loop which runs through the 25 Rows
+		for(int row = 0 ; row < 25 ; row++){
 
-			//rowRepeat is set to 10, meaning the loop will repeat 10 times.
-			//The final set of tiles they only need to be repeated 5 times.
-			//The final tiles begin on row 24
-			if(row == 25){
-				rowRepeat = 10;
-			}
-
+			//Second loop will add the necessary information to a string which will be printed on that row
 			for(int rowLoop = 0 ; rowLoop < rowRepeat ; rowLoop++){
 
 				//If rowIndex = (0, 2 or 3) it will add the toString method together

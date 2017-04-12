@@ -27,6 +27,7 @@ public abstract class Square {
         players.add(player);
         player.setPosition(position);
     }
+    
     public String getName() {
         return name;
     }
@@ -39,7 +40,7 @@ public abstract class Square {
         players.remove(player);
     }
     
-    public boolean isAvailable() {
+    public boolean canMoveHere(Player player) {
         if (players.size() == 0) {
             return true;
         } else {
