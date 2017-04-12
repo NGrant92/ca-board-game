@@ -4,7 +4,7 @@ package utils;
  */
 /**
  * Constructor for Objects of the List of Rules
- * @param List of rules for the User
+ * rules for the User
  */
 public class ShowRules {
 
