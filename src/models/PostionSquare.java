@@ -23,16 +23,17 @@ public class PostionSquare extends Square {
     int recievedCarrots = 0;
     private ArrayList<Player> allPlayers;
 
-    public PostionSquare(String name, int position, ArrayList<Player> allPlayers) {
+    public PostionSquare(String name, int position) {
         super(name, position);
         this.allPlayers = allPlayers;
     }
 
     @Override
-    public String applyRule(ArrayList<Player> players){
+    public String applyRule(ArrayList<Player> allPlayers){
+        //This is pulling the Player that is currently on this square and putting it into a variable
         Player currentPlayer = players.get(0);
         //If I use a method more than once, it's being given a variable name
-        int checkPosition = checkPosition(players, currentPlayer);
+        int checkPosition = checkPosition(allPlayers, currentPlayer);
 
         //This checks if there are any carrots to give to the player
         //If there are 0 carrots to give then the method will not be called
@@ -61,8 +62,7 @@ public class PostionSquare extends Square {
             return recievedCarrots;
         }
         else {
-            //Testing if the player's position in race matches the required position
-            //returns the appropriate carrots
+            //Testing if the player's position in race matches the required position returns the appropriate carrots
             if (tileNum == playerPosition) {
                 //Here we use the tileNum to calculate the amount of carrots to be received
                 //No particular reason to use tileNum over playerPosition, just because I can
