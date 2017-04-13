@@ -1,5 +1,5 @@
 package controllers;
-import com.sun.deploy.util.ArrayUtil;
+
 import models.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -100,8 +100,7 @@ public class GameController {
                 board.add(new TortoiseSquare("Tortoise", i));
             }
             if (i == 64) {
-                //TODO Incorporate Bernadettes Square
-                board.add(new StartSquare("Finish", i));
+                board.add(new FinishSquare("Finish", i));
             }
         }
     }
@@ -141,6 +140,7 @@ public class GameController {
      * Also contains the condition of where the player must move back to start square when there is no available moves for the player
      */
     public void takeTurn() {
+        System.out.println(board.get(getCurrentPlayer().getPosition()).applyRule(players));
         
         if (getCurrentPlayer().getPendingBalance() > 0) {
             String option = retrieveText("You have a pending balance, what do you want to do? (accept/reject)").toLowerCase();
