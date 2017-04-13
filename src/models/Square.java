@@ -51,4 +51,8 @@ public abstract class Square {
     public ArrayList<Player> getPlayers() {
         return players;
     }
+    
+    public String applyRule(ArrayList<Player> allPlayers) {
+        return "No rule applied";
+    }
 }
