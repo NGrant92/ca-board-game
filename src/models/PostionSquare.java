@@ -93,10 +93,4 @@ public class PostionSquare extends Square {
         }
         return racePosition;
     }
-
-    //This will print to display how much carrots they have recieved, if any.
-    public String toString(){
-        return "You have recieved " + recievedCarrots + " Carrots";
-    }
-
 }
