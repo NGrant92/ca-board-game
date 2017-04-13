@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 /**
  *
  *
@@ -27,5 +29,16 @@ public class TortoiseSquare extends Square {
         else {
             return false;
         }
+    }
+    
+    @Override
+    public String applyRule(ArrayList<Player> allPlayers) {
+        Player player = players.get(0);
+        
+        int squaresMoved = player.getPreviousPosition() - position;
+        int carrots = squaresMoved * 10;
+        player.addCarrots(carrots);
+        
+        return "You moved back " + squaresMoved + " squares, you gained " + carrots + " carrots!";
     }
 }
