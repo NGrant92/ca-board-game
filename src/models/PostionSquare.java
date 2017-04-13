@@ -21,31 +21,34 @@ import java.util.ArrayList;
 public class PostionSquare extends Square {
 
     int recievedCarrots = 0;
+    private ArrayList<Player> allPlayers;
 
-    public PostionSquare(String name, int position) {
+    public PostionSquare(String name, int position, ArrayList<Player> allPlayers) {
         super(name, position);
+        this.allPlayers = allPlayers;
     }
 
-    //Method to input Carrots into the current player's pending balance
-    public void giveCarrots(ArrayList<Player> players, Player currentPlayer){
-
+    @Override
+    public String applyRule(ArrayList<Player> players){
+        Player currentPlayer = players.get(0);
         //If I use a method more than once, it's being given a variable name
         int checkPosition = checkPosition(players, currentPlayer);
 
         //This checks if there are any carrots to give to the player
         //If there are 0 carrots to give then the method will not be called
-        //For a program this small it mightn't matter, but it's good practice
         if(checkPosition > 0){
             currentPlayer.setPendingBalance(checkPosition);
         }
+
+        return "You have received " + checkPosition + " carrots!";
     }
 
     //When they start their turn on a positionTile this method will check if they will recieve the carrots or not
     //checkPoisiton is called from the Gamecontroller who inputs Player arrayList, currentPlayer
-    public int checkPosition(ArrayList<Player> players, Player currentPlayer){
+    public int checkPosition(ArrayList<Player> allPlayers, Player currentPlayer){
         //Square name is converted into an integer
         int tileNum = Integer.parseInt(name);
-        int playerPosition = getRacePosition(players, currentPlayer);
+        int playerPosition = getRacePosition(allPlayers, currentPlayer);
 
         //One particular tile allows you be 1st, 5th or 6th
         if(tileNum == 156){
@@ -76,15 +79,15 @@ public class PostionSquare extends Square {
      * Method to return the player position in race. Possibly can be used in number square or lettuce square
      * calculation.
      */
-    public int getRacePosition(ArrayList<Player> players, Player currentPlayer) {
+    public int getRacePosition(ArrayList<Player> allPlayers, Player currentPlayer) {
 
         // Local temporary store for playerPositionInRace
         int racePosition = 1;
 
         // Check each player position in players array, and increment playerPosition by 1 if the player position
         // is less than currentPlayerPositionInRace
-        for (int i = 0; i < players.size(); i++) {
-            if (currentPlayer.getPosition() < players.get(i).getPosition()) {
+        for (int i = 0; i < allPlayers.size(); i++) {
+            if (currentPlayer.getPosition() < allPlayers.get(i).getPosition()) {
                 racePosition++;
             }
         }

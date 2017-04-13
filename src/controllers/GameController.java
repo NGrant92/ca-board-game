@@ -82,16 +82,16 @@ public class GameController {
                 board.add(new CarrotSquare("Carrots", i));
             }
             if (threeSquares.contains(i)) {
-                board.add(new PostionSquare("3", i));
+                board.add(new PostionSquare("3", i, players));
             }
             if (oneFiveSixSquares.contains(i)) {
-                board.add(new PostionSquare("156", i));
+                board.add(new PostionSquare("156", i, players));
             }
             if (twoSquares.contains(i)) {
-                board.add(new PostionSquare("2", i));
+                board.add(new PostionSquare("2", i, players));
             }
             if (fourSquares.contains(i)) {
-                board.add(new PostionSquare("4", i));
+                board.add(new PostionSquare("4", i, players));
             }
             if (lettuceSquares.contains(i)) {
                 board.add(new LettuceSquare("Lettuce", i));
