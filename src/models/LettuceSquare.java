@@ -11,9 +11,9 @@ import java.util.ArrayList;
  * @version 2017.04.03
  */
 public class LettuceSquare extends Square{
-
+    private int turnCounter;
     /**
-     * Constructor for the CarrotSquare Object
+     * Constructor for the LettuceSquare Object
      * @param name The name of the square
      * @param position The number of the square on the board
      */
@@ -22,17 +22,33 @@ public class LettuceSquare extends Square{
     }
 
     /**
+     * Overrides the superclass method with rules that is applied to the player on the lettuce square before
+     * they take their turn
      *
-     * @param currentPlayer Player object that is passed in to get play information
+     * @param allPlayers ArrayList of players in the game
      */
-    public void applyRule(ArrayList<Player> players, Player currentPlayer) {
-        // Removes a lettuce from the currentPlayer on the lettuce square
-        // No check is done here because player should not be able to move to lettuce square unless they at least 1 lettuce,
-        // which is done by the canMoveHere() method
-        currentPlayer.removeLettuce();
+    @Override
+    public String applyRule(ArrayList<Player> allPlayers) {
+        String ruleMessage = "";
 
-        // Adds 10 * racePosition to the currentPlayer
-        currentPlayer.addCarrots(getRacePosition(players) * 10);
+        // Increment turnCounter by 1 each time the applyRule method is called - which will determine the method output
+        turnCounter++;
+
+        // Local store of how many carrots the player will gain for removing a lettuce
+        int carrotGain = getRacePosition(allPlayers) * 10;
+
+        switch (turnCounter) {
+            // Player must chew a lettuce this turn
+            case 1:
+                ruleMessage = "You just ate a lettuce and have gained " + carrotGain + " carrots. You need time to digest. " +
+                        "\nYou can only stay on this lettuce square for this turn.";
+                chewLettuce(carrotGain);
+                break;
+            // Player has already eaten lettuce and must must to another square (logic is done by the canStay() method)
+            case 2:
+                ruleMessage = "You have already stayed on this lettuce square. You must move to another square this turn";
+        }
+        return ruleMessage;
     }
 
     /**
@@ -44,7 +60,7 @@ public class LettuceSquare extends Square{
     @Override
     public boolean canMoveHere(Player player) {
         // Player can only move here is there are no players on the square and
-        if(players.size() == 0 && player.getNoOfLettuce() > 0 && player.getPreviousPosition() != player.getPosition()) {
+        if(players.size() == 0 && player.getNoOfLettuce() > 0) {
             return true;
         } else {
             return false;
@@ -70,16 +86,16 @@ public class LettuceSquare extends Square{
      * Method to return the player position in race. Possibly can be used in number square or lettuce square
      * calculation.
      */
-    private int getRacePosition(ArrayList<Player> p) {
-        // local variable to store the players current position - not really need
-        int currentPlayerPositionOnBoard = players.get(0).getPosition();
-        // Local temporary store for playerPositionInRace - Player begins as in 1st position
+    private int getRacePosition(ArrayList<Player> allPlayers) {
+        // Assume player racePosition is in 1st place;
         int racePosition = 1;
 
-        // Compares the currentPlayerPositionOnBoard to each playerPosition in the players array. If currentPlayerPositionOnBoard
-        // is less than playerPosition, the playerPositionInRace is incremented by 1
-        for (int i = 0; i < p.size(); i++) {
-            if (currentPlayerPositionOnBoard < p.get(i).getPosition()) {
+        // For each loop comparing the player's current position
+        for (Player player : allPlayers) {
+            // If square position (which should be the same as the position of the current player on the square) is less
+            // than another player's position (i.e. the player is further along in the race), then racePosition is incremented
+            // by 1
+            if (position < player.getPosition()) {
                 racePosition++;
             }
         }
@@ -87,9 +103,25 @@ public class LettuceSquare extends Square{
     }
 
     /**
-     * Returns a string of the number of lettuce the player has left and the number of carrots the player has
+     * This method would decrement the player's lettuce count by 1 and give the player carrots 10 * racePosition of the player.
+     * This method would be used when a player stay's a lettuce square
      */
-    public String toString() {
-        return "You now have " + players.get(0).getNoOfLettuce() + "Lettuce and " + players.get(0).getNoOfCarrots() + " carrots";
+    private void chewLettuce(int carrotGain) {
+        // Remove 1 lettuce from the player
+        players.get(0).removeLettuce();
+
+        // Adds 10 * racePosition to the currentPlayer
+        players.get(0).addCarrots(carrotGain);
+
+    }
+
+    /**
+     * Override the superclass method. This method has an addition of resetting the turnCounter field back to 0 when removing the player
+     * from the square
+     * @param player Player object passed in
+     */
+    public void removePlayer(Player player) {
+        turnCounter = 0;
+        players.remove(player);
     }
 }
