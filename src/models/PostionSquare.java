@@ -38,7 +38,7 @@ public class PostionSquare extends Square {
         //This checks if there are any carrots to give to the player
         //If there are 0 carrots to give then the method will not be called
         if(checkPosition > 0){
-            currentPlayer.setPendingBalance(checkPosition);
+            currentPlayer.addCarrots(checkPosition);
         }
 
         return "You have received " + checkPosition + " carrots!";
@@ -93,10 +93,4 @@ public class PostionSquare extends Square {
         }
         return racePosition;
     }
-
-    //This will print to display how much carrots they have recieved, if any.
-    public String toString(){
-        return "You have recieved " + recievedCarrots + " Carrots";
-    }
-
 }
