@@ -76,7 +76,7 @@ public class GameController {
                 board.add(new StartSquare("Start", i));
             }
             if (hareSquares.contains(i)) {
-                board.add(new HareSquare("Hare", i));
+                board.add(new HareSquare("Hare", i, hareDeck));
             }
             if (carrotSquares.contains(i)) {
                 board.add(new CarrotSquare("Carrots", i));

@@ -1,7 +1,6 @@
 package models;
 
 import java.lang.Math;
-import controllers.GameController;
 
 import java.util.ArrayList;
 
@@ -11,9 +10,17 @@ import java.util.ArrayList;
  * A class used to store the methods that represent the cards from the hare deck
  */
 public class HareSquare extends Square {
+    HareDeck hareDeck;
 
-    public HareSquare(String name, int position) {
+    public HareSquare(String name, int position, HareDeck hareDeck) {
         super(name, position);
+        this.hareDeck = hareDeck;
+    }
+
+    @Override
+    public String applyRule(ArrayList<Player> allPlayers) {
+
+        return "test";
     }
 
     //====================
