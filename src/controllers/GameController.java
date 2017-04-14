@@ -173,6 +173,8 @@ public class GameController {
             if (canMoveForward()) {
                 options += "(move) ";
             }
+            // Added currentPlayer toString to see player details before taking each turn
+            System.out.println(getCurrentPlayer().toString());
             String moveType = retrieveText("What do you want to do " + getCurrentPlayer().getPlayerName() + "\tAvailable options: " + options);
             // If player chooses to move back and the canMoveBackward condition is true
             if (moveType.equalsIgnoreCase("back") && canMoveBackward()) {
@@ -182,6 +184,26 @@ public class GameController {
             }
             // If player chooses to stay and the canStay condition is true
             else if (moveType.equalsIgnoreCase("stay") && canStay()) {
+                // -- Handle carrot square logic here
+                    if(board.get(getCurrentPlayer().getPosition()).getName().equals("Carrots")) {
+                        while(!turnTaken) {
+                            String option = retrieveText("Choose to gain or remove 10 carrots (gain / remove) :");
+                            if(option.equalsIgnoreCase("gain")) {
+                                getCurrentPlayer().addCarrots(10);
+                                System.out.println("You have just gained 10 carrots");
+                                turnTaken = true;
+                            } else if (option.equalsIgnoreCase("remove")) {
+                                getCurrentPlayer().removeCarrots(10);
+                                System.out.println("You have just removed 10 carrots");
+                                turnTaken = true;
+                            } else {
+                                System.err.println("Not a valid option. Please re-enter your choice: ");
+                            }
+                    }
+                }
+                // Set current player previous position to current position (wasn't updated correctly beforehand because
+                // player doesn't move)
+                getCurrentPlayer().setPreviousPosition(getCurrentPlayer().getPosition());
                 turnTaken = true;
             }
             // If player chooses to move and the canMoveForward condition is true
@@ -205,7 +227,7 @@ public class GameController {
                 }
             }
             else {
-                System.out.println("This option is not available");
+                System.err.println("This option is not available. Please re-enter option:");
             }
         }
     }
@@ -234,11 +256,37 @@ public class GameController {
     public boolean canStay() {
         return board.get(getCurrentPlayer().getPosition()).canStay();
     }
-    
+
+    /**
+     * Method that returns a boolean value of whether the player can move forward.
+     * A boolean value of false is returned if a player is on a lettuce square and has not stayed on the lettuce square on
+     * the turn the player has removed a lettuce.
+     * A boolean value of true is returned if any square in front is available for player to occupy
+     * @return Boolean value of whether the player can move forward.
+     */
     public boolean canMoveForward() {
-        for (int i = getCurrentPlayer().getPosition() ; i < board.size() ; i++) {
-            if (board.get(i).canMoveHere(getCurrentPlayer())) {
-                return true;
+        // If the player is on a lettuce square and has not stayed on the lettuce square once - return false
+        if(board.get(getCurrentPlayer().getPosition()).getName().equals("Lettuce") && (getCurrentPlayer().getPreviousPosition() != getCurrentPlayer().getPosition())) {
+            return false;
+        }
+
+        // Checks the availability of square's in between the current player's position and (maxDistance + currentPositon)
+        // Only executes when currentPlayerPosition + maxDistance is less than the board size - Prevents a chance of
+        // ArrayOutOfBounds exception when currentPlayerPosition + maxDistance is greater than the board size
+        if ((getCurrentPlayer().getPosition() + calculateMaxDistance(getCurrentPlayer().getNoOfCarrots())) < board.size()) {
+            for (int i = getCurrentPlayer().getPosition(); i <= (getCurrentPlayer().getPosition() + calculateMaxDistance(getCurrentPlayer().getNoOfCarrots())); i++) {
+                if(board.get(i).canMoveHere(getCurrentPlayer())) {
+                    return true;
+                }
+            }
+        }
+        // In all other conditions, checks the availability of all squares on the board greater than the player's
+        // current position
+        else {
+            for (int i = getCurrentPlayer().getPosition() ; i < board.size() ; i++) {
+                if (board.get(i).canMoveHere(getCurrentPlayer())) {
+                    return true;
+                }
             }
         }
         return false;
@@ -279,7 +327,7 @@ public class GameController {
      * @param carrots The players balance of carrots
      * @return the maximum number of moves a player can make
      */
-    private double calculateMaxDistance(int carrots) {
+    private int calculateMaxDistance(int carrots) {
         //Find the natural number (input)
         double distance = (Math.sqrt((8 * carrots) + 1) - 1)/2;
         //Round down to the whole number
