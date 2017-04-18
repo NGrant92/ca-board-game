@@ -9,7 +9,6 @@ package models;
  * @author Keelan Murphy
  * @version 2017.03.21
  *
- * TODO deal with how a card applies its rules
  */
 public class Card {
   

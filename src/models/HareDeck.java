@@ -24,7 +24,6 @@ public class HareDeck {
   /**
    * Initializes and populates the hare deck. Calls the shuffle method to
    * randomize deck order
-   * TODO Populate the cards correctly only testing them at this stage
    */
     public HareDeck() {
         deck = new ArrayList<>();
@@ -45,15 +44,6 @@ public class HareDeck {
         deck.add(new Card("SHUFFLE THE HARE CARDS AND RECEIVE FROM EACH PLAYER 1 CARROT FOR DOING SO.", "Do not replace this card at the bottom of the pack but include it in the shuffle."));
     
         shuffle();
-    }
-  
-  /**
-   * TODO For testing purposes, remove when tested
-   */
-    public void printDeck() {
-        for (int i = 0; i < deck.size(); i++) {
-            System.out.println(deck.get(i).getTitle());
-        }
     }
   
   /**

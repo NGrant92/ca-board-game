@@ -115,7 +115,7 @@ public class HareSquare extends Square {
         }
 
         //a for each loop to add the carrotsToGive to each players pending balance
-        for(Player player : players){
+        for(Player player : allPlayers){
             //Check to make sure the player doesn't give themself carrots. Only one player can be on one square
             //at a time so if currentPlayer position == players(i) position then it skips that player
             if(player.getPosition() < currentPlayer.getPosition()){
@@ -199,7 +199,6 @@ public class HareSquare extends Square {
      * A simple enough method to return the player to 65 carrots
      * @param player
      */
-    //TODO display to screen that their carrots were reset
     public String resetCarrots(Player player){
 
         player.setNoOfCarrots(65);
