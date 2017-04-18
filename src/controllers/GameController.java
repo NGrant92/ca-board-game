@@ -140,8 +140,12 @@ public class GameController {
      * Also contains the condition of where the player must move back to start square when there is no available moves for the player
      */
     public void takeTurn() {
-        System.out.println(board.get(getCurrentPlayer().getPosition()).applyRule(players));
-        
+        //The position square rule needs to be applied at the start of the persons next turn while
+        //This checks if the Square.getName contains numbers, as the position square is the only one to have numbers
+       if(board.get(getCurrentPlayer().getPosition()).getName().matches("[0-9]+")) {
+           System.out.println(board.get(getCurrentPlayer().getPosition()).applyRule(players));
+       }
+
         if (getCurrentPlayer().getPendingBalance() > 0) {
             String option = retrieveText("You have a pending balance, what do you want to do? (accept/reject)").toLowerCase();
             while (option.equals("accept") || option.equals("reject")) {
@@ -181,24 +185,26 @@ public class GameController {
                 // Moves player to the nearest previous tortoise
                 movePlayer(getCurrentPlayer(), findPreviousTortoise());
                 turnTaken = true;
+                System.out.println(board.get(getCurrentPlayer().getPosition()).applyRule(players));
             }
             // If player chooses to stay and the canStay condition is true
             else if (moveType.equalsIgnoreCase("stay") && canStay()) {
                 // -- Handle carrot square logic here
-                    if(board.get(getCurrentPlayer().getPosition()).getName().equals("Carrots")) {
-                        while(!turnTaken) {
-                            String option = retrieveText("Choose to gain or remove 10 carrots (gain / remove) :");
-                            if(option.equalsIgnoreCase("gain")) {
-                                getCurrentPlayer().addCarrots(10);
-                                System.out.println("You have just gained 10 carrots");
-                                turnTaken = true;
-                            } else if (option.equalsIgnoreCase("remove")) {
-                                getCurrentPlayer().removeCarrots(10);
-                                System.out.println("You have just removed 10 carrots");
-                                turnTaken = true;
-                            } else {
-                                System.err.println("Not a valid option. Please re-enter your choice: ");
-                            }
+                System.out.println(board.get(getCurrentPlayer().getPosition()).applyRule(players));
+                if(board.get(getCurrentPlayer().getPosition()).getName().equals("Carrots")) {
+                    while(!turnTaken) {
+                        String option = retrieveText("Choose to gain or remove 10 carrots (gain / remove) :");
+                        if(option.equalsIgnoreCase("gain")) {
+                            getCurrentPlayer().addCarrots(10);
+                            System.out.println("You have just gained 10 carrots");
+                            turnTaken = true;
+                        } else if (option.equalsIgnoreCase("remove")) {
+                            getCurrentPlayer().removeCarrots(10);
+                            System.out.println("You have just removed 10 carrots");
+                            turnTaken = true;
+                        } else {
+                            System.err.println("Not a valid option. Please re-enter your choice: ");
+                        }
                     }
                 }
                 // Set current player previous position to current position (wasn't updated correctly beforehand because
@@ -222,6 +228,7 @@ public class GameController {
                     movePlayer(getCurrentPlayer(), newSquareIndex);
                     getCurrentPlayer().removeCarrots(carrotsRequired(distance));
                     turnTaken = true;
+                    System.out.println(board.get(getCurrentPlayer().getPosition()).applyRule(players));
                 } else {
                     System.out.println("Square does not exist");
                 }
@@ -337,6 +344,15 @@ public class GameController {
     
     
     public void nextTurn() {
+
+        //Allows reading time before the player's next turn
+        try {
+            Thread.sleep(3500);
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+
         currentTurn++;
         
         if(currentTurn >= players.size()){
@@ -461,7 +477,7 @@ public class GameController {
     
     public void insertLines()
     {
-        for(int clear = 0; clear < 50; clear++)
+        for(int clear = 0; clear < 15; clear++)
         {
             System.out.println("\n") ;
         }

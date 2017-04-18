@@ -20,35 +20,38 @@ public class HareSquare extends Square {
     @Override
     public String applyRule(ArrayList<Player> allPlayers) {
         String title = hareDeck.dealCard().getTitle();
+        String result = "";
         Player currentPlayer = players.get(0);
 
         if(title.equals("LOSE HALF YOUR CARROTS!")){
-            return halfCarrots(currentPlayer);
+            result = halfCarrots(currentPlayer);
         }
         else if(title.equals("GIVE 10 CARROTS TO EACH PLAYER LYING BEHIND YOU IN THE RACE (IF ANY).")){
-            return tenCarrotsPerPlayer(allPlayers, currentPlayer);
+            result =  tenCarrotsPerPlayer(allPlayers, currentPlayer);
         }
         else if(title.equals("SHOW US YOUR CARROTS!")){
-            return showCarrots(currentPlayer);
+            result =  showCarrots(currentPlayer);
         }
         else if(title.equals("DRAW 10 CARROTS FOR EACH LETTUCE YOU STILL HOLD.")){
-            return tenCarrotsPerLettuce(currentPlayer);
+            result =  tenCarrotsPerLettuce(currentPlayer);
         }
         else if(title.equals("FREE RIDE!")){
-            return freeRide(currentPlayer);
+            result =  freeRide(currentPlayer);
         }
         else if(title.equals("RESTORE YOUR CARROT HOLDING TO EXACTLY 65.")){
-            return resetCarrots(currentPlayer);
+            result =  resetCarrots(currentPlayer);
         }
         else if(title.equals("IF THERE ARE MORE PLAYERS BEHIND YOU THAN IN FRONT OF YOU, MISS A TURN. IF NOT, PLAY AGAIN.")){
-            return missOrExtraTurn(allPlayers, currentPlayer);
+            result =  missOrExtraTurn(allPlayers, currentPlayer);
         }
         else if(title.equals("SHUFFLE THE HARE CARDS AND RECEIVE FROM EACH PLAYER 1 CARROT FOR DOING SO.")){
-            return shuffleCards(allPlayers, currentPlayer, hareDeck);
+            result =  shuffleCards(allPlayers, currentPlayer, hareDeck);
         }
         else{
-            return "Hare Square Class Error";
+            return result = "Hare Square Class Error";
         }
+
+        return title + "\n" + result + "\n";
     }
 
     //=================
@@ -117,12 +120,18 @@ public class HareSquare extends Square {
             //at a time so if currentPlayer position == players(i) position then it skips that player
             if(player.getPosition() < currentPlayer.getPosition()){
                 player.addPendingBalance(carrotsToGive);
+                currentPlayer.removeCarrots(carrotsToGive);
             }
         }
-        currentPlayer.removeCarrots(carrotsToGive);
+        
+        if( playersBehind > 0){
+            return "" + currentPlayer.getPlayerName() + " has gifted " + carrotsToGive
+                    + " carrots to " +  playersBehind + " of you. Remember to say Thank You!";
+        }
+        else{
+            return "There is no one behind you in the race, you keep all your carrots";
+        }
 
-        return "" + currentPlayer.getPlayerName() + " has gifted " + carrotsToGive
-                + " carrots to " +  playersBehind + " of you. Remember to say Thank You!";
     }
 
     //====================

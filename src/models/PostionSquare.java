@@ -20,28 +20,45 @@ import java.util.ArrayList;
  */
 public class PostionSquare extends Square {
 
-    int recievedCarrots = 0;
+    private int counter;
+    private int recievedCarrots = 0;
     private ArrayList<Player> allPlayers;
 
     public PostionSquare(String name, int position) {
         super(name, position);
-        this.allPlayers = allPlayers;
+        //this.allPlayers = allPlayers;
     }
 
     @Override
     public String applyRule(ArrayList<Player> allPlayers){
         //This is pulling the Player that is currently on this square and putting it into a variable
         Player currentPlayer = players.get(0);
-        //If I use a method more than once, it's being given a variable name
-        int checkPosition = checkPosition(allPlayers, currentPlayer);
 
-        //This checks if there are any carrots to give to the player
-        //If there are 0 carrots to give then the method will not be called
-        if(checkPosition > 0){
-            currentPlayer.addCarrots(checkPosition);
+        //When the player lands on a Position Tile the rules will be called, but the rule needs to be applied at the
+        //start of their next turn. The counter ensures the rule is applied only on the start of their next turn
+        counter++;
+        //The message that will be returned to the gamecontroller which will then be printed on screen
+        String message = "";
+
+        switch (counter){
+            //When currentPlayer lands on the square this is what is returned
+            case 1:
+                message = "At the start of your next turn your position must match the number on the square";
+                break;
+            //Position is checked at the start of their next turn
+            case 2:
+                //If I use a method more than once, it's being given a variable name
+                int checkPosition = checkPosition(allPlayers, currentPlayer);
+                //This checks if there are any carrots to give to the player
+                //If there are 0 carrots to give then the method will not be called
+                if(checkPosition > 0){
+                    currentPlayer.addCarrots(checkPosition);
+                }
+                message =  "You have received " + checkPosition + " carrots!";
+                counter = 0;
+                break;
         }
-
-        return "You have received " + checkPosition + " carrots!";
+        return message;
     }
 
     //When they start their turn on a positionTile this method will check if they will recieve the carrots or not
@@ -58,6 +75,9 @@ public class PostionSquare extends Square {
                 //we use the player's position to calculate the amount of carrots to be received
                 recievedCarrots = playerPosition * 10;
             }
+            else{
+                recievedCarrots = 0;
+            }
             //If player's race position doesn't match the required number then recievedCarrots will not change from 0
             return recievedCarrots;
         }
@@ -66,7 +86,10 @@ public class PostionSquare extends Square {
             if (tileNum == playerPosition) {
                 //Here we use the tileNum to calculate the amount of carrots to be received
                 //No particular reason to use tileNum over playerPosition, just because I can
-                recievedCarrots = tileNum * 10;
+                recievedCarrots = playerPosition * 10;
+            }
+            else{
+                recievedCarrots = 0;
             }
             //If player's race position doesn't match the required number then recievedCarrots will not change from 0
             return recievedCarrots;
