@@ -115,7 +115,7 @@ public class HareSquare extends Square {
         }
 
         //a for each loop to add the carrotsToGive to each players pending balance
-        for(Player player : players){
+        for(Player player : allPlayers){
             //Check to make sure the player doesn't give themself carrots. Only one player can be on one square
             //at a time so if currentPlayer position == players(i) position then it skips that player
             if(player.getPosition() < currentPlayer.getPosition()){
