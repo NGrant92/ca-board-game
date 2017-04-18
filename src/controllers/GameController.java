@@ -237,6 +237,13 @@ public class GameController {
                 System.err.println("This option is not available. Please re-enter option:");
             }
         }
+        //Allows reading time before the player's next turn
+        try {
+            Thread.sleep(3500);
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
     }
     
     public int findPreviousTortoise() {
@@ -344,14 +351,6 @@ public class GameController {
     
     
     public void nextTurn() {
-
-        //Allows reading time before the player's next turn
-        try {
-            Thread.sleep(3500);
-        }
-        catch(Exception e){
-            System.out.println(e.toString());
-        }
 
         currentTurn++;
         

@@ -215,7 +215,7 @@ public class HareSquare extends Square {
      * If there's an equal amount behind and ahead of you then you gain an extra turn
      */
     //TODO make it able to give player and extra turn
-    public String missOrExtraTurn(ArrayList<Player> players, Player currentPlayer){
+    public String missOrExtraTurn(ArrayList<Player> allPlayers, Player currentPlayer){
         //Variable that will count how many people are behind currentPlayer
         int playersBehind = 0;
         //Variable that will count how many people are ahead of currentPlayer
@@ -223,7 +223,7 @@ public class HareSquare extends Square {
 
         //For each loop that will run through the players array and
         //compare currentPlayer's position against the other players
-        for(Player player : players){
+        for(Player player : allPlayers){
             //if a player's position is less than currentPlayer's then it will increment playersBehind variable
             if(player.getPosition() < currentPlayer.getPosition()){
                 playersBehind++;
@@ -240,7 +240,12 @@ public class HareSquare extends Square {
         }
         //if more are ahead or equal amounts ahead and behind then they get an extra turn
         else{
-            return "TO DO: Extra Turn";
+            for(Player player : allPlayers){
+                if(player.getPosition() != currentPlayer.getPosition()){
+                    player.setSkipTurn(true);
+                }
+            }
+            return "Congratulations " + currentPlayer + " you get a free turn!";
         }
     }
 

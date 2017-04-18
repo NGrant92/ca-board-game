@@ -40,13 +40,13 @@ public class LettuceSquare extends Square{
         switch (turnCounter) {
             // Player must chew a lettuce this turn
             case 1:
-                ruleMessage = "You just ate a lettuce and have gained " + carrotGain + " carrots. You need time to digest. " +
-                        "\nYou can only stay on this lettuce square for this turn.";
+                ruleMessage = "\nNOM NOM NOM\nYou just ate a lettuce and have gained " + carrotGain + " carrots. You need time to digest. " +
+                        "\nYou can only stay on this lettuce square for this turn.\n";
                 chewLettuce(carrotGain);
                 break;
             // Player has already eaten lettuce and must must to another square (logic is done by the canStay() method)
             case 2:
-                ruleMessage = "You have already stayed on this lettuce square. You must move to another square this turn";
+                ruleMessage = "\nYou have already stayed on this lettuce square. You must move to another square this turn\n";
         }
         return ruleMessage;
     }
