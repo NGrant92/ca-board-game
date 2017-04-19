@@ -46,10 +46,6 @@ public class GameController {
         try {
             loadGame();
     
-            for (int i = 0 ; i < board.size() ; i++) {
-                players.addAll(board.get(i).getPlayers());
-            }
-            System.out.print(players.get(0).toString());
             runMenu();
         } catch (Exception e) {
             System.out.print(e.toString());
@@ -460,8 +456,8 @@ public class GameController {
         }
     }
     
-    public void saveGame()  throws Exception{
-        saveManager.setPlayers(players);
+    public void saveGame() throws Exception{
+        saveManager.setGameState(players,currentTurn);
         
         XStream xstream=new XStream(new DomDriver());
         ObjectOutputStream out=xstream.createObjectOutputStream
@@ -478,9 +474,10 @@ public class GameController {
         saveManager = (SaveManager) is.readObject();
         is.close();
         createBoard();
-        players.addAll(saveManager.getPlayers());
+        players = saveManager.getPlayers();
         for (int i = 0 ; i < players.size() ; i++) {
             board.get(players.get(i).getPosition()).setPlayer(players.get(i));
         }
+        currentTurn = saveManager.getCurrentTurn();
     }
 }

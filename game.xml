@@ -3,18 +3,9 @@
     <players>
       <models.Player>
         <playerName>Keelan</playerName>
-        <position>5</position>
-        <previousPosition>0</previousPosition>
-        <noOfCarrots>50</noOfCarrots>
-        <noOfLettuce>3</noOfLettuce>
-        <pendingBalance>0</pendingBalance>
-        <skipTurn>false</skipTurn>
-      </models.Player>
-      <models.Player>
-        <playerName>Niall</playerName>
-        <position>8</position>
-        <previousPosition>1</previousPosition>
-        <noOfCarrots>36</noOfCarrots>
+        <position>3</position>
+        <previousPosition>3</previousPosition>
+        <noOfCarrots>30</noOfCarrots>
         <noOfLettuce>3</noOfLettuce>
         <pendingBalance>0</pendingBalance>
         <skipTurn>false</skipTurn>
@@ -22,12 +13,31 @@
       <models.Player>
         <playerName>Kevin</playerName>
         <position>4</position>
-        <previousPosition>0</previousPosition>
+        <previousPosition>4</previousPosition>
         <noOfCarrots>55</noOfCarrots>
         <noOfLettuce>3</noOfLettuce>
         <pendingBalance>0</pendingBalance>
         <skipTurn>false</skipTurn>
       </models.Player>
+      <models.Player>
+        <playerName>Niall</playerName>
+        <position>2</position>
+        <previousPosition>2</previousPosition>
+        <noOfCarrots>62</noOfCarrots>
+        <noOfLettuce>3</noOfLettuce>
+        <pendingBalance>0</pendingBalance>
+        <skipTurn>false</skipTurn>
+      </models.Player>
+      <models.Player>
+        <playerName>Bernie</playerName>
+        <position>5</position>
+        <previousPosition>1</previousPosition>
+        <noOfCarrots>54</noOfCarrots>
+        <noOfLettuce>3</noOfLettuce>
+        <pendingBalance>0</pendingBalance>
+        <skipTurn>false</skipTurn>
+      </models.Player>
     </players>
+    <currentTurn>0</currentTurn>
   </utils.SaveManager>
 </object-stream>

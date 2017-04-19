@@ -1,7 +1,6 @@
 package utils;
 
 import models.Player;
-import models.Square;
 
 import java.util.ArrayList;
 
@@ -10,14 +9,19 @@ import java.util.ArrayList;
  */
 public class SaveManager {
     private ArrayList<Player> players;
+    private int currentTurn;
     
-    public void setPlayers(ArrayList<Player> players){
+    public void setGameState(ArrayList<Player> players, int currentPlayer){
         this.players = new ArrayList<>();
         this.players.addAll(players);
+        this.currentTurn = currentPlayer;
     }
     
     public ArrayList<Player> getPlayers () {
         return players;
     }
     
+    public int getCurrentTurn() {
+        return currentTurn;
+    }
 }
