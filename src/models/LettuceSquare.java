@@ -4,17 +4,20 @@ import java.util.ArrayList;
 
 /**
  * Created by Kevin on 06/04/2017.
+ *
  * @author Kevin Fan
  * @author Niall Grant
  * @author Bernadette Murphy
  * @author Keelan Murphy
- * @version 2017.04.03
+ * @version 2017.04.18
  */
-public class LettuceSquare extends Square{
+public class LettuceSquare extends Square {
     private int turnCounter;
+
     /**
      * Constructor for the LettuceSquare Object
-     * @param name The name of the square
+     *
+     * @param name     The name of the square
      * @param position The number of the square on the board
      */
     public LettuceSquare(String name, int position) {
@@ -22,8 +25,7 @@ public class LettuceSquare extends Square{
     }
 
     /**
-     * Overrides the superclass method with rules that is applied to the player on the lettuce square before
-     * they take their turn
+     * Overrides the superclass method with rules that is applied to the player on the lettuce square.
      *
      * @param allPlayers ArrayList of players in the game
      */
@@ -38,15 +40,16 @@ public class LettuceSquare extends Square{
         int carrotGain = getRacePosition(allPlayers) * 10;
 
         switch (turnCounter) {
-            // Player must chew a lettuce this turn
+            // Player just landed on the lettuce square
             case 1:
+                ruleMessage = "You've landed on the lettuce square, you must stay on the lettuce square on your next turn";
+                break;
+            // Player must chew a lettuce this turn
+            case 2:
                 ruleMessage = "\nNOM NOM NOM\nYou just ate a lettuce and have gained " + carrotGain + " carrots. You need time to digest. " +
-                        "\nYou can only stay on this lettuce square for this turn.\n";
+                        "\nYou must have move to another square on your next turn.\n";
                 chewLettuce(carrotGain);
                 break;
-            // Player has already eaten lettuce and must must to another square (logic is done by the canStay() method)
-            case 2:
-                ruleMessage = "\nYou have already stayed on this lettuce square. You must move to another square this turn\n";
         }
         return ruleMessage;
     }
@@ -54,13 +57,14 @@ public class LettuceSquare extends Square{
     /**
      * Overrides the superclass CanMoveHere method with inclusion of check for more than one lettuce and previous player
      * position
+     *
      * @param player Player object to be passed in to check is square available for player
      * @return Boolean value of the availability of the square
      */
     @Override
     public boolean canMoveHere(Player player) {
-        // Player can only move here is there are no players on the square and
-        if(players.size() == 0 && player.getNoOfLettuce() > 0) {
+        // Player can only move here is there are no players on the square and has at least one lettuce
+        if (players.size() == 0 && player.getNoOfLettuce() > 0) {
             return true;
         } else {
             return false;
@@ -69,6 +73,7 @@ public class LettuceSquare extends Square{
 
     /**
      * Method that returns whether the player can stay on the current square
+     *
      * @return Boolean value for whether the player can stay
      */
     @Override
@@ -85,6 +90,8 @@ public class LettuceSquare extends Square{
     /**
      * Method to return the player position in race. Possibly can be used in number square or lettuce square
      * calculation.
+     *
+     * @param allPlayers ArrayList of all players in the game to calculate the race position for the current player
      */
     private int getRacePosition(ArrayList<Player> allPlayers) {
         // Assume player racePosition is in 1st place;
@@ -105,12 +112,14 @@ public class LettuceSquare extends Square{
     /**
      * This method would decrement the player's lettuce count by 1 and give the player carrots 10 * racePosition of the player.
      * This method would be used when a player stay's a lettuce square
+     *
+     * @param carrotGain Amount of carrots player would gain for removing one lettuce
      */
     private void chewLettuce(int carrotGain) {
         // Remove 1 lettuce from the player
         players.get(0).removeLettuce();
 
-        // Adds 10 * racePosition to the currentPlayer
+        // Adds 10 * racePosition to the currentPlayer (
         players.get(0).addCarrots(carrotGain);
 
     }
@@ -118,6 +127,7 @@ public class LettuceSquare extends Square{
     /**
      * Override the superclass method. This method has an addition of resetting the turnCounter field back to 0 when removing the player
      * from the square
+     *
      * @param player Player object passed in
      */
     public void removePlayer(Player player) {
