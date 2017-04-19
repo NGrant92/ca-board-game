@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import board.*;
+import utils.SaveManager;
 
 import static utils.ScannerInput.*;
 
@@ -30,6 +31,7 @@ public class GameController {
     HareDeck hareDeck = new HareDeck();
 
     ArrayList<Square> board;
+    SaveManager saveManager = new SaveManager();
 
     int currentTurn = 0;
 
@@ -459,10 +461,12 @@ public class GameController {
     }
     
     public void saveGame()  throws Exception{
+        saveManager.setPlayers(players);
+        
         XStream xstream=new XStream(new DomDriver());
         ObjectOutputStream out=xstream.createObjectOutputStream
             (new FileWriter("game.xml"));
-        out.writeObject(board);
+        out.writeObject(saveManager);
         out.close();
     }
     
@@ -471,7 +475,12 @@ public class GameController {
         XStream xstream = new XStream(new DomDriver());
         ObjectInputStream is = xstream.createObjectInputStream
             (new FileReader("game.xml"));
-        board = (ArrayList<Square>) is.readObject();
+        saveManager = (SaveManager) is.readObject();
         is.close();
+        createBoard();
+        players.addAll(saveManager.getPlayers());
+        for (int i = 0 ; i < players.size() ; i++) {
+            board.get(players.get(i).getPosition()).setPlayer(players.get(i));
+        }
     }
 }
