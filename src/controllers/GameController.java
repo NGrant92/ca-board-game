@@ -1,7 +1,13 @@
 package controllers;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import models.*;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,8 +36,25 @@ public class GameController {
     public GameController() {
         players = new ArrayList<>();
         startNewGame();
+        
     }
-
+    
+    public GameController(String fileName) {
+        players = new ArrayList<>();
+        try {
+            loadGame();
+    
+            for (int i = 0 ; i < board.size() ; i++) {
+                players.addAll(board.get(i).getPlayers());
+            }
+            System.out.print(players.get(0).toString());
+            runMenu();
+        } catch (Exception e) {
+            System.out.print(e.toString());
+    
+        }
+    }
+    
     public void startNewGame() {
         createBoard();
 
@@ -64,7 +87,7 @@ public class GameController {
         board = new ArrayList<>();
 
         List<Integer> hareSquares = Arrays.asList(1, 3, 6, 14, 25, 31, 34, 39, 46, 51, 58, 62);
-        List<Integer> carrotSquares = Arrays.asList(2, 5, 13, 21, 26, 33, 38, 40, 49, 55, 59, 61, 63);
+        List<Integer> carrotSquares = Arrays.asList(2, 5, 13, 21, 26, 33, 38, 40, 48, 55, 59, 61, 63);
         List<Integer> threeSquares = Arrays.asList(4, 12, 20, 28, 36, 44, 52);
         List<Integer> oneFiveSixSquares = Arrays.asList(7, 16, 32, 49, 60);
         List<Integer> twoSquares = Arrays.asList(8, 17, 23, 29, 35, 41, 47, 53);
@@ -130,8 +153,23 @@ public class GameController {
             takeTurn();
 
             listPlayers();
+    
+    
+            //Allows reading time before the player's next turn
+            try {
+                Thread.sleep(3500);
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+            
             //TODO crashes when all players are finished
             nextTurn();
+            try {
+                saveGame();
+            }
+            catch (Exception e) {
+                System.out.print(e.toString());
+            }
         }
         System.out.println("The game is finished, here is the final standings:");
 
@@ -228,12 +266,6 @@ public class GameController {
             } else {
                 System.err.println("This option is not available. Please re-enter option:");
             }
-        }
-        //Allows reading time before the player's next turn
-        try {
-            Thread.sleep(3500);
-        } catch (Exception e) {
-            System.out.println(e.toString());
         }
     }
 
@@ -424,5 +456,22 @@ public class GameController {
                 System.err.println("Not a valid option. Please re-enter option: ");
             }
         }
+    }
+    
+    public void saveGame()  throws Exception{
+        XStream xstream=new XStream(new DomDriver());
+        ObjectOutputStream out=xstream.createObjectOutputStream
+            (new FileWriter("game.xml"));
+        out.writeObject(board);
+        out.close();
+    }
+    
+    @SuppressWarnings ("unchecked")
+    public void loadGame () throws Exception{
+        XStream xstream = new XStream(new DomDriver());
+        ObjectInputStream is = xstream.createObjectInputStream
+            (new FileReader("game.xml"));
+        board = (ArrayList<Square>) is.readObject();
+        is.close();
     }
 }
