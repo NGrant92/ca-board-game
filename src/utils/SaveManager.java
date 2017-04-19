@@ -5,7 +5,13 @@ import models.Player;
 import java.util.ArrayList;
 
 /**
- * Created by keela on 19/04/2017.
+ * Manages objects that need to be saved
+ *
+ * @author Kevin Fan
+ * @author Niall Grant
+ * @author Bernadette Murphy
+ * @author Keelan Murphy
+ * @version 2017.04.19
  */
 public class SaveManager {
     private ArrayList<Player> players;
