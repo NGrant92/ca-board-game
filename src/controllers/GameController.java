@@ -63,7 +63,7 @@ public class GameController {
         board = new ArrayList<>();
     
         List<Integer> hareSquares = Arrays.asList(1, 3, 6, 14, 25, 31, 34, 39, 46, 51, 58, 62);
-        List<Integer> carrotSquares = Arrays.asList(2, 5, 13, 21, 26, 33, 38, 40, 49, 55, 59, 61, 63);
+        List<Integer> carrotSquares = Arrays.asList(2, 5, 13, 21, 26, 33, 38, 40, 48, 55, 59, 61, 63);
         List<Integer> threeSquares = Arrays.asList(4, 12, 20, 28, 36, 44, 52);
         List<Integer> oneFiveSixSquares = Arrays.asList(7, 16, 32, 49, 60);
         List<Integer> twoSquares = Arrays.asList(8, 17, 23, 29, 35, 41, 47, 53);

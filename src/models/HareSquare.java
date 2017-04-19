@@ -214,7 +214,6 @@ public class HareSquare extends Square {
      * If there's more ahead of you, you gain an extra turn
      * If there's an equal amount behind and ahead of you then you gain an extra turn
      */
-    //TODO make it able to give player and extra turn
     public String missOrExtraTurn(ArrayList<Player> allPlayers, Player currentPlayer){
         //Variable that will count how many people are behind currentPlayer
         int playersBehind = 0;
