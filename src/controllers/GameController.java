@@ -160,8 +160,10 @@ public class GameController {
                 System.out.println(e.toString());
             }
             
-            //TODO crashes when all players are finished
-            nextTurn();
+            if (!isFinished()) {
+                nextTurn();
+            }
+            
             try {
                 saveGame();
             }

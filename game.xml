@@ -3,36 +3,27 @@
     <players>
       <models.Player>
         <playerName>Keelan</playerName>
-        <position>3</position>
-        <previousPosition>3</previousPosition>
-        <noOfCarrots>30</noOfCarrots>
+        <position>64</position>
+        <previousPosition>63</previousPosition>
+        <noOfCarrots>28</noOfCarrots>
+        <noOfLettuce>0</noOfLettuce>
+        <pendingBalance>0</pendingBalance>
+        <skipTurn>false</skipTurn>
+      </models.Player>
+      <models.Player>
+        <playerName>Niall</playerName>
+        <position>64</position>
+        <previousPosition>64</previousPosition>
+        <noOfCarrots>39</noOfCarrots>
         <noOfLettuce>3</noOfLettuce>
         <pendingBalance>0</pendingBalance>
         <skipTurn>false</skipTurn>
       </models.Player>
       <models.Player>
         <playerName>Kevin</playerName>
-        <position>4</position>
-        <previousPosition>4</previousPosition>
-        <noOfCarrots>55</noOfCarrots>
-        <noOfLettuce>3</noOfLettuce>
-        <pendingBalance>0</pendingBalance>
-        <skipTurn>false</skipTurn>
-      </models.Player>
-      <models.Player>
-        <playerName>Niall</playerName>
-        <position>2</position>
-        <previousPosition>2</previousPosition>
-        <noOfCarrots>62</noOfCarrots>
-        <noOfLettuce>3</noOfLettuce>
-        <pendingBalance>0</pendingBalance>
-        <skipTurn>false</skipTurn>
-      </models.Player>
-      <models.Player>
-        <playerName>Bernie</playerName>
-        <position>5</position>
-        <previousPosition>1</previousPosition>
-        <noOfCarrots>54</noOfCarrots>
+        <position>64</position>
+        <previousPosition>64</previousPosition>
+        <noOfCarrots>74</noOfCarrots>
         <noOfLettuce>3</noOfLettuce>
         <pendingBalance>0</pendingBalance>
         <skipTurn>false</skipTurn>
