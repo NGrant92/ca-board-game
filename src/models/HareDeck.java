@@ -47,10 +47,6 @@ public class HareDeck {
     }
   
   /**
-   * TODO Should we decide to go with persistence we will add a second argument accepting constructor here
-   */
-  
-  /**
    * Deals the top card to the player and then iterates to the next card. Due to the fact that
    * each used card is not discarded and is in fact placed on the bottom of the deck, the index
    * used to retrieve each card is set to 0 when the player has reached the end of the deck.
