@@ -213,24 +213,24 @@ public class GameController {
             System.out.println(getCurrentPlayer().toString());
             String moveType = retrieveText("What do you want to do " + getCurrentPlayer().getPlayerName() + "\tAvailable options: " + options);
             // If player chooses to move back and the canMoveBackward condition is true
-            if (moveType.equalsIgnoreCase("back") && canMoveBackward()) {
+            if (moveType.equals("back") && canMoveBackward()) {
                 // Moves player to the nearest previous tortoise
                 movePlayer(getCurrentPlayer(), findPreviousTortoise());
                 turnTaken = true;
                 System.out.println(board.get(getCurrentPlayer().getPosition()).applyRule(players));
             }
             // If player chooses to stay and the canStay condition is true
-            else if (moveType.equalsIgnoreCase("stay") && canStay()) {
+            else if (moveType.equals("stay") && canStay()) {
                 // -- Handle carrot square logic here
                 System.out.println(board.get(getCurrentPlayer().getPosition()).applyRule(players));
                 if (board.get(getCurrentPlayer().getPosition()).getName().equals("Carrots")) {
                     while (!turnTaken) {
                         String option = retrieveText("Choose to gain or remove 10 carrots (gain / remove) :");
-                        if (option.equalsIgnoreCase("gain")) {
+                        if (option.equals("gain")) {
                             getCurrentPlayer().addCarrots(10);
                             System.out.println("You have just gained 10 carrots");
                             turnTaken = true;
-                        } else if (option.equalsIgnoreCase("remove")) {
+                        } else if (option.equals("remove")) {
                             getCurrentPlayer().removeCarrots(10);
                             System.out.println("You have just removed 10 carrots");
                             turnTaken = true;
@@ -245,7 +245,7 @@ public class GameController {
                 turnTaken = true;
             }
             // If player chooses to move and the canMoveForward condition is true
-            else if (moveType.equalsIgnoreCase("move") && canMoveForward()) {
+            else if (moveType.equals("move") && canMoveForward()) {
                 int distance = validNextInt("Enter the number of squares you wish to move " + getCurrentPlayer().getPlayerName());
                 int newSquareIndex = getCurrentPlayer().getPosition() + distance;
                 // Checks if the newSquareIndex the player wants to move to is on the board
