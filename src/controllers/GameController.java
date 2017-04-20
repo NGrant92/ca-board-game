@@ -171,8 +171,8 @@ public class GameController {
                 System.out.print(e.toString());
             }
         }
-        System.out.println("The game is finished, here is the final standings:");
-
+        System.out.println("Congratulations the game is finished!");
+        
     }
 
     /**
