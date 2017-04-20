@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import board.*;
+import utils.SaveManager;
 
 import static utils.ScannerInput.*;
 
@@ -30,6 +31,7 @@ public class GameController {
     HareDeck hareDeck = new HareDeck();
 
     ArrayList<Square> board;
+    SaveManager saveManager = new SaveManager();
 
     int currentTurn = 0;
 
@@ -44,10 +46,6 @@ public class GameController {
         try {
             loadGame();
     
-            for (int i = 0 ; i < board.size() ; i++) {
-                players.addAll(board.get(i).getPlayers());
-            }
-            System.out.print(players.get(0).toString());
             runMenu();
         } catch (Exception e) {
             System.out.print(e.toString());
@@ -162,8 +160,10 @@ public class GameController {
                 System.out.println(e.toString());
             }
             
-            //TODO crashes when all players are finished
-            nextTurn();
+            if (!isFinished()) {
+                nextTurn();
+            }
+            
             try {
                 saveGame();
             }
@@ -171,8 +171,8 @@ public class GameController {
                 System.out.print(e.toString());
             }
         }
-        System.out.println("The game is finished, here is the final standings:");
-
+        System.out.println("Congratulations the game is finished!");
+        
     }
 
     /**
@@ -458,11 +458,13 @@ public class GameController {
         }
     }
     
-    public void saveGame()  throws Exception{
+    public void saveGame() throws Exception{
+        saveManager.setGameState(players,currentTurn);
+        
         XStream xstream=new XStream(new DomDriver());
         ObjectOutputStream out=xstream.createObjectOutputStream
             (new FileWriter("game.xml"));
-        out.writeObject(board);
+        out.writeObject(saveManager);
         out.close();
     }
     
@@ -471,7 +473,13 @@ public class GameController {
         XStream xstream = new XStream(new DomDriver());
         ObjectInputStream is = xstream.createObjectInputStream
             (new FileReader("game.xml"));
-        board = (ArrayList<Square>) is.readObject();
+        saveManager = (SaveManager) is.readObject();
         is.close();
+        createBoard();
+        players = saveManager.getPlayers();
+        for (int i = 0 ; i < players.size() ; i++) {
+            board.get(players.get(i).getPosition()).setPlayer(players.get(i));
+        }
+        currentTurn = saveManager.getCurrentTurn();
     }
 }
