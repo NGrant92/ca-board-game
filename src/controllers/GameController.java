@@ -99,8 +99,6 @@ public class GameController {
             
             takeTurn();
             
-            listPlayers();
-            
             //Allows reading time before the player's next turn
             try {
                 Thread.sleep(3500);
@@ -180,13 +178,7 @@ public class GameController {
     private void addPlayer(String name) {
         players.add(new Player(name));
     }
-
-    private void listPlayers() {
-        for (int i = 0; i < players.size(); i++) {
-            System.out.println(players.get(i).toString());
-        }
-    }
-
+    
     /**
      * Method to give players option to move backwards, stay on current tile, or move forward, with checks for these option.
      * Also contains the condition of where the player must move back to start square when there is no available moves for the player
