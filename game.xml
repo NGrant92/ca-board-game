@@ -2,24 +2,24 @@
   <utils.SaveManager>
     <players>
       <models.Player>
-        <playerName>keelan</playerName>
-        <position>3</position>
-        <previousPosition>0</previousPosition>
-        <noOfCarrots>59</noOfCarrots>
+        <playerName>niall</playerName>
+        <position>6</position>
+        <previousPosition>1</previousPosition>
+        <noOfCarrots>90</noOfCarrots>
         <noOfLettuce>3</noOfLettuce>
         <pendingBalance>0</pendingBalance>
         <skipTurn>false</skipTurn>
       </models.Player>
       <models.Player>
-        <playerName>niall</playerName>
-        <position>5</position>
-        <previousPosition>5</previousPosition>
-        <noOfCarrots>60</noOfCarrots>
+        <playerName>kevin</playerName>
+        <position>3</position>
+        <previousPosition>0</previousPosition>
+        <noOfCarrots>49</noOfCarrots>
         <noOfLettuce>3</noOfLettuce>
         <pendingBalance>0</pendingBalance>
         <skipTurn>false</skipTurn>
       </models.Player>
     </players>
-    <currentTurn>0</currentTurn>
+    <currentTurn>1</currentTurn>
   </utils.SaveManager>
 </object-stream>

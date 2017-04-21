@@ -20,9 +20,6 @@ import java.util.ArrayList;
 public class PostionSquare extends Square {
 
     private int counter;
-    private int recievedCarrots = 0;
-    private ArrayList<Player> allPlayers;
-
     /**
      * Constructor for the Position Square Object
      *
@@ -55,6 +52,7 @@ public class PostionSquare extends Square {
             case 1:
                 message = "At the start of your next turn your position must match the number on the square\n";
                 break;
+            //At the start of next turn case2 is called due to counter++ above
             //Position is checked at the start of their next turn
             case 2:
                 //If I use a method more than once, it's being given a variable name
@@ -79,10 +77,11 @@ public class PostionSquare extends Square {
      * @param currentPlayer Player currently on the position square
      * @return returns an int that determines how many carrots is given to each player
      */
-    public int checkPosition(ArrayList<Player> allPlayers, Player currentPlayer){
+    private int checkPosition(ArrayList<Player> allPlayers, Player currentPlayer){
         //Square name is converted into an integer
         int tileNum = Integer.parseInt(name);
         int playerPosition = GameHelperMethods.getRacePosition(allPlayers, currentPlayer.getPosition());
+        int recievedCarrots;
 
         //One particular tile allows you be 1st, 5th or 6th
         if(tileNum == 156){
