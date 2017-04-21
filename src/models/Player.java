@@ -163,12 +163,12 @@ public class Player
 	 *
 	 * @return A string version of the Player object. The string returned is similar to the structure:
 	 *
-	 *			 Player: John 		Position: 1		No of Carrot: 65 		No of Lettuce: 3	Skip Turn: false
+	 *			 Player: John 		Position: 1		No of Carrot: 65 		No of Lettuce: 3
 	 *
 	 */
 	public String toString() {
-		return "Player: " + playerName + "\tPosition: " + getPosition()  + "\tprevPos: " + getPreviousPosition() + "\tNo of Carrots: " + getNoOfCarrots()
-				+ "\tNo of Lettuce: " + getNoOfLettuce() + "\tSkip Turn: " + getSkipTurn();
+		return "Player: " + playerName + "\tPosition: " + getPosition() + "\tNo of Carrots: " + getNoOfCarrots()
+				+ "\tNo of Lettuce: " + getNoOfLettuce();
 
 	}
 

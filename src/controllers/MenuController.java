@@ -75,14 +75,16 @@ public class MenuController
     while(option!=0){
       switch(option){
         case 1:
-          new GameController();
+          new GameController(true);
         break;
-        case 2:    System.out.println();
+        case 2:
+          System.out.println();
           break;
         case 3:
-          new GameController("game.xml");
+          new GameController(false);
           break;
-        default:    System.out.println("Invalid option entered: " + option);
+        default:
+          System.out.println("Invalid option entered: " + option);
           break;
       }
       

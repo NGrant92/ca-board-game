@@ -19,7 +19,9 @@ import static utils.ScannerInput.*;
 import static utils.GameHelperMethods.carrotsRequired;
 
 /**
- * This class
+ * This class handles the game. The MenuController will specify whether the GameController
+ * should create a new game or load a game by way of a boolean param in the constructor.
+ * Once a game is started/loaded a while loop runs until the game is finished.
  *
  * @author Kevin Fan
  * @author Niall Grant
@@ -35,25 +37,33 @@ public class GameController {
     private SaveManager saveManager = new SaveManager();
 
     private int currentTurn = 0;
-
-    public GameController() {
+    
+    /**
+     * The default constructor for a game which calls upon the startNewGame method if the
+     * the user has specified it should be a new game in the MenuController. Otherwise a
+     * game is loaded.
+     * @param newGame a boolean representing if the game should be a new game or loaded
+     */
+    public GameController(boolean newGame) {
         players = new ArrayList<>();
-        startNewGame();
-        
-    }
-    
-    public GameController(String fileName) {
-        players = new ArrayList<>();
-        try {
-            loadGame();
-    
-            runMenu();
-        } catch (Exception e) {
-            System.out.print(e.toString());
-    
+        if (newGame) {
+            startNewGame();
+        } else {
+            try {
+                loadGame();
+                runGame();
+            } catch (Exception e) {
+                System.out.print(e.toString());
+                
+            }
         }
     }
     
+    /**
+     * Sets up a new game by calling the create board method. The method then
+     * asks for details of players to be entered. Once players are entered
+     * runMenu method is called
+     */
     private void startNewGame() {
         createBoard();
 
@@ -76,9 +86,43 @@ public class GameController {
             board.get(0).setPlayer(players.get(i));
         }
 
-        runMenu();
+        runGame();
     }
-
+    
+    /**
+     * The loop which the game is played within is held within this function.
+     * The game will continuously loop through turns until all players are finished.
+     */
+    private void runGame() {
+        while (!isFinished()) {
+            insertLines();
+            
+            new BoardDisplay(board);
+            
+            takeTurn();
+            
+            //Allows reading time before the player's next turn
+            try {
+                Thread.sleep(3500);
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+            
+            if (!isFinished()) {
+                nextTurn();
+            }
+            
+            try {
+                saveGame();
+            }
+            catch (Exception e) {
+                System.out.print(e.toString());
+            }
+        }
+        System.out.println("Congratulations the game is finished!");
+    }
+    
+    
     /**
      * Populates the board array
      */
@@ -136,46 +180,7 @@ public class GameController {
     private void addPlayer(String name) {
         players.add(new Player(name));
     }
-
-    private void listPlayers() {
-        for (int i = 0; i < players.size(); i++) {
-            System.out.println(players.get(i).toString());
-        }
-    }
-
-    private void runMenu() {
-        while (!isFinished()) {
-            insertLines();
-
-            new BoardDisplay(board);
-
-            takeTurn();
-
-            listPlayers();
     
-    
-            //Allows reading time before the player's next turn
-            try {
-                Thread.sleep(3500);
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            }
-            
-            if (!isFinished()) {
-                nextTurn();
-            }
-            
-            try {
-                saveGame();
-            }
-            catch (Exception e) {
-                System.out.print(e.toString());
-            }
-        }
-        System.out.println("Congratulations the game is finished!");
-        
-    }
-
     /**
      * Method to give players option to move backwards, stay on current tile, or move forward, with checks for these option.
      * Also contains the condition of where the player must move back to start square when there is no available moves for the player
@@ -269,7 +274,11 @@ public class GameController {
             }
         }
     }
-
+    
+    /**
+     * Finds the previous tortoise square relevant to the current players position
+     * @return the position of the previous tortoise square
+     */
     private int findPreviousTortoise() {
         int i = getCurrentPlayer().getPosition();
         if (i != 0) {
@@ -280,7 +289,11 @@ public class GameController {
         }
         return i;
     }
-
+    
+    /**
+     * Checks if a player can move backwards
+     * @return a boolean stating whether the player can move back to the previous tortoise square
+     */
     private boolean canMoveBackward() {
         // If the player is on a lettuce square and has not stayed on the lettuce square once - return false
         if (board.get(getCurrentPlayer().getPosition()).getName().equals("Lettuce") && (getCurrentPlayer().getPreviousPosition() != getCurrentPlayer().getPosition())) {
@@ -294,7 +307,11 @@ public class GameController {
             return true;
         }
     }
-
+    
+    /**
+     * Checks if a player can stay in their current position.
+     * @return if the player can stay
+     */
     private boolean canStay() {
         return board.get(getCurrentPlayer().getPosition()).canStay();
     }
@@ -334,7 +351,12 @@ public class GameController {
         }
         return false;
     }
-
+    
+    /**
+     * Removes the player from a square and moves them to the new square
+     * @param player the player to be moved
+     * @param position the position the player wishes to move to
+     */
     private void movePlayer(Player player, int position) {
         board.get(player.getPosition()).removePlayer(player);
         board.get(position).setPlayer(player);
@@ -355,10 +377,13 @@ public class GameController {
         int roundedDown = (int) Math.floor(distance);
         return roundedDown;
     }
-
-
+    
+    /**
+     * Handles the Current Turn integer by incrementing until the integer would be greater than
+     * the number of players. If a player is set to skip their turn the method sets the skip turn
+     * boolean to false and calls itself again.
+     */
     private void nextTurn() {
-
         currentTurn++;
 
         if (currentTurn >= players.size()) {
@@ -373,7 +398,8 @@ public class GameController {
     }
 
     /**
-     * Finds the current player
+     * Finds the current player by using the int representing the current player
+     * to retrieve the current player from the array
      *
      * @return the current player
      */
@@ -409,7 +435,10 @@ public class GameController {
         }
         return true;
     }
-
+    
+    /**
+     * Prints out blank lines to stop a player reading the previous turn
+     */
     private void insertLines() {
         for (int clear = 0; clear < 15; clear++) {
             System.out.println("\n");
@@ -437,6 +466,10 @@ public class GameController {
         }
     }
     
+    /**
+     * Saves the current game state to xml by utilising the SaveManager class
+     * @throws Exception
+     */
     private void saveGame() throws Exception{
         saveManager.setGameState(players,currentTurn);
         
@@ -447,6 +480,10 @@ public class GameController {
         out.close();
     }
     
+    /**
+     * Loads the game from a SaveManager object
+     * @throws Exception
+     */
     @SuppressWarnings ("unchecked")
     private void loadGame () throws Exception{
         XStream xstream = new XStream(new DomDriver());
