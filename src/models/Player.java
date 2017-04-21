@@ -113,15 +113,6 @@ public class Player
 	//=================================
 
 	/**
-	 * Updates the playerName field
-	 *
-	 * @param playerName No validation is performed on the playerName field
-	 */
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
-	}
-
-	/**
 	 * Updates the position field
 	 *
 	 * @param position No validation is performed on the position field yet
@@ -138,15 +129,6 @@ public class Player
 	 */
 	public void setNoOfCarrots(int noOfCarrots) {
 		this.noOfCarrots = noOfCarrots;
-	}
-
-	/**
-	 * Updates the noOfLettuce field
-	 *
-	 * @param noOfLettuce No validation is performed on the noOfLettuce field
-	 */
-	public void setNoOfLettuce(int noOfLettuce) {
-		this.noOfLettuce = noOfLettuce;
 	}
 
 	/**
@@ -204,14 +186,6 @@ public class Player
      */
 	public void setPreviousPosition(int previousPosition) {
 		this.previousPosition = previousPosition;
-	}
-
-    /**
-     * Sets the pending balance field for the player
-     * @param pendingBalance The pending balance for the player
-     */
-	public void setPendingBalance(int pendingBalance) {
-		this.pendingBalance = pendingBalance;
 	}
 
 	/**
