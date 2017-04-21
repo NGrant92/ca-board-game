@@ -3,9 +3,9 @@
     <players>
       <models.Player>
         <playerName>keelan</playerName>
-        <position>16</position>
-        <previousPosition>14</previousPosition>
-        <noOfCarrots>62</noOfCarrots>
+        <position>21</position>
+        <previousPosition>16</previousPosition>
+        <noOfCarrots>47</noOfCarrots>
         <noOfLettuce>3</noOfLettuce>
         <pendingBalance>0</pendingBalance>
         <skipTurn>false</skipTurn>
@@ -13,13 +13,13 @@
       <models.Player>
         <playerName>niall</playerName>
         <position>11</position>
-        <previousPosition>13</previousPosition>
+        <previousPosition>11</previousPosition>
         <noOfCarrots>36</noOfCarrots>
         <noOfLettuce>3</noOfLettuce>
         <pendingBalance>0</pendingBalance>
         <skipTurn>false</skipTurn>
       </models.Player>
     </players>
-    <currentTurn>0</currentTurn>
+    <currentTurn>1</currentTurn>
   </utils.SaveManager>
 </object-stream>

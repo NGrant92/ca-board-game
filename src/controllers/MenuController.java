@@ -77,12 +77,14 @@ public class MenuController
         case 1:
           new GameController(true);
         break;
-        case 2:    System.out.println();
+        case 2:
+          System.out.println();
           break;
         case 3:
           new GameController(false);
           break;
-        default:    System.out.println("Invalid option entered: " + option);
+        default:
+          System.out.println("Invalid option entered: " + option);
           break;
       }
       

@@ -19,7 +19,9 @@ import static utils.ScannerInput.*;
 import static utils.GameHelperMethods.carrotsRequired;
 
 /**
- * This class handles the game.
+ * This class handles the game. The MenuController will specify whether the GameController
+ * should create a new game or load a game by way of a boolean param in the constructor.
+ * Once a game is started/loaded a while loop runs until the game is finished.
  *
  * @author Kevin Fan
  * @author Niall Grant
