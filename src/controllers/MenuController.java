@@ -79,7 +79,8 @@ public class MenuController
         break;
         case 2:    System.out.println();
           break;
-        case 3:    System.out.println();
+        case 3:
+          new GameController("game.xml");
           break;
         default:    System.out.println("Invalid option entered: " + option);
           break;
@@ -92,24 +93,7 @@ public class MenuController
     System.exit(0);
   }
 
-/*  
-public void save ()  throws Exception{
-	  XStream xstream=new XStream(new DomDriver());
-	  ObjectOutputStream out=xstream.createObjectOutputStream
-			  (new FileWriter("game.xml"));
-	  out.writeObject(players);
-	  out.close();
-}
 
-@SuppressWarnings ("unchecked")
-public void load () throws Exception{
-	  XStream xstream = new XStream(new DomDriver()));
-	  ObjectInputStream is = xstream.createObjectInputStream
-	  (new FileReader ("game.xml"));
-	  players = (ArrayList<models.Player>is.readObject();
-	  is.close();
-}
-*/
 }
 		
   

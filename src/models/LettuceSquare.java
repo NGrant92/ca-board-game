@@ -1,15 +1,17 @@
 package models;
 
 import java.util.ArrayList;
-
+import static utils.GameHelperMethods.getRacePosition;
 /**
+ * This class extends the Square class, and models a Lettuce Square.
+ *
  * Created by Kevin on 06/04/2017.
  *
  * @author Kevin Fan
  * @author Niall Grant
  * @author Bernadette Murphy
  * @author Keelan Murphy
- * @version 2017.04.18
+ * @version 2017.04.20
  */
 public class LettuceSquare extends Square {
     private int turnCounter;
@@ -28,16 +30,17 @@ public class LettuceSquare extends Square {
      * Overrides the superclass method with rules that is applied to the player on the lettuce square.
      *
      * @param allPlayers ArrayList of players in the game
+     * @return Return a String message of the rules applied
      */
     @Override
     public String applyRule(ArrayList<Player> allPlayers) {
-        String ruleMessage = "";
+        String ruleMessage;
 
         // Increment turnCounter by 1 each time the applyRule method is called - which will determine the method output
         turnCounter++;
 
         // Local store of how many carrots the player will gain for removing a lettuce
-        int carrotGain = getRacePosition(allPlayers) * 10;
+        int carrotGain = getRacePosition(allPlayers, position) * 10;
 
         switch (turnCounter) {
             // Player just landed on the lettuce square
@@ -49,6 +52,9 @@ public class LettuceSquare extends Square {
                 ruleMessage = "\nNOM NOM NOM\nYou just ate a lettuce and have gained " + carrotGain + " carrots. You need time to digest. " +
                         "\nYou must have move to another square on your next turn.\n";
                 chewLettuce(carrotGain);
+                break;
+            default:
+                ruleMessage = "Something is wrong if this message is displayed :/ ";
                 break;
         }
         return ruleMessage;
@@ -88,28 +94,6 @@ public class LettuceSquare extends Square {
     }
 
     /**
-     * Method to return the player position in race. Possibly can be used in number square or lettuce square
-     * calculation.
-     *
-     * @param allPlayers ArrayList of all players in the game to calculate the race position for the current player
-     */
-    private int getRacePosition(ArrayList<Player> allPlayers) {
-        // Assume player racePosition is in 1st place;
-        int racePosition = 1;
-
-        // For each loop comparing the player's current position
-        for (Player player : allPlayers) {
-            // If square position (which should be the same as the position of the current player on the square) is less
-            // than another player's position (i.e. the player is further along in the race), then racePosition is incremented
-            // by 1
-            if (position < player.getPosition()) {
-                racePosition++;
-            }
-        }
-        return racePosition;
-    }
-
-    /**
      * This method would decrement the player's lettuce count by 1 and give the player carrots 10 * racePosition of the player.
      * This method would be used when a player stay's a lettuce square
      *
@@ -121,7 +105,6 @@ public class LettuceSquare extends Square {
 
         // Adds 10 * racePosition to the currentPlayer (
         players.get(0).addCarrots(carrotGain);
-
     }
 
     /**
@@ -130,6 +113,7 @@ public class LettuceSquare extends Square {
      *
      * @param player Player object passed in
      */
+    @Override
     public void removePlayer(Player player) {
         turnCounter = 0;
         players.remove(player);

@@ -1,14 +1,22 @@
 package controllers;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import models.*;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import board.*;
+import utils.SaveManager;
 
 import static utils.ScannerInput.*;
+import static utils.GameHelperMethods.carrotsRequired;
 
 /**
  * This class
@@ -20,19 +28,33 @@ import static utils.ScannerInput.*;
  * @version 2017.03.28
  */
 public class GameController {
-    ArrayList<Player> players;
-    HareDeck hareDeck = new HareDeck();
+    private ArrayList<Player> players;
+    private HareDeck hareDeck = new HareDeck();
 
-    ArrayList<Square> board;
+    private ArrayList<Square> board;
+    private SaveManager saveManager = new SaveManager();
 
-    int currentTurn = 0;
+    private int currentTurn = 0;
 
     public GameController() {
         players = new ArrayList<>();
         startNewGame();
+        
     }
-
-    public void startNewGame() {
+    
+    public GameController(String fileName) {
+        players = new ArrayList<>();
+        try {
+            loadGame();
+    
+            runMenu();
+        } catch (Exception e) {
+            System.out.print(e.toString());
+    
+        }
+    }
+    
+    private void startNewGame() {
         createBoard();
 
         insertLines();
@@ -60,7 +82,7 @@ public class GameController {
     /**
      * Populates the board array
      */
-    public void createBoard() {
+    private void createBoard() {
         board = new ArrayList<>();
 
         List<Integer> hareSquares = Arrays.asList(1, 3, 6, 14, 25, 31, 34, 39, 46, 51, 58, 62);
@@ -111,11 +133,11 @@ public class GameController {
      *
      * @param name the players name
      */
-    public void addPlayer(String name) {
+    private void addPlayer(String name) {
         players.add(new Player(name));
     }
 
-    public void listPlayers() {
+    private void listPlayers() {
         for (int i = 0; i < players.size(); i++) {
             System.out.println(players.get(i).toString());
         }
@@ -130,18 +152,35 @@ public class GameController {
             takeTurn();
 
             listPlayers();
-            //TODO crashes when all players are finished
-            nextTurn();
+    
+    
+            //Allows reading time before the player's next turn
+            try {
+                Thread.sleep(3500);
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+            
+            if (!isFinished()) {
+                nextTurn();
+            }
+            
+            try {
+                saveGame();
+            }
+            catch (Exception e) {
+                System.out.print(e.toString());
+            }
         }
-        System.out.println("The game is finished, here is the final standings:");
-
+        System.out.println("Congratulations the game is finished!");
+        
     }
 
     /**
      * Method to give players option to move backwards, stay on current tile, or move forward, with checks for these option.
      * Also contains the condition of where the player must move back to start square when there is no available moves for the player
      */
-    public void takeTurn() {
+    private void takeTurn() {
         //The position square rule needs to be applied at the start of the persons next turn while
         //This checks if the Square.getName contains numbers, as the position square is the only one to have numbers
         if (board.get(getCurrentPlayer().getPosition()).getName().matches("[0-9]+")) {
@@ -174,24 +213,24 @@ public class GameController {
             System.out.println(getCurrentPlayer().toString());
             String moveType = retrieveText("What do you want to do " + getCurrentPlayer().getPlayerName() + "\tAvailable options: " + options);
             // If player chooses to move back and the canMoveBackward condition is true
-            if (moveType.equalsIgnoreCase("back") && canMoveBackward()) {
+            if (moveType.equals("back") && canMoveBackward()) {
                 // Moves player to the nearest previous tortoise
                 movePlayer(getCurrentPlayer(), findPreviousTortoise());
                 turnTaken = true;
                 System.out.println(board.get(getCurrentPlayer().getPosition()).applyRule(players));
             }
             // If player chooses to stay and the canStay condition is true
-            else if (moveType.equalsIgnoreCase("stay") && canStay()) {
+            else if (moveType.equals("stay") && canStay()) {
                 // -- Handle carrot square logic here
                 System.out.println(board.get(getCurrentPlayer().getPosition()).applyRule(players));
                 if (board.get(getCurrentPlayer().getPosition()).getName().equals("Carrots")) {
                     while (!turnTaken) {
                         String option = retrieveText("Choose to gain or remove 10 carrots (gain / remove) :");
-                        if (option.equalsIgnoreCase("gain")) {
+                        if (option.equals("gain")) {
                             getCurrentPlayer().addCarrots(10);
                             System.out.println("You have just gained 10 carrots");
                             turnTaken = true;
-                        } else if (option.equalsIgnoreCase("remove")) {
+                        } else if (option.equals("remove")) {
                             getCurrentPlayer().removeCarrots(10);
                             System.out.println("You have just removed 10 carrots");
                             turnTaken = true;
@@ -206,7 +245,7 @@ public class GameController {
                 turnTaken = true;
             }
             // If player chooses to move and the canMoveForward condition is true
-            else if (moveType.equalsIgnoreCase("move") && canMoveForward()) {
+            else if (moveType.equals("move") && canMoveForward()) {
                 int distance = validNextInt("Enter the number of squares you wish to move " + getCurrentPlayer().getPlayerName());
                 int newSquareIndex = getCurrentPlayer().getPosition() + distance;
                 // Checks if the newSquareIndex the player wants to move to is on the board
@@ -229,15 +268,9 @@ public class GameController {
                 System.err.println("This option is not available. Please re-enter option:");
             }
         }
-        //Allows reading time before the player's next turn
-        try {
-            Thread.sleep(3500);
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
     }
 
-    public int findPreviousTortoise() {
+    private int findPreviousTortoise() {
         int i = getCurrentPlayer().getPosition();
         if (i != 0) {
             i -= 1;
@@ -248,7 +281,7 @@ public class GameController {
         return i;
     }
 
-    public boolean canMoveBackward() {
+    private boolean canMoveBackward() {
         // If the player is on a lettuce square and has not stayed on the lettuce square once - return false
         if (board.get(getCurrentPlayer().getPosition()).getName().equals("Lettuce") && (getCurrentPlayer().getPreviousPosition() != getCurrentPlayer().getPosition())) {
             return false;
@@ -262,7 +295,7 @@ public class GameController {
         }
     }
 
-    public boolean canStay() {
+    private boolean canStay() {
         return board.get(getCurrentPlayer().getPosition()).canStay();
     }
 
@@ -274,7 +307,7 @@ public class GameController {
      *
      * @return Boolean value of whether the player can move forward.
      */
-    public boolean canMoveForward() {
+    private boolean canMoveForward() {
         // If the player is on a lettuce square and has not stayed on the lettuce square once - return false
         if (board.get(getCurrentPlayer().getPosition()).getName().equals("Lettuce") && (getCurrentPlayer().getPreviousPosition() != getCurrentPlayer().getPosition())) {
             return false;
@@ -302,31 +335,9 @@ public class GameController {
         return false;
     }
 
-    public void movePlayer(Player player, int position) {
+    private void movePlayer(Player player, int position) {
         board.get(player.getPosition()).removePlayer(player);
         board.get(position).setPlayer(player);
-    }
-
-    /**
-     * Calculates the carrots required to move a distance
-     * <p>
-     * The number of carrots required is calculated using a triangular number sequence
-     * formula. The alternative was to use a for loop to add every number
-     * up to the distance required. This has been commented out.
-     *
-     * @param distance The distance that the user wishes to move
-     * @return The number of carrots required to move the inputted distance
-     */
-    public int carrotsRequired(int distance) {
-        /* Alternative way to find the carrots required
-		* int carrots = 0;
-		*  for (int index = 1; index <= distance; index++)
-		*  {
-		*   	carrots = carrots + index;
-		*  }
-		*  return carrots;
-		*/
-        return distance * (distance + 1) / 2;
     }
 
     /**
@@ -346,7 +357,7 @@ public class GameController {
     }
 
 
-    public void nextTurn() {
+    private void nextTurn() {
 
         currentTurn++;
 
@@ -366,7 +377,7 @@ public class GameController {
      *
      * @return the current player
      */
-    public Player getCurrentPlayer() {
+    private Player getCurrentPlayer() {
         return players.get(currentTurn);
     }
 
@@ -376,7 +387,7 @@ public class GameController {
      * @param player the player that is checked to see if they are finished
      * @return a boolean representing if the player is on the final square
      */
-    public boolean isPlayerFinished(Player player) {
+    private boolean isPlayerFinished(Player player) {
         if (player.getPosition() != board.size() - 1) {
             return false;
         } else {
@@ -399,7 +410,7 @@ public class GameController {
         return true;
     }
 
-    public void insertLines() {
+    private void insertLines() {
         for (int clear = 0; clear < 15; clear++) {
             System.out.println("\n");
         }
@@ -424,5 +435,30 @@ public class GameController {
                 System.err.println("Not a valid option. Please re-enter option: ");
             }
         }
+    }
+    
+    private void saveGame() throws Exception{
+        saveManager.setGameState(players,currentTurn);
+        
+        XStream xstream=new XStream(new DomDriver());
+        ObjectOutputStream out=xstream.createObjectOutputStream
+            (new FileWriter("game.xml"));
+        out.writeObject(saveManager);
+        out.close();
+    }
+    
+    @SuppressWarnings ("unchecked")
+    private void loadGame () throws Exception{
+        XStream xstream = new XStream(new DomDriver());
+        ObjectInputStream is = xstream.createObjectInputStream
+            (new FileReader("game.xml"));
+        saveManager = (SaveManager) is.readObject();
+        is.close();
+        createBoard();
+        players = saveManager.getPlayers();
+        for (int i = 0 ; i < players.size() ; i++) {
+            board.get(players.get(i).getPosition()).setPlayer(players.get(i));
+        }
+        currentTurn = saveManager.getCurrentTurn();
     }
 }
