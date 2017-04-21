@@ -14,6 +14,7 @@ import java.util.List;
 
 import board.*;
 import utils.SaveManager;
+import utils.ShowRules;
 
 import static utils.ScannerInput.*;
 import static utils.GameHelperMethods.carrotsRequired;
@@ -214,11 +215,19 @@ public class GameController {
             if (canMoveForward()) {
                 options += "(move) ";
             }
+            options += "(rules) (costs)";
             // Added currentPlayer toString to see player details before taking each turn
             System.out.println(getCurrentPlayer().toString());
             String moveType = retrieveText("What do you want to do " + getCurrentPlayer().getPlayerName() + "\tAvailable options: " + options);
+    
+            if (moveType.equals("rules")){
+                System.out.print(ShowRules.viewRules());
+            }
+            else if (moveType.equals("costs")){
+                System.out.print(ShowRules.viewCost());
+            }
             // If player chooses to move back and the canMoveBackward condition is true
-            if (moveType.equals("back") && canMoveBackward()) {
+            else if (moveType.equals("back") && canMoveBackward()) {
                 // Moves player to the nearest previous tortoise
                 movePlayer(getCurrentPlayer(), findPreviousTortoise());
                 turnTaken = true;
@@ -499,21 +508,3 @@ public class GameController {
         currentTurn = saveManager.getCurrentTurn();
     }
 }
-/*
-public void save ()  throws Exception{
-	  XStream xstream=new XStream(new DomDriver());
-	  ObjectOutputStream out=xstream.createObjectOutputStream
-			  (new FileWriter("game.xml"));
-	  out.writeObject(players);
-	  out.close();
-}
-
-@SuppressWarnings ("unchecked")
-public void load () throws Exception{
-	  XStream xstream = new XStream(new DomDriver()));
-	  ObjectInputStream is = xstream.createObjectInputStream
-	  (new FileReader ("game.xml"));
-	  players = (ArrayList<models.Player>is.readObject();
-	  is.close();
-}
-*/
