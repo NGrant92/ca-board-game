@@ -9,13 +9,17 @@ package models;
  * @author Keelan Murphy
  * @version 2017.03.21
  *
- * TODO deal with how a card applies its rules
  */
 public class Card {
   
     public String title;
     public String instruction;
-  
+    
+    /**
+     * The constructor for a card
+     * @param title The cards title
+     * @param instruction The instruction on the card
+     */
     public Card(String title, String instruction) {
         this.title = title;
         this.instruction = instruction;

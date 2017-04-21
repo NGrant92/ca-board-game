@@ -24,7 +24,6 @@ public class HareDeck {
   /**
    * Initializes and populates the hare deck. Calls the shuffle method to
    * randomize deck order
-   * TODO Populate the cards correctly only testing them at this stage
    */
     public HareDeck() {
         deck = new ArrayList<>();
@@ -42,23 +41,10 @@ public class HareDeck {
         deck.add(new Card("RESTORE YOUR CARROT HOLDING TO EXACTLY 65.", "If you have more than 65, pay extras to the carrot patch; if fewer, draw extras from the carrot patch."));
         deck.add(new Card("IF THERE ARE MORE PLAYERS BEHIND YOU THAN IN FRONT OF YOU, MISS A TURN. IF NOT, PLAY AGAIN.", "If equal, of course play again."));
         deck.add(new Card("IF THERE ARE MORE PLAYERS BEHIND YOU THAN IN FRONT OF YOU, MISS A TURN. IF NOT, PLAY AGAIN.", "If equal, of course play again."));
-        deck.add(new Card("SHUFFLE THE HARE CARDS AND RECEIVE FROM EACH PLAYER 1 CARROT FOR DOING SO.", "Do not replace this card at the bottom of the pack but include it in the shuffle."));
+        //deck.add(new Card("SHUFFLE THE HARE CARDS AND RECEIVE FROM EACH PLAYER 1 CARROT FOR DOING SO.", "Do not replace this card at the bottom of the pack but include it in the shuffle."));
     
         shuffle();
     }
-  
-  /**
-   * TODO For testing purposes, remove when tested
-   */
-    public void printDeck() {
-        for (int i = 0; i < deck.size(); i++) {
-            System.out.println(deck.get(i).getTitle());
-        }
-    }
-  
-  /**
-   * TODO Should we decide to go with persistence we will add a second argument accepting constructor here
-   */
   
   /**
    * Deals the top card to the player and then iterates to the next card. Due to the fact that

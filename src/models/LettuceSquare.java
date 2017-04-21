@@ -1,18 +1,25 @@
 package models;
 
+import java.util.ArrayList;
+import static utils.GameHelperMethods.getRacePosition;
 /**
+ * This class extends the Square class, and models a Lettuce Square.
+ *
  * Created by Kevin on 06/04/2017.
+ *
  * @author Kevin Fan
  * @author Niall Grant
  * @author Bernadette Murphy
  * @author Keelan Murphy
- * @version 2017.04.03
+ * @version 2017.04.20
  */
-public class LettuceSquare extends Square{
+public class LettuceSquare extends Square {
+    private int turnCounter;
 
     /**
-     * Constructor for the CarrotSquare Object
-     * @param name The name of the square
+     * Constructor for the LettuceSquare Object
+     *
+     * @param name     The name of the square
      * @param position The number of the square on the board
      */
     public LettuceSquare(String name, int position) {
@@ -20,23 +27,50 @@ public class LettuceSquare extends Square{
     }
 
     /**
+     * Overrides the superclass method with rules that is applied to the player on the lettuce square.
      *
-     * @param player Player object that is passed in to get play information
+     * @param allPlayers ArrayList of players in the game
+     * @return Return a String message of the rules applied
      */
-    public void applyRule(Player player) {
-        player.removeLettuce();
-        player.addCarrots(getPlayerPositionInRace(player) * 10);
+    @Override
+    public String applyRule(ArrayList<Player> allPlayers) {
+        String ruleMessage;
+
+        // Increment turnCounter by 1 each time the applyRule method is called - which will determine the method output
+        turnCounter++;
+
+        // Local store of how many carrots the player will gain for removing a lettuce
+        int carrotGain = getRacePosition(allPlayers, position) * 10;
+
+        switch (turnCounter) {
+            // Player just landed on the lettuce square
+            case 1:
+                ruleMessage = "You've landed on the lettuce square, you must stay on the lettuce square on your next turn";
+                break;
+            // Player must chew a lettuce this turn
+            case 2:
+                ruleMessage = "\nNOM NOM NOM\nYou just ate a lettuce and have gained " + carrotGain + " carrots. You need time to digest. " +
+                        "\nYou must have move to another square on your next turn.\n";
+                chewLettuce(carrotGain);
+                break;
+            default:
+                ruleMessage = "Something is wrong if this message is displayed :/ ";
+                break;
+        }
+        return ruleMessage;
     }
 
     /**
-     * Overrider the superclass isAvailable method with inclusion of check for more than one lettuce and previous player
+     * Overrides the superclass CanMoveHere method with inclusion of check for more than one lettuce and previous player
      * position
+     *
      * @param player Player object to be passed in to check is square available for player
      * @return Boolean value of the availability of the square
      */
     @Override
     public boolean canMoveHere(Player player) {
-        if(players.size() == 0 && player.getNoOfLettuce() > 0 && player.getPreviousPosition() != player.getPosition()) {
+        // Player can only move here is there are no players on the square and has at least one lettuce
+        if (players.size() == 0 && player.getNoOfLettuce() > 0) {
             return true;
         } else {
             return false;
@@ -45,11 +79,14 @@ public class LettuceSquare extends Square{
 
     /**
      * Method that returns whether the player can stay on the current square
-     * @param player Player object that is passed in to get player information
+     *
      * @return Boolean value for whether the player can stay
      */
-    public boolean canStay(Player player) {
-        if (player.getPreviousPosition() != player.getPosition()) {
+    @Override
+    public boolean canStay() {
+        // Player can stay only if his previous position is not the same as the current position
+        // This wouldn't allow the player to stay on the lettuce square for more than one turn
+        if (players.get(0).getPreviousPosition() != players.get(0).getPosition()) {
             return true;
         } else {
             return false;
@@ -57,23 +94,28 @@ public class LettuceSquare extends Square{
     }
 
     /**
-     * Method to return the player position in race. Possibly can be used in number square or lettuce square
-     * calculation.
+     * This method would decrement the player's lettuce count by 1 and give the player carrots 10 * racePosition of the player.
+     * This method would be used when a player stay's a lettuce square
+     *
+     * @param carrotGain Amount of carrots player would gain for removing one lettuce
      */
-    private int getPlayerPositionInRace(Player player) {
-        // local variable to store the players current position - not really need
-        int currentPlayerPositionOnBoard = player.getPosition();
-        // Local temporary store for playerPositionInRace - Player begins as in 1st position
-        int playerPositionInRace = 1;
+    private void chewLettuce(int carrotGain) {
+        // Remove 1 lettuce from the player
+        players.get(0).removeLettuce();
 
-        // Compares the currentPlayerPositionOnBoard to each playerPosition in the players array. If currentPlayerPositionOnBoard
-        // is less than playerPosition, the playerPositionInRace is incremented by 1
-        // TODO: Method is checking the players array on the square, not the tile, so shouldn't work correctly
-        for (int i = 0; i < players.size(); i++) {
-            if (currentPlayerPositionOnBoard < players.get(i).getPosition()) {
-                playerPositionInRace++;
-            }
-        }
-        return playerPositionInRace;
+        // Adds 10 * racePosition to the currentPlayer (
+        players.get(0).addCarrots(carrotGain);
+    }
+
+    /**
+     * Override the superclass method. This method has an addition of resetting the turnCounter field back to 0 when removing the player
+     * from the square
+     *
+     * @param player Player object passed in
+     */
+    @Override
+    public void removePlayer(Player player) {
+        turnCounter = 0;
+        players.remove(player);
     }
 }
