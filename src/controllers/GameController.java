@@ -499,3 +499,21 @@ public class GameController {
         currentTurn = saveManager.getCurrentTurn();
     }
 }
+/*
+public void save ()  throws Exception{
+	  XStream xstream=new XStream(new DomDriver());
+	  ObjectOutputStream out=xstream.createObjectOutputStream
+			  (new FileWriter("game.xml"));
+	  out.writeObject(players);
+	  out.close();
+}
+
+@SuppressWarnings ("unchecked")
+public void load () throws Exception{
+	  XStream xstream = new XStream(new DomDriver()));
+	  ObjectInputStream is = xstream.createObjectInputStream
+	  (new FileReader ("game.xml"));
+	  players = (ArrayList<models.Player>is.readObject();
+	  is.close();
+}
+*/

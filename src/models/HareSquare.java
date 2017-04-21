@@ -174,9 +174,13 @@ public class HareSquare extends Square {
     //10 CARROTS PER LETTUCE
     //======================
     /**
+<<<<<<< HEAD
      * If this card it pulled the player recieves 10 Carrots per Lettuce. If player has no lettuce they skip a turn.
      * @param currentPlayer Player currently on the hare square
      * @return A String message of the rules applied
+=======
+     * If this card it pulled the player gets 10 Carrots per Lettuce. If player has no lettuce they skip a turn.
+>>>>>>> d65af6572394d3681df079dcf2c994226f17b1e9
      */
     private String tenCarrotsPerLettuce(Player currentPlayer){
 
