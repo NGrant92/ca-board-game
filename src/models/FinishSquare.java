@@ -15,7 +15,7 @@ public class FinishSquare extends Square {
 
 	/*   This class will allow the players to see who finished first second and so on depending
 	 * on how many players are playing this will be done through the get players method which is in the super class of this sub class 
-	 * 
+	 * as this is alreasy done in the superclass it does not need to be written here as well
 /*
  * For a player to  be able to finish the game they need to have gotten rid off all 
  * their lettuce cards.
@@ -32,6 +32,13 @@ public class FinishSquare extends Square {
 		}
 	}
 }
+	//}
+//} if( && player.getNoOfLettuce() > 0 && player.getPreviousPosition() != player.getPosition()) {
+  //  return true;
+//} else {
+   // return false;
+//}
+//}
 	
 
 	
