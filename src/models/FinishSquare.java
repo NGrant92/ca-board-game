@@ -10,7 +10,6 @@ public class FinishSquare extends Square {
 
 	public FinishSquare(String name, int position) {
 		super(name, position);
-		// TODO Auto-generated constructor stub
 	}
 
 	/*   This class will allow the players to see who finished first second and so on depending

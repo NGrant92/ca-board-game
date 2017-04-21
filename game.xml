@@ -2,47 +2,42 @@
   <utils.SaveManager>
     <players>
       <models.Player>
-<<<<<<< HEAD
         <playerName>niall</playerName>
-        <position>6</position>
-        <previousPosition>1</previousPosition>
-        <noOfCarrots>90</noOfCarrots>
-=======
-        <playerName>keelan</playerName>
-        <position>3</position>
-        <previousPosition>3</previousPosition>
-        <noOfCarrots>59</noOfCarrots>
->>>>>>> 9836c2aa4ae189d3bcb20aa5e8e97a15bfd33561
-        <noOfLettuce>3</noOfLettuce>
+        <position>56</position>
+        <previousPosition>62</previousPosition>
+        <noOfCarrots>96</noOfCarrots>
+        <noOfLettuce>0</noOfLettuce>
         <pendingBalance>0</pendingBalance>
         <skipTurn>false</skipTurn>
       </models.Player>
       <models.Player>
-<<<<<<< HEAD
         <playerName>kevin</playerName>
-        <position>3</position>
-        <previousPosition>0</previousPosition>
-        <noOfCarrots>49</noOfCarrots>
-=======
-        <playerName>niall</playerName>
-        <position>5</position>
-        <previousPosition>2</previousPosition>
-        <noOfCarrots>56</noOfCarrots>
-        <noOfLettuce>3</noOfLettuce>
+        <position>62</position>
+        <previousPosition>61</previousPosition>
+        <noOfCarrots>10</noOfCarrots>
+        <noOfLettuce>0</noOfLettuce>
         <pendingBalance>0</pendingBalance>
         <skipTurn>false</skipTurn>
       </models.Player>
       <models.Player>
-        <playerName>gary</playerName>
-        <position>4</position>
-        <previousPosition>4</previousPosition>
-        <noOfCarrots>55</noOfCarrots>
->>>>>>> 9836c2aa4ae189d3bcb20aa5e8e97a15bfd33561
-        <noOfLettuce>3</noOfLettuce>
+        <playerName>keelan</playerName>
+        <position>61</position>
+        <previousPosition>60</previousPosition>
+        <noOfCarrots>30</noOfCarrots>
+        <noOfLettuce>1</noOfLettuce>
+        <pendingBalance>0</pendingBalance>
+        <skipTurn>false</skipTurn>
+      </models.Player>
+      <models.Player>
+        <playerName>bernie</playerName>
+        <position>63</position>
+        <previousPosition>63</previousPosition>
+        <noOfCarrots>11</noOfCarrots>
+        <noOfLettuce>0</noOfLettuce>
         <pendingBalance>0</pendingBalance>
         <skipTurn>false</skipTurn>
       </models.Player>
     </players>
-    <currentTurn>2</currentTurn>
+    <currentTurn>3</currentTurn>
   </utils.SaveManager>
 </object-stream>
