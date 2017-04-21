@@ -1,15 +1,15 @@
 package utils;
-/*This class will enable the player to see the rules at any stage while
- *the game is in play by pressing a certain button and return to the game/menu
- * 
+/**
+ * This class will enable the player to see the rules at any stage while
+ * the game is in play by pressing a certain button and return to the game/menu
  */
 
 public class ShowRules {
-	/*
+	
+	/**
 	 * This method will allow the player to view the rules 
 	 * By calling it from the MenuController
 	 */
-
 	public static String viewRules()
 	{
 		return "RULES:\n"
@@ -24,11 +24,12 @@ public class ShowRules {
 
 
 	}
-	/*
+	
+	/**
 	 * This method will allow the player to see how many carrots it costs to move a certain amount 
 	 * of squares so they can make an educated move and develop a strategy to win 
 	 */
-	public String viewCost ()
+	public static String viewCost ()
 	{
 		return "+----------------------------------------------------------------------------------------+\n"
 				+ "|                                     COST OF MOVING                                     |\n"
