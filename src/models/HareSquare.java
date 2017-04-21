@@ -1,5 +1,7 @@
 package models;
 
+import utils.GameHelperMethods;
+
 import java.lang.Math;
 
 import java.util.ArrayList;
@@ -10,47 +12,63 @@ import java.util.ArrayList;
  * A class used to store the methods that represent the cards from the hare deck
  */
 public class HareSquare extends Square {
-    HareDeck hareDeck;
+    private HareDeck hareDeck;
 
+    /**
+     * Constructor for the Hare Square Object
+     *
+     * @param name     The name of the square
+     * @param position The number of the square on the board
+     * @param hareDeck The hare deck class containing the hare card information
+     */
     public HareSquare(String name, int position, HareDeck hareDeck) {
         super(name, position);
         this.hareDeck = hareDeck;
     }
 
+    /**
+     * Overrides the superclass method with rules that is applied to the player on the lettuce square.
+     * @param allPlayers ArrayList of players in the game
+     * @return Return a String message of the rules applied
+     */
     @Override
     public String applyRule(ArrayList<Player> allPlayers) {
+        //a string that gets the text from a hare card to be used later
         String title = hareDeck.dealCard().getTitle();
-        String result = "";
+        //an empty string that will hold certain text, depending on card drawn.
+        String result;
+        //the player currently on the hare sqaure
         Player currentPlayer = players.get(0);
 
-        if(title.equals("LOSE HALF YOUR CARROTS!")){
-            result = halfCarrots(currentPlayer);
+        //else if statement that calleds a certain method, depending on card drawn
+        switch(title) {
+            case "LOSE HALF YOUR CARROTS!":
+                result = halfCarrots(currentPlayer);
+                break;
+            case "GIVE 10 CARROTS TO EACH PLAYER LYING BEHIND YOU IN THE RACE (IF ANY).":
+                result =  tenCarrotsPerPlayer(allPlayers, currentPlayer);
+                break;
+            case "SHOW US YOUR CARROTS!":
+                result =  showCarrots(currentPlayer);
+                break;
+            case "DRAW 10 CARROTS FOR EACH LETTUCE YOU STILL HOLD.":
+                result =  tenCarrotsPerLettuce(currentPlayer);
+                break;
+            case "FREE RIDE!":
+                result =  freeRide(currentPlayer);
+                break;
+            case "RESTORE YOUR CARROT HOLDING TO EXACTLY 65.":
+                result =  resetCarrots(currentPlayer);
+                break;
+            case "IF THERE ARE MORE PLAYERS BEHIND YOU THAN IN FRONT OF YOU, MISS A TURN. IF NOT, PLAY AGAIN.":
+                result =  missOrExtraTurn(allPlayers, currentPlayer);
+                break;
+            case "SHUFFLE THE HARE CARDS AND RECEIVE FROM EACH PLAYER 1 CARROT FOR DOING SO.":
+                result =  shuffleCards(allPlayers, currentPlayer, hareDeck);
+                break;
+            default:
+                result =  "HareSquare error";
         }
-        else if(title.equals("GIVE 10 CARROTS TO EACH PLAYER LYING BEHIND YOU IN THE RACE (IF ANY).")){
-            result =  tenCarrotsPerPlayer(allPlayers, currentPlayer);
-        }
-        else if(title.equals("SHOW US YOUR CARROTS!")){
-            result =  showCarrots(currentPlayer);
-        }
-        else if(title.equals("DRAW 10 CARROTS FOR EACH LETTUCE YOU STILL HOLD.")){
-            result =  tenCarrotsPerLettuce(currentPlayer);
-        }
-        else if(title.equals("FREE RIDE!")){
-            result =  freeRide(currentPlayer);
-        }
-        else if(title.equals("RESTORE YOUR CARROT HOLDING TO EXACTLY 65.")){
-            result =  resetCarrots(currentPlayer);
-        }
-        else if(title.equals("IF THERE ARE MORE PLAYERS BEHIND YOU THAN IN FRONT OF YOU, MISS A TURN. IF NOT, PLAY AGAIN.")){
-            result =  missOrExtraTurn(allPlayers, currentPlayer);
-        }
-        else if(title.equals("SHUFFLE THE HARE CARDS AND RECEIVE FROM EACH PLAYER 1 CARROT FOR DOING SO.")){
-            result =  shuffleCards(allPlayers, currentPlayer, hareDeck);
-        }
-        else{
-            return result = "Hare Square Class Error";
-        }
-
         return title + "\n" + result + "\n";
     }
 
@@ -60,8 +78,10 @@ public class HareSquare extends Square {
     /**
      * This method is for halving the players stash of carrots. setHalfCarrots() returns the required int
      * and halfCarrots() inputs it into the player's setPendingBalance()
+     * @param currentPlayer Player currently on the hare square
+     * @return A String message of the rules applied
      */
-    public String halfCarrots(Player currentPlayer){
+    private String halfCarrots(Player currentPlayer){
 
         //this method sets the pending balance to the amount of carrots
 
@@ -83,12 +103,15 @@ public class HareSquare extends Square {
      * If the currentPlayer can't afford it then 5 carrots each
      * If they can't afford that then 1 carrot each
      * The players also have to option of discarding the carrots
+     * @param allPlayers ArrayList of players in the game
+     * @param currentPlayer Player currently on the hare square
+     * @return A String message of the rules applied
      */
-    public String tenCarrotsPerPlayer(ArrayList<Player> allPlayers, Player currentPlayer){
+    private String tenCarrotsPerPlayer(ArrayList<Player> allPlayers, Player currentPlayer){
         //currentPlayer.getNoOfCarrots() is tested multiple times so it's added into a variable
         int currentPlayerCarrots = currentPlayer.getNoOfCarrots();
         //this will hold the amount of carrots required to be given to each player
-        int carrotsToGive = 0;
+        int carrotsToGive;
         //this will hold the number of players who have to be given carrots
         int playersBehind = 0;
 
@@ -139,8 +162,10 @@ public class HareSquare extends Square {
     //====================
     /**
      * A simple enough method to return the players number of carrots
+     * @param currentPlayer Player currently on the hare square
+     * @return A String message of the rules applied
      */
-    public String showCarrots(Player currentPlayer){
+    private String showCarrots(Player currentPlayer){
 
         return "" + currentPlayer.getPlayerName() + " has " + currentPlayer.getNoOfCarrots() + " Carrots!";
     }
@@ -149,22 +174,28 @@ public class HareSquare extends Square {
     //10 CARROTS PER LETTUCE
     //======================
     /**
+<<<<<<< HEAD
+     * If this card it pulled the player recieves 10 Carrots per Lettuce. If player has no lettuce they skip a turn.
+     * @param currentPlayer Player currently on the hare square
+     * @return A String message of the rules applied
+=======
      * If this card it pulled the player gets 10 Carrots per Lettuce. If player has no lettuce they skip a turn.
+>>>>>>> d65af6572394d3681df079dcf2c994226f17b1e9
      */
-    public String tenCarrotsPerLettuce(Player player){
+    private String tenCarrotsPerLettuce(Player currentPlayer){
 
         //player.getNoOfLettuce() is used twice to it's given a variable name
-        int lettuceNum = player.getNoOfLettuce();
+        int lettuceNum = currentPlayer.getNoOfLettuce();
 
         //Checks if player has at least 1 lettuce
         if(lettuceNum > 0){
             //inputs addCarrots into the player pendingBlance
-            player.addCarrots(lettuceNum * 10);
+            currentPlayer.addCarrots(lettuceNum * 10);
             return "You have receieved " + (lettuceNum * 10) + " Carrots!";
         }
         //if the player has 0 lettuce it will raise the flag for setSkipTurn()
         else{
-            player.setSkipTurn(true);
+            currentPlayer.setSkipTurn(true);
             return "Oh no! You have no Lettuces! You miss a turn!";
         }
     }
@@ -177,19 +208,19 @@ public class HareSquare extends Square {
      *To do this the player's previous position is deducted from their current position
      * That result is put into a formula that calculates the required carrots for moving that distance
      *which will add the amount to the player's pendingBalance
-     * @param player
-     *
+     * @param currentPlayer Player currently on the hare square
+     * @return A String message of the rules applied
      */
-    public String freeRide(Player player){
+    private String freeRide(Player currentPlayer){
 
         //this subtracts player's previous position from their current position and feeds it into a variable name
-        int distance = (player.getPosition() - player.getPreviousPosition());
-
+        int distance = (currentPlayer.getPosition() - currentPlayer.getPreviousPosition());
+        int carrotsReturned = GameHelperMethods.carrotsRequired(distance);
         //int distance is used to calculate the amount of carrots the players previous move cost them
         //and sends it into their pending balance
-        player.addCarrots(distance*(distance + 1)/2);
+        currentPlayer.addCarrots(carrotsReturned);
 
-        return "You've been given back " + (distance*(distance + 1)/2) + " Carrots!";
+        return "You've been given back " + carrotsReturned + " Carrots!";
     }
 
     //==================
@@ -197,11 +228,12 @@ public class HareSquare extends Square {
     //==================
     /**
      * A simple enough method to return the player to 65 carrots
-     * @param player
+     * @param currentPlayer Player currently on the hare square
+     * @return A String message of the rules applied
      */
-    public String resetCarrots(Player player){
+    private String resetCarrots(Player currentPlayer){
 
-        player.setNoOfCarrots(65);
+        currentPlayer.setNoOfCarrots(65);
 
         return "Your carrot supply is reset to 65!";
     }
@@ -213,9 +245,11 @@ public class HareSquare extends Square {
      * If the player has more people behind than ahead of them then you skip a turn
      * If there's more ahead of you, you gain an extra turn
      * If there's an equal amount behind and ahead of you then you gain an extra turn
+     * @param currentPlayer Player currently on the hare square
+     * @param allPlayers ArrayList of players in the game
+     * @return  A String message of the rules applied
      */
-    //TODO make it able to give player and extra turn
-    public String missOrExtraTurn(ArrayList<Player> allPlayers, Player currentPlayer){
+    private String missOrExtraTurn(ArrayList<Player> allPlayers, Player currentPlayer){
         //Variable that will count how many people are behind currentPlayer
         int playersBehind = 0;
         //Variable that will count how many people are ahead of currentPlayer
@@ -254,11 +288,12 @@ public class HareSquare extends Square {
     //=================
     /**
      * The player must shuffle the card deck and recieve 1 carrot from each player
-     * @param allPlayers
-     * @param currentPlayer
-     * @param hareDeck
+     * @param allPlayers ArrayList of players in the game
+     * @param currentPlayer Player currently on the hare square
+     * @param hareDeck Hare Deck is passed in to be shuffled
+     * @return A String message of the rules applied
      */
-    public String shuffleCards(ArrayList<Player> allPlayers, Player currentPlayer, HareDeck hareDeck){
+    private String shuffleCards(ArrayList<Player> allPlayers, Player currentPlayer, HareDeck hareDeck){
 
         //hareDeck is passed in and shuffled
         hareDeck.shuffle();

@@ -1,6 +1,5 @@
 package models;
-import board.*;
-import controllers.*;
+import utils.GameHelperMethods;
 
 import java.util.ArrayList;
 
@@ -21,14 +20,22 @@ import java.util.ArrayList;
 public class PostionSquare extends Square {
 
     private int counter;
-    private int recievedCarrots = 0;
-    private ArrayList<Player> allPlayers;
-
+    /**
+     * Constructor for the Position Square Object
+     *
+     * @param name     The name of the square
+     * @param position The number of the square on the board
+     */
     public PostionSquare(String name, int position) {
         super(name, position);
-        //this.allPlayers = allPlayers;
     }
 
+    /**
+     * Overrides the superclass method with rules that is applied to the player on the position square.
+     *
+     * @param allPlayers ArrayList of players in the game
+     * @return Return a String message of the rules applied
+     */
     @Override
     public String applyRule(ArrayList<Player> allPlayers){
         //This is pulling the Player that is currently on this square and putting it into a variable
@@ -43,8 +50,9 @@ public class PostionSquare extends Square {
         switch (counter){
             //When currentPlayer lands on the square this is what is returned
             case 1:
-                message = "At the start of your next turn your position must match the number on the square";
+                message = "At the start of your next turn your position must match the number on the square\n";
                 break;
+            //At the start of next turn case2 is called due to counter++ above
             //Position is checked at the start of their next turn
             case 2:
                 //If I use a method more than once, it's being given a variable name
@@ -61,12 +69,19 @@ public class PostionSquare extends Square {
         return message;
     }
 
-    //When they start their turn on a positionTile this method will check if they will recieve the carrots or not
-    //checkPoisiton is called from the Gamecontroller who inputs Player arrayList, currentPlayer
-    public int checkPosition(ArrayList<Player> allPlayers, Player currentPlayer){
+    /**
+     * When they start their turn on a positionTile this method will check if they will recieve the carrots or not
+     * checkPoisiton is called from the Gamecontroller who inputs Player arrayList, currentPlayer
+     *
+     * @param allPlayers ArrayList of players in the game
+     * @param currentPlayer Player currently on the position square
+     * @return returns an int that determines how many carrots is given to each player
+     */
+    private int checkPosition(ArrayList<Player> allPlayers, Player currentPlayer){
         //Square name is converted into an integer
         int tileNum = Integer.parseInt(name);
-        int playerPosition = getRacePosition(allPlayers, currentPlayer);
+        int playerPosition = GameHelperMethods.getRacePosition(allPlayers, currentPlayer.getPosition());
+        int recievedCarrots;
 
         //One particular tile allows you be 1st, 5th or 6th
         if(tileNum == 156){
@@ -94,26 +109,5 @@ public class PostionSquare extends Square {
             //If player's race position doesn't match the required number then recievedCarrots will not change from 0
             return recievedCarrots;
         }
-    }
-
-
-    /**
-     * @author Kevin
-     * Method to return the player position in race. Possibly can be used in number square or lettuce square
-     * calculation.
-     */
-    public int getRacePosition(ArrayList<Player> allPlayers, Player currentPlayer) {
-
-        // Local temporary store for playerPositionInRace
-        int racePosition = 1;
-
-        // Check each player position in players array, and increment playerPosition by 1 if the player position
-        // is less than currentPlayerPositionInRace
-        for (int i = 0; i < allPlayers.size(); i++) {
-            if (currentPlayer.getPosition() < allPlayers.get(i).getPosition()) {
-                racePosition++;
-            }
-        }
-        return racePosition;
     }
 }

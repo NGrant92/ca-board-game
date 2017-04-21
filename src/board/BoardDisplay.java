@@ -13,17 +13,17 @@ import java.util.ArrayList;
  */
 public class BoardDisplay 
 {
-	/*
+	/**
 	 * Prints the board to be displayed to the user.
 	 * 
 	 * For the board to be printed in rows of 10 I used a nested loop.
 	 * There are 28 rows total, 10 tiles per row & every 4th row it is repeated.
 	 * Because of this I used 3 counters(i, rowIndex & row)
 	 * 
-	 * @param row This runs through each row.
-	 * @param rowLoop Each time 'row' loops, a nested loop adds a specific element 10 times.
-	 * @param rowIndex Decides what specific element is added. Each time rowIndex hits 4, it resets.
-	 * @param printRow The nested loop adds the specific element 10 times into one long string which is printed outside of the loop
+	 * @row This runs through each row.
+	 * @rowLoop Each time 'row' loops, a nested loop adds a specific element 10 times.
+	 * @rowIndex Decides what specific element is added. Each time rowIndex hits 4, it resets.
+	 * @printRow The nested loop adds the specific element 10 times into one long string which is printed outside of the loop
 	 * 					The printRow string is reset after it prints out the information.
 	 */
 	public BoardDisplay(ArrayList<Square> board)
@@ -66,8 +66,11 @@ public class BoardDisplay
 				//if true it will print out the player name
 				else if(rowIndex == 3){
 
+					//sotres the Player Array from a certain Square
 					ArrayList<Player> players = new ArrayList<>(board.get(playerIndex).getPlayers());
 
+					//if multiple people are on the same tile it will print out the number of people on the tile
+					//This is mainly for the Start and Finish tile
 					if (players.size() == 1 ) {
 					    playerName = players.get(0).getPlayerName();
                     } else if (players.size() > 1) {
@@ -80,7 +83,6 @@ public class BoardDisplay
 					if (playerIndex < 64){
 						playerIndex++;
 					}
-
 					playerName = "";
 				}
 
@@ -100,18 +102,23 @@ public class BoardDisplay
 		}
 	}
 		
-	/*
+	/**
 	 * Requires two integer arguments for the method to be called
 	 * which is used for the tiles array and the tilesRow array
+	 * @param tileName The name of the tile to be printed
+	 * @param i index number from array list
+	 * @param rowIndex an int used to decided what to print from tileRows
+	 * @param playerName name of currentPlayer
+	 * @return Returns a string from the array list tileRow[]
 	 */
-	public String toString(String tileName, int i, int rowIndex, String playerName)
+	private String toString(String tileName, int i, int rowIndex, String playerName)
 	{
 		/*
 		 * if statement checks if "i" is below 10 if i < 10
 		 * it will add a 0 to the number,
 		 * eg: 1 will become 01.
 		 */
-		String index = "";
+		String index;
 		
 		if(i <= 9)
 		{
@@ -120,6 +127,11 @@ public class BoardDisplay
 		else
 		{
 			index = ""+ i;
+		}
+
+		//if player's name is too long to fit into the tile it is shorted to 12 characters
+		if(playerName.length() > 13 ){
+			playerName = playerName.substring(0, 13);
 		}
 		
 		/*
@@ -133,7 +145,7 @@ public class BoardDisplay
 		 */
 		String[] tileRows = new String[5];
 
-		//a string containing 13 spaces which will be truncated later
+		//a string containing 14 spaces which will be truncated later
 		String spaces = "              ";
 
 		//the total length of this string will help decide the required spaces to be added
