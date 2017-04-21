@@ -17,7 +17,6 @@ public class FinishSquare extends Square {
 
 	public FinishSquare(String name, int position) {
 		super(name, position);
-		// TODO Auto-generated constructor stub
 	}
 
 
