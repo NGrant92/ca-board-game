@@ -1,13 +1,8 @@
 package controllers;
 
-import java.util.Scanner;
-
-// import com.thoughtworks.xstream.XStream;
-// import com.thoughtworks.xstream.io.xml.DomDriver;
-import models.HareDeck;
-import utils.ShowRules;
-
 import static utils.ScannerInput.validNextInt;
+
+import utils.ShowRules;
 
 /**
  * This class is the initial menu the user sees. The menu is displayed as below:
@@ -78,7 +73,7 @@ public class MenuController
 				new GameController(true);
 				break;
 			case 2:
-				System.out.println();
+				System.out.println(ShowRules.viewRules());
 				break;
 			case 3:
 				new GameController(false);
