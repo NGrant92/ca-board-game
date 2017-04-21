@@ -149,7 +149,7 @@ public class HareSquare extends Square {
     //10 CARROTS PER LETTUCE
     //======================
     /**
-     * If this card it pulled the player recieves 10 Carrots per Lettuce. If player has no lettuce they skip a turn.
+     * If this card it pulled the player gets 10 Carrots per Lettuce. If player has no lettuce they skip a turn.
      */
     public String tenCarrotsPerLettuce(Player player){
 
