@@ -49,7 +49,7 @@ public class CarrotSquare extends Square {
         String ruleMessage;
         switch (turnCounter) {
             case 1:
-                ruleMessage = "If you choose to stay on carrot square, you can choose to gain or remove 10 carrots!";
+                ruleMessage ="If you choose to stay on carrot square, you can choose to gain or remove 10 carrots!";
                 break;
             default:
                 ruleMessage = "You choose to stay on the carrot square. You can't move to another square this turn";
