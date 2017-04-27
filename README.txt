@@ -1,3 +1,6 @@
+#HARE AND TORTOISE BOARDGAME
+
+
 A group project for our Java class. Our group ha to create a text based representation of the board game "The Hare and the Tortoise". The assignment is meant to teach us Problem Based Learning, Group Coordination and an insight to Software Engineering.
 
 The final result was a fully functioning game that the professor said she could not break while playing it. It displays an ascii style board to the command prompt that updates and displays the players on the board.
